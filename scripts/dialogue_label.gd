@@ -1,24 +1,47 @@
 extends Label
 
+# TODO: implement a system for have multiple possible texts
+
+@onready var dialogue_panel: PanelContainer = $"../.."
+
 @export var full_text: String = "Text"
 @export var letter_interval: float = 0.1
-var current_index: int = 0
-var timer: Timer
+
+var _index: int = 0
+var _timer: Timer
+var _state: String = "idle" # "typing", "waiting", "idle"
 
 func _ready() -> void:
 	text = ""
-	timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = letter_interval
-	timer.one_shot = false
-	timer.timeout.connect(self._on_timer_timeout)
+	_timer = Timer.new()
+	_timer.one_shot = false
+	add_child(_timer)
+	if not _timer.is_connected("timeout", Callable(self, "_on_timer_timeout")):
+		_timer.timeout.connect(_on_timer_timeout)
 
-func _on_area_2d_body_entered(_body: Node2D) -> void:
-	timer.start()
+func _on_area_2d_body_entered(_body: Node) -> void:
+	dialogue_panel.visible = true
+	_index = 0
+	text = ""
+	_state = "typing"
+	_timer.stop()
+	_timer.wait_time = letter_interval
+	_timer.one_shot = false
+	_timer.start()
 
 func _on_timer_timeout() -> void:
-	if current_index < full_text.length():
-		text += full_text[current_index]
-		current_index += 1
-	else:
-		timer.stop()
+	if _state == "typing":
+		if _index < full_text.length():
+			text += full_text[_index]
+			_index += 1
+		else:
+			# Wait time after hide the panel
+			_state = "waiting"
+			_timer.stop()
+			_timer.wait_time = 3.0
+			_timer.one_shot = true
+			_timer.start()
+	elif _state == "waiting":
+		dialogue_panel.visible = false
+		_state = "idle"
+		_timer.stop()

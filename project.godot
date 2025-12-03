@@ -8,10 +8,14 @@
 
 config_version=5
 
+[accessibility]
+
+general/updates_per_second=24
+
 [application]
 
 config/name="Lumina Nebulae"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="uid://cqebyl3mg3hy1"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 run/max_fps=24
 boot_splash/show_image=false
