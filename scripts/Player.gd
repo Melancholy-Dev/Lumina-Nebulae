@@ -7,7 +7,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var collision: CollisionPolygon2D = $Collision
 
+# CRT Shader
+@onready var cr: ColorRect = $"../CanvasLayer/ColorRect"
+
 func _physics_process(delta):
+	
 	# Gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -35,10 +39,21 @@ func _physics_process(delta):
 	move_and_slide()
 	position = position.snapped(Vector2(1, 1)) # Pixel perfect
 
-#func _on_combat_area_area_entered(area: Area2D) -> void:
-	#if target_scene == null:
-		#push_error("target_scene not set")
-		#return
-	#var err = get_tree().change_scene_to(target_scene)
-	#if err != OK:
-		#push_error("Cannot change scene: %s" % err)
+
+func _on_combat_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		var mat = cr.material
+		if mat and mat is ShaderMaterial: # Placeholder CRT effect
+			mat.set_shader_parameter("static_noise_intensity", 0.2)
+			await get_tree().create_timer(1).timeout
+			mat.set_shader_parameter("static_noise_intensity", 0.4)
+			await get_tree().create_timer(1).timeout
+			mat.set_shader_parameter("static_noise_intensity", 0.75)
+			await get_tree().create_timer(1).timeout
+			mat.set_shader_parameter("static_noise_intensity", 1.0)
+			await get_tree().create_timer(1).timeout
+			
+			# Loading combat scene
+			var scene = preload("res://scenes/combat.tscn")
+			var inst = scene.instantiate()
+			add_child(inst)
