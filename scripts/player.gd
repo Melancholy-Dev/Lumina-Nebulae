@@ -11,7 +11,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var cr: ColorRect = $"../CanvasLayer/CRT"
 
 func _physics_process(delta):
-	
 	# Gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -44,16 +43,15 @@ func _on_combat_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		var mat = cr.material
 		if mat and mat is ShaderMaterial: # Placeholder CRT effect
-			mat.set_shader_parameter("static_noise_intensity", 0.2)
-			await get_tree().create_timer(1).timeout
-			mat.set_shader_parameter("static_noise_intensity", 0.4)
-			await get_tree().create_timer(1).timeout
-			mat.set_shader_parameter("static_noise_intensity", 0.75)
-			await get_tree().create_timer(1).timeout
-			mat.set_shader_parameter("static_noise_intensity", 1.0)
-			await get_tree().create_timer(1).timeout
+			var start_val := 0.06
+			var end_val := 1.0
+			var duration := 4.0
 			
+			# Animation
+			mat.set_shader_parameter("static_noise_intensity", start_val)
+			var tween := create_tween()
+			tween.tween_property(mat, "shader_parameter/static_noise_intensity", end_val, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			await tween.finished
+
 			# Loading combat scene
-			var scene = preload("res://scenes/combat.tscn")
-			var inst = scene.instantiate()
-			add_child(inst)
+			get_tree().change_scene_to_packed(load("res://scenes/combat.tscn"))
