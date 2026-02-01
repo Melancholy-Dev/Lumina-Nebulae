@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccnfx0thkxhpm"]
+[gd_scene format=3 uid="uid://ccnfx0thkxhpm"]
 
 [ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://CRT.gdshader" id="1_764e3"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="1_qajva"]
@@ -28,7 +28,7 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.3
 
-[node name="Combat" type="Control"]
+[node name="Combat" type="Control" unique_id=1924604579]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,7 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_qajva")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=472091335]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,28 +46,19 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.105882354, 0.050980393, 0.20784314, 1)
 
-[node name="CRT" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0.47451)
-self_modulate = Color(1, 1, 1, 0.517647)
-material = SubResource("ShaderMaterial_qajva")
-layout_mode = 0
-offset_right = 240.0
-offset_bottom = 180.0
-color = Color(1, 1, 1, 0.341176)
-
-[node name="Fight" type="MarginContainer" parent="."]
+[node name="Fight" type="MarginContainer" parent="." unique_id=322750037]
 layout_mode = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="Fight"]
+[node name="PanelContainer" type="PanelContainer" parent="Fight" unique_id=1157654769]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Fight/PanelContainer"]
+[node name="Button" type="Button" parent="Fight/PanelContainer" unique_id=889658604]
 layout_mode = 2
 text = "Fight"
 
-[node name="Spell" type="MarginContainer" parent="."]
+[node name="Spell" type="MarginContainer" parent="." unique_id=362389139]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -76,16 +67,16 @@ offset_left = -60.0
 offset_bottom = 28.0
 grow_horizontal = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Spell"]
+[node name="PanelContainer" type="PanelContainer" parent="Spell" unique_id=3259709]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Spell/PanelContainer"]
+[node name="Button" type="Button" parent="Spell/PanelContainer" unique_id=1072841791]
 layout_mode = 2
 text = "Spell"
 
-[node name="Item" type="MarginContainer" parent="."]
+[node name="Item" type="MarginContainer" parent="." unique_id=1063963364]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -94,16 +85,16 @@ offset_top = -28.0
 offset_right = 60.0
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Item"]
+[node name="PanelContainer" type="PanelContainer" parent="Item" unique_id=408399799]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Item/PanelContainer"]
+[node name="Button" type="Button" parent="Item/PanelContainer" unique_id=761986668]
 layout_mode = 2
 text = "Item"
 
-[node name="Flee" type="MarginContainer" parent="."]
+[node name="Flee" type="MarginContainer" parent="." unique_id=235350644]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -115,16 +106,25 @@ offset_top = -28.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Flee"]
+[node name="PanelContainer" type="PanelContainer" parent="Flee" unique_id=513248926]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Flee/PanelContainer"]
+[node name="Button" type="Button" parent="Flee/PanelContainer" unique_id=2111243351]
 layout_mode = 2
 text = "Flee"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="EnemySprite" type="Sprite2D" parent="." unique_id=543838598]
 position = Vector2(121, 87)
 scale = Vector2(5, 5)
 texture = ExtResource("3_aic3r")
+
+[node name="CRT" type="ColorRect" parent="." unique_id=1966834893]
+modulate = Color(1, 1, 1, 0.47451)
+self_modulate = Color(1, 1, 1, 0.517647)
+material = SubResource("ShaderMaterial_qajva")
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 180.0
+color = Color(1, 1, 1, 0.341176)

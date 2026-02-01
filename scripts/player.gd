@@ -43,9 +43,9 @@ func _on_combat_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		var mat = cr.material
 		if mat and mat is ShaderMaterial: # Placeholder CRT effect
-			var start_val := 0.06
-			var end_val := 1.0
-			var duration := 4.0
+			var start_val : float = 0.06
+			var end_val : float = 1
+			var duration : float = 4
 			
 			# Animation
 			mat.set_shader_parameter("static_noise_intensity", start_val)

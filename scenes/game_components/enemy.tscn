@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://4ujj1ma8h1a6"]
+[gd_scene format=3 uid="uid://4ujj1ma8h1a6"]
 
 [ext_resource type="Texture2D" uid="uid://cmqs3mgsbkjck" path="res://assets/sprites/entities/enemies/Monster1.png" id="1_1ahfk"]
 
@@ -27,18 +27,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qjo"]
 size = Vector2(20, 13.25)
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" unique_id=1314323128]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=774099675]
 sprite_frames = SubResource("SpriteFrames_r5p8f")
 autoplay = "default"
 frame_progress = 0.046757247
 
-[node name="Collision" type="CollisionPolygon2D" parent="."]
+[node name="Collision" type="CollisionPolygon2D" parent="." unique_id=152332541]
 polygon = PackedVector2Array(-4, -3, -4, 1, 4, 1, 4, -3)
 
-[node name="CombatArea" type="Area2D" parent="."]
+[node name="CombatArea" type="Area2D" parent="." unique_id=1007918096]
 
-[node name="Shape" type="CollisionShape2D" parent="CombatArea"]
+[node name="Shape" type="CollisionShape2D" parent="CombatArea" unique_id=580100032]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_v8qjo")
