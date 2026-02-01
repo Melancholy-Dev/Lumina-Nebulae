@@ -133,7 +133,7 @@ text = "I don't know how to swim..."
 script = ExtResource("9_rysoc")
 full_text = "I don't know how to swim..."
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="CRT" type="ColorRect" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.47451)
 self_modulate = Color(1, 1, 1, 0.517647)
 material = SubResource("ShaderMaterial_1llof")

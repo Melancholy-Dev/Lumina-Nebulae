@@ -8,7 +8,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var collision: CollisionPolygon2D = $Collision
 
 # CRT Shader
-@onready var cr: ColorRect = $"../CanvasLayer/ColorRect"
+@onready var cr: ColorRect = $"../CanvasLayer/CRT"
 
 func _physics_process(delta):
 	

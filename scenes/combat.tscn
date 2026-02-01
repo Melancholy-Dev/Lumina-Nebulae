@@ -1,3 +1,130 @@
-[gd_scene format=3 uid="uid://ccnfx0thkxhpm"]
+[gd_scene load_steps=5 format=3 uid="uid://ccnfx0thkxhpm"]
 
-[node name="Combat" type="Node2D"]
+[ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://CRT.gdshader" id="1_764e3"]
+[ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="1_qajva"]
+[ext_resource type="Texture2D" uid="uid://cmqs3mgsbkjck" path="res://assets/sprites/entities/enemies/Monster1.png" id="3_aic3r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qajva"]
+shader = ExtResource("1_764e3")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.075
+shader_parameter/resolution = Vector2(240, 180)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 50.0
+shader_parameter/roll_size = 50.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.2
+shader_parameter/noise_speed = 4.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = -0.00999995
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.6
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.3
+
+[node name="Combat" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qajva")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+
+[node name="CRT" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.47451)
+self_modulate = Color(1, 1, 1, 0.517647)
+material = SubResource("ShaderMaterial_qajva")
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 180.0
+color = Color(1, 1, 1, 0.341176)
+
+[node name="Fight" type="MarginContainer" parent="."]
+layout_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Fight"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="Fight/PanelContainer"]
+layout_mode = 2
+text = "Fight"
+
+[node name="Spell" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 28.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Spell"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="Spell/PanelContainer"]
+layout_mode = 2
+text = "Spell"
+
+[node name="Item" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 60.0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Item"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="Item/PanelContainer"]
+layout_mode = 2
+text = "Item"
+
+[node name="Flee" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Flee"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="Flee/PanelContainer"]
+layout_mode = 2
+text = "Flee"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(121, 87)
+scale = Vector2(5, 5)
+texture = ExtResource("3_aic3r")
