@@ -2,10 +2,106 @@
 
 [ext_resource type="FontFile" uid="uid://nefijcdjxwto" path="res://assets/fonts/pixeloid_sans_bold.ttf" id="1_xa2ht"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bxfx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbjsj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6cw5"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
+border_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5y2b"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.3372549, 0.20392157, 0.50980395, 1)
+border_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fbvp"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
+border_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa2ht"]
-bg_color = Color(0, 0, 0, 0)
+bg_color = Color(1, 1, 1, 0)
 
 [resource]
+Button/colors/font_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/font_hover_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/font_hover_pressed_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/font_outline_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/font_pressed_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/icon_hover_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/icon_hover_pressed_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/icon_normal_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/colors/icon_pressed_color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_xa2ht")
+Button/styles/disabled = SubResource("StyleBoxFlat_0bxfx")
+Button/styles/focus = SubResource("StyleBoxFlat_jbjsj")
+Button/styles/hover = SubResource("StyleBoxFlat_t6cw5")
+Button/styles/normal = SubResource("StyleBoxFlat_m5y2b")
+Button/styles/pressed = SubResource("StyleBoxFlat_8fbvp")
 Label/colors/font_color = Color(0.43529412, 0.3647059, 0.6156863, 1)
 Label/font_sizes/font_size = 9
 Label/fonts/font = ExtResource("1_xa2ht")
