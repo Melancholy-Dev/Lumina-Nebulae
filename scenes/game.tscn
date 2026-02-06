@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://fkbtiyq7vfts" path="res://scripts/game_manager.gd" id="1_kvpfn"]
 [ext_resource type="AudioStream" uid="uid://bo4otcahd002m" path="res://assets/audio/sounds/crt1.mp3" id="1_vtaks"]
 [ext_resource type="Script" uid="uid://dlhtwklaqity5" path="res://scripts/fps_label.gd" id="2_vtaks"]
+[ext_resource type="AudioStream" uid="uid://c4e4kqn0kk0u2" path="res://assets/audio/sounds/crt2.mp3" id="3_dinhu"]
 [ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://CRT.gdshader" id="3_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://c708dtm3okat4" path="res://assets/sprites/tilesets/Tileset1.png" id="4_dinhu"]
 [ext_resource type="PackedScene" uid="uid://13gt6vqyu6py" path="res://scenes/game_components/player.tscn" id="5_kvuet"]
@@ -136,6 +137,10 @@ script = ExtResource("1_kvpfn")
 stream = ExtResource("1_vtaks")
 autoplay = true
 parameters/looping = true
+
+[node name="FadeInCRT" type="AudioStreamPlayer" parent="GameManager/AudioStreamPlayer" unique_id=1510696248]
+stream = ExtResource("3_dinhu")
+volume_db = -80.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1608446850]
 
