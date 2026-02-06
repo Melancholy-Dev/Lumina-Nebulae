@@ -1,10 +1,10 @@
-extends CharacterBody2D
+extends Node
 class_name Enemy
 
-# TODO: invulnerabilità e buff
+# TODO: invulnerability and buff
 
 # Nodes
-@onready var player: CharacterBody2D = $"../Player"
+@onready var player: Node = $"../Player"
 
 # Stats
 @export var max_hp: int = 100
@@ -15,13 +15,16 @@ var hp: int
 var alive: bool = true
 
 # Signals
-signal damaged(amount: int, from)
+signal damaged(amount: int)
+signal pass_turn
 signal died()
-signal attacked(target)
 
 
-func _ready() -> void:
+func init(_max_hp: int, _attack_damage: int):
+	max_hp = _max_hp
+	attack_damage = _attack_damage
 	hp = max_hp
+
 
 func receive_damage(amount: int) -> void:
 	if not alive:
@@ -40,11 +43,9 @@ func perform_attack() -> void:
 	if not alive:
 		return
 	if player and player.has_method("receive_damage"):
-		player.receive_damage(attack_damage, self)
-		emit_signal("attacked", player)
+		player.receive_damage(attack_damage)
 
 func _die() -> void:
 	alive = false
-	velocity = Vector2.ZERO
 	emit_signal("died")
 	# animations

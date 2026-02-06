@@ -7,7 +7,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var collision: CollisionPolygon2D = $Collision
 
-# CRT Shader
+# CRT Shader (move this to a game manager)
 @onready var cr: ColorRect = $"../CanvasLayer/CRT"
 
 func _physics_process(delta):
@@ -38,7 +38,7 @@ func _physics_process(delta):
 	move_and_slide()
 	position = position.snapped(Vector2(1, 1)) # Pixel perfect
 
-
+#TODO: Move this to a game manager
 func _on_combat_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		var mat = cr.material
@@ -54,4 +54,5 @@ func _on_combat_area_body_entered(body: Node2D) -> void:
 			await tween.finished
 
 			# Loading combat scene
+			# TODO use the same CRT shader and do a fade-out in the combat scene
 			get_tree().change_scene_to_packed(load("res://scenes/combat.tscn"))

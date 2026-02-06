@@ -2,7 +2,10 @@
 
 [ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://CRT.gdshader" id="1_764e3"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="1_qajva"]
+[ext_resource type="Script" uid="uid://bwgiytngu2164" path="res://scripts/combat/combat_manager.gd" id="2_4l26h"]
 [ext_resource type="Texture2D" uid="uid://cmqs3mgsbkjck" path="res://assets/sprites/entities/enemies/Monster1.png" id="3_aic3r"]
+[ext_resource type="Script" uid="uid://bmr81birkbyxn" path="res://scripts/combat/player_combat.gd" id="3_vcae8"]
+[ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scripts/combat/enemy_combat.gd" id="4_p71o4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qajva"]
 shader = ExtResource("1_764e3")
@@ -37,6 +40,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_qajva")
 
+[node name="CombatManager" type="Node" parent="." unique_id=1218547831]
+script = ExtResource("2_4l26h")
+
 [node name="Background" type="ColorRect" parent="." unique_id=472091335]
 layout_mode = 1
 anchors_preset = 15
@@ -46,85 +52,114 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.105882354, 0.050980393, 0.20784314, 1)
 
-[node name="Fight" type="MarginContainer" parent="." unique_id=322750037]
-layout_mode = 1
+[node name="Buttons" type="Control" parent="." unique_id=995184570]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="PanelContainer" type="PanelContainer" parent="Fight" unique_id=1157654769]
+[node name="Fight" type="MarginContainer" parent="Buttons" unique_id=322750037]
+layout_mode = 0
+offset_right = 47.0
+offset_bottom = 31.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Fight" unique_id=1157654769]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Fight/PanelContainer" unique_id=889658604]
+[node name="FightButton" type="Button" parent="Buttons/Fight/PanelContainer" unique_id=889658604 groups=["ui_button"]]
 layout_mode = 2
 text = "Fight"
 
-[node name="Spell" type="MarginContainer" parent="." unique_id=362389139]
+[node name="Spell" type="MarginContainer" parent="Buttons" unique_id=362389139]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -60.0
-offset_bottom = 28.0
+offset_left = 140.0
+offset_right = 200.0
+offset_bottom = 31.0
 grow_horizontal = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Spell" unique_id=3259709]
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Spell" unique_id=3259709]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Spell/PanelContainer" unique_id=1072841791]
+[node name="SpellButton" type="Button" parent="Buttons/Spell/PanelContainer" unique_id=1072841791 groups=["ui_button"]]
 layout_mode = 2
 text = "Spell"
 
-[node name="Item" type="MarginContainer" parent="." unique_id=1063963364]
+[node name="Item" type="MarginContainer" parent="Buttons" unique_id=1063963364]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -28.0
+offset_top = 109.0
 offset_right = 60.0
+offset_bottom = 140.0
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Item" unique_id=408399799]
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Item" unique_id=408399799]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Item/PanelContainer" unique_id=761986668]
+[node name="ItemButton" type="Button" parent="Buttons/Item/PanelContainer" unique_id=761986668 groups=["ui_button"]]
 layout_mode = 2
 text = "Item"
 
-[node name="Flee" type="MarginContainer" parent="." unique_id=235350644]
+[node name="Flee" type="MarginContainer" parent="Buttons" unique_id=235350644]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -60.0
-offset_top = -28.0
+offset_left = 140.0
+offset_top = 109.0
+offset_right = 200.0
+offset_bottom = 140.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Flee" unique_id=513248926]
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Flee" unique_id=513248926]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Flee/PanelContainer" unique_id=2111243351]
+[node name="FleeButton" type="Button" parent="Buttons/Flee/PanelContainer" unique_id=2111243351 groups=["ui_button"]]
 layout_mode = 2
 text = "Flee"
 
-[node name="EnemySprite" type="Sprite2D" parent="." unique_id=543838598]
+[node name="Player" type="Node" parent="." unique_id=921151566]
+script = ExtResource("3_vcae8")
+
+[node name="Enemy" type="Node" parent="." unique_id=1094294644]
+script = ExtResource("4_p71o4")
+
+[node name="EnemySprite" type="Sprite2D" parent="Enemy" unique_id=543838598]
 position = Vector2(121, 87)
 scale = Vector2(5, 5)
 texture = ExtResource("3_aic3r")
 
-[node name="CRT" type="ColorRect" parent="." unique_id=1966834893]
+[node name="Shaders" type="Node" parent="." unique_id=2089803342]
+
+[node name="CRT" type="ColorRect" parent="Shaders" unique_id=1966834893]
 modulate = Color(1, 1, 1, 0.47451)
 self_modulate = Color(1, 1, 1, 0.517647)
 material = SubResource("ShaderMaterial_qajva")
-layout_mode = 0
 offset_right = 240.0
 offset_bottom = 180.0
 color = Color(1, 1, 1, 0.341176)
+
+[connection signal="pressed" from="Buttons/Fight/PanelContainer/FightButton" to="CombatManager" method="_on_fight_button_pressed"]
+[connection signal="pressed" from="Buttons/Spell/PanelContainer/SpellButton" to="CombatManager" method="_on_spell_button_pressed"]
+[connection signal="pressed" from="Buttons/Item/PanelContainer/ItemButton" to="CombatManager" method="_on_item_button_pressed"]
+[connection signal="pressed" from="Buttons/Flee/PanelContainer/FleeButton" to="CombatManager" method="_on_flee_button_pressed"]
+[connection signal="damaged" from="Player" to="CombatManager" method="_on_player_damaged"]
+[connection signal="died" from="Player" to="CombatManager" method="_on_player_died"]
+[connection signal="pass_turn" from="Player" to="CombatManager" method="_on_player_pass_turn"]
+[connection signal="damaged" from="Enemy" to="CombatManager" method="_on_enemy_damaged"]
+[connection signal="died" from="Enemy" to="CombatManager" method="_on_enemy_died"]
+[connection signal="pass_turn" from="Enemy" to="CombatManager" method="_on_enemy_pass_turn"]

@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c708dtm3okat4" path="res://assets/sprites/tilesets/Tileset1.png" id="4_dinhu"]
 [ext_resource type="PackedScene" uid="uid://13gt6vqyu6py" path="res://scenes/game_components/player.tscn" id="5_kvuet"]
 [ext_resource type="Texture2D" uid="uid://vkmsyoqtg4om" path="res://assets/sprites/backgrounds/bg1.png" id="6_trtic"]
-[ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scenes/game_components/enemy.gd" id="8_ca42v"]
+[ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scripts/combat/enemy_combat.gd" id="8_ca42v"]
 [ext_resource type="Texture2D" uid="uid://cmqs3mgsbkjck" path="res://assets/sprites/entities/enemies/Monster1.png" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/dialogue_label.gd" id="9_rysoc"]
 

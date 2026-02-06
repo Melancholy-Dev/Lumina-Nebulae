@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://b8cbbtumtb460"]
 
-[ext_resource type="FontFile" uid="uid://cgxheey542onc" path="res://assets/fonts/PixeloidSansBold-PKnYd.ttf" id="1_xa2ht"]
+[ext_resource type="FontFile" uid="uid://nefijcdjxwto" path="res://assets/fonts/pixeloid_sans_bold.ttf" id="1_xa2ht"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa2ht"]
 bg_color = Color(0, 0, 0, 0)
