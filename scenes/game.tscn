@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cqebyl3mg3hy1"]
 
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="1_0tnpc"]
+[ext_resource type="Script" uid="uid://fkbtiyq7vfts" path="res://scripts/game_manager.gd" id="1_kvpfn"]
 [ext_resource type="AudioStream" uid="uid://bo4otcahd002m" path="res://assets/audio/sounds/crt1.mp3" id="1_vtaks"]
 [ext_resource type="Script" uid="uid://dlhtwklaqity5" path="res://scripts/fps_label.gd" id="2_vtaks"]
 [ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://CRT.gdshader" id="3_kvpfn"]
@@ -128,7 +129,10 @@ size = Vector2(15.5, 30)
 
 [node name="Game" type="Node" unique_id=1466652594]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=618410624]
+[node name="GameManager" type="Node" parent="." unique_id=1200205382]
+script = ExtResource("1_kvpfn")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="GameManager" unique_id=618410624]
 stream = ExtResource("1_vtaks")
 autoplay = true
 parameters/looping = true
@@ -230,5 +234,5 @@ shape = SubResource("RectangleShape2D_2irst")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StairsArea2D" unique_id=1494439178]
 polygon = PackedVector2Array(-9, 0, -9, -3, -7, -3, -7, -5, -5, -5, -5, -7, -3, -7, -3, -9, -1, -9, -1, -11, 1, -11, 1, -13, 3, -13, 3, -15, 5, -15, 5, -17, 8, -17, 8, 0)
 
-[connection signal="body_entered" from="Enemy/CombatArea" to="Player" method="_on_combat_area_body_entered"]
+[connection signal="body_entered" from="Enemy/CombatArea" to="GameManager" method="_on_combat_area_body_entered"]
 [connection signal="body_entered" from="WaterArea/DialogueArea" to="CanvasLayer/DialoguePanel/MarginContainer/Label" method="_on_area_2d_body_entered"]
