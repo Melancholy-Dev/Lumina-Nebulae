@@ -1,5 +1,5 @@
 # Lumina Nebulae
-Lumina Nebulae is a small open-source, 8-bit like RPG.
+Lumina Nebulae is a small open-source, 8-bit style RPG.
 
 The repository contains a prototype of the game, that is still in WIP (Work In Progress). Future real-time updates will be uploaded here. If you want to learn more, you can join the official Project Lumina Discord server:
 https://discord.gg/qR6hWDKmfN
