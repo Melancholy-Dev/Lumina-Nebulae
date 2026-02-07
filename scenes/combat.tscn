@@ -103,7 +103,7 @@ grow_vertical = 0
 [node name="PanelContainer" type="PanelContainer" parent="Buttons/Item" unique_id=408399799]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_vertical = 8
 
 [node name="ItemButton" type="Button" parent="Buttons/Item/PanelContainer" unique_id=761986668 groups=["ui_button"]]
 layout_mode = 2
@@ -126,7 +126,7 @@ grow_vertical = 0
 [node name="PanelContainer" type="PanelContainer" parent="Buttons/Flee" unique_id=513248926]
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 0
+size_flags_vertical = 8
 
 [node name="FleeButton" type="Button" parent="Buttons/Flee/PanelContainer" unique_id=2111243351 groups=["ui_button"]]
 layout_mode = 2
@@ -146,6 +146,7 @@ texture = ExtResource("3_aic3r")
 [node name="Shaders" type="Node" parent="." unique_id=2089803342]
 
 [node name="CRT" type="ColorRect" parent="Shaders" unique_id=1966834893]
+visible = false
 modulate = Color(1, 1, 1, 0.47451)
 self_modulate = Color(1, 1, 1, 0.517647)
 material = SubResource("ShaderMaterial_qajva")

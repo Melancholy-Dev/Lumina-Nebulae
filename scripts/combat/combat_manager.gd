@@ -27,9 +27,15 @@ func _process(delta: float) -> void:
 		buttons_ui.visible = true
 	else:
 		buttons_ui.visible = false
-		# enemy turn, random action based on the skills
-		enemy_attack()
-	# Player can not perform actions until player_turn = true
+		var actions: int = 2
+		var enemy_action: int = randi() % actions
+		match enemy_action:
+			0:
+				enemy_attack()
+				print("Enemy perform attack")
+			1:
+				enemy_spell()
+				print("Enemy perform spell")
 
 
 
@@ -44,8 +50,6 @@ func _on_enemy_damaged(amount: int) -> void:
 
 func _on_enemy_died() -> void:
 	print("Enemy Died")
-	#enemy.queue_free()
-	# TODO Block the combat to prevent game crash
 	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
 
 
@@ -83,5 +87,11 @@ func _on_flee_button_pressed() -> void:
 func enemy_attack() -> void:
 	enemy.perform_attack();
 	#await get_tree().create_timer(1.0).timeout
+	# Animations
+	enemy.emit_signal("pass_turn")
+	
+func enemy_spell() -> void:
+	enemy.perform_attack();
+	enemy.perform_attack();
 	# Animations
 	enemy.emit_signal("pass_turn")
