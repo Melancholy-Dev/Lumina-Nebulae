@@ -58,7 +58,6 @@ autoplay = true
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=673724322]
 
 [node name="CRT" parent="CanvasLayer" unique_id=341224663 instance=ExtResource("4_osi8t")]
-visible = false
 
 [node name="Background" type="ColorRect" parent="." unique_id=472091335]
 layout_mode = 1
