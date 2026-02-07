@@ -26,6 +26,10 @@ run/max_fps=24
 boot_splash/show_image=false
 config/icon="uid://jrnb1t7olj"
 
+[autoload]
+
+GameManager="*uid://dtull81odaha0"
+
 [display]
 
 window/size/viewport_width=240

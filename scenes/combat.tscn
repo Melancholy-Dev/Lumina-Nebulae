@@ -146,7 +146,6 @@ texture = ExtResource("3_aic3r")
 [node name="Shaders" type="Node" parent="." unique_id=2089803342]
 
 [node name="CRT" type="ColorRect" parent="Shaders" unique_id=1966834893]
-visible = false
 modulate = Color(1, 1, 1, 0.47451)
 self_modulate = Color(1, 1, 1, 0.517647)
 material = SubResource("ShaderMaterial_qajva")

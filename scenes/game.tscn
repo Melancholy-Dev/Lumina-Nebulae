@@ -1,11 +1,12 @@
 [gd_scene format=4 uid="uid://cqebyl3mg3hy1"]
 
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="1_0tnpc"]
-[ext_resource type="Script" uid="uid://fkbtiyq7vfts" path="res://scripts/game_manager.gd" id="1_kvpfn"]
 [ext_resource type="AudioStream" uid="uid://cp3est4sglell" path="res://assets/audio/sounds/crt_1.mp3" id="1_vtaks"]
+[ext_resource type="Script" uid="uid://bef7d2ak5ue5r" path="res://scripts/managers/event_manager.gd" id="2_kvuet"]
 [ext_resource type="Script" uid="uid://dlhtwklaqity5" path="res://scripts/fps_label.gd" id="2_vtaks"]
 [ext_resource type="AudioStream" uid="uid://bqlxg653arg0x" path="res://assets/audio/sounds/crt_2.mp3" id="3_dinhu"]
 [ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://CRT.gdshader" id="3_kvpfn"]
+[ext_resource type="Script" uid="uid://x6x68q4mm1sp" path="res://scripts/managers/audio_manager.gd" id="3_trtic"]
 [ext_resource type="Texture2D" uid="uid://3k65e4cqs0r1" path="res://assets/sprites/tilesets/tileset_1.png" id="4_dinhu"]
 [ext_resource type="PackedScene" uid="uid://13gt6vqyu6py" path="res://scenes/game_components/player.tscn" id="5_kvuet"]
 [ext_resource type="Texture2D" uid="uid://c0g3eeoe2ecgl" path="res://assets/sprites/backgrounds/bg_1.png" id="6_trtic"]
@@ -130,15 +131,20 @@ size = Vector2(15.5, 30)
 
 [node name="Game" type="Node" unique_id=1466652594]
 
-[node name="GameManager" type="Node" parent="." unique_id=1200205382]
-script = ExtResource("1_kvpfn")
+[node name="SceneManager" type="Node" parent="." unique_id=1200205382]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="GameManager" unique_id=618410624]
+[node name="EventManager" type="Node" parent="SceneManager" unique_id=328384703]
+script = ExtResource("2_kvuet")
+
+[node name="AudioManager" type="Node" parent="SceneManager" unique_id=755704718]
+script = ExtResource("3_trtic")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=618410624]
 stream = ExtResource("1_vtaks")
 autoplay = true
 parameters/looping = true
 
-[node name="FadeInCRT" type="AudioStreamPlayer" parent="GameManager/AudioStreamPlayer" unique_id=1510696248]
+[node name="FadeInCRT" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1510696248]
 stream = ExtResource("3_dinhu")
 volume_db = -80.0
 
@@ -239,5 +245,5 @@ shape = SubResource("RectangleShape2D_2irst")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StairsArea2D" unique_id=1494439178]
 polygon = PackedVector2Array(-9, 0, -9, -3, -7, -3, -7, -5, -5, -5, -5, -7, -3, -7, -3, -9, -1, -9, -1, -11, 1, -11, 1, -13, 3, -13, 3, -15, 5, -15, 5, -17, 8, -17, 8, 0)
 
-[connection signal="body_entered" from="Enemy/CombatArea" to="GameManager" method="_on_combat_area_body_entered"]
+[connection signal="body_entered" from="Enemy/CombatArea" to="SceneManager/EventManager" method="_on_combat_area_body_entered"]
 [connection signal="body_entered" from="WaterArea/DialogueArea" to="CanvasLayer/DialoguePanel/MarginContainer/Label" method="_on_area_2d_body_entered"]

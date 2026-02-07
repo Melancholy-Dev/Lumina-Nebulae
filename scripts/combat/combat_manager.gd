@@ -31,11 +31,11 @@ func _process(delta: float) -> void:
 		var enemy_action: int = randi() % actions
 		match enemy_action:
 			0:
-				enemy_attack()
 				print("Enemy perform attack")
+				enemy_attack()
 			1:
-				enemy_spell()
 				print("Enemy perform spell")
+				enemy_spell()
 
 
 
@@ -58,21 +58,25 @@ func _on_player_pass_turn() -> void:
 	player_turn = false
 
 func _on_player_damaged(amount: int) -> void:
-	print("Player HP: " + str(player.hp))
+	print("Player HP: " + str(GameManager.player_hp))
 
 func _on_player_died() -> void:
 	print("Player Died")
+	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
 
 
 
 #### Actions
 # Player actions
 func _on_fight_button_pressed() -> void:
-	enemy.receive_damage(10)
+	print("Player perform attack")
+	player.perform_attack()
 	player.emit_signal("pass_turn")
 
 func _on_spell_button_pressed() -> void:
-	enemy.receive_damage(20)
+	print("Player perform spell")
+	player.perform_attack()
+	player.perform_attack() # Double attack, placeholder
 	player.emit_signal("pass_turn")
 	# TODO Implements Vyrn system
 
@@ -92,6 +96,6 @@ func enemy_attack() -> void:
 	
 func enemy_spell() -> void:
 	enemy.perform_attack();
-	enemy.perform_attack();
+	enemy.perform_attack(); # Double attack, placeholder
 	# Animations
 	enemy.emit_signal("pass_turn")
