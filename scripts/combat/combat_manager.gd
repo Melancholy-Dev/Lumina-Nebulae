@@ -1,6 +1,8 @@
 extends Node
 
 # Nodes
+@onready var crt_animation: AnimationPlayer = $"../CanvasLayer/CRT/AnimationPlayer"
+@onready var audio_manager: Node = $AudioManager
 @onready var buttons_ui: Node = $"../Buttons"
 @onready var player: Node = $"../Player"
 @onready var enemy: Node = $"../Enemy"
@@ -9,12 +11,16 @@ extends Node
 @onready var buttons: Array[Button] = []
 var player_turn: bool = true
 
-# Vyrn cost
+# Vyrn costs
 var player_spell_1_cost: int = 10
 var enemy_spell_1_cost: int = 10
 
 #### Management functions
 func _ready() -> void:
+	# Animations
+	crt_animation.play("static_noise_fade_out")
+	audio_manager.end_crt_audio_crossfade(4.0)
+	# Init
 	enemy.init(100, 50, 10) # Max_HP, Vyrn, Damage
 	for node in get_tree().get_nodes_in_group("ui_button"):
 		if node is Button:

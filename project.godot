@@ -20,7 +20,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Lumina Nebulae"
 config/version="0.1"
-run/main_scene="uid://cqebyl3mg3hy1"
+run/main_scene="uid://dqvqt5cavv3s1"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 run/max_fps=24
 boot_splash/show_image=false

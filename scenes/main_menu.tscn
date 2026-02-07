@@ -1,9 +1,114 @@
 [gd_scene format=3 uid="uid://dqvqt5cavv3s1"]
 
-[node name="MainMenu" type="Control"]
+[ext_resource type="Script" uid="uid://cfj5nveqyncc3" path="res://scripts/managers/main_menu_manger.gd" id="1_l6cm7"]
+[ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="2_ekxnf"]
+[ext_resource type="AudioStream" uid="uid://cp3est4sglell" path="res://assets/audio/sounds/crt_1.mp3" id="2_wu84c"]
+[ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="3_wu84c"]
+
+[node name="MainMenu" type="Control" unique_id=733394764]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=925106038]
+stream = ExtResource("2_wu84c")
+autoplay = true
+parameters/looping = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1316084350]
+
+[node name="CRT" parent="CanvasLayer" unique_id=1986369259 instance=ExtResource("3_wu84c")]
+
+[node name="Timer" parent="CanvasLayer/CRT" index="1" unique_id=2138271777]
+wait_time = 0.5
+
+[node name="Background" type="ColorRect" parent="." unique_id=1067217318]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=1541039427]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 92.0
+theme = ExtResource("2_ekxnf")
+
+[node name="NewGame" type="MarginContainer" parent="Buttons" unique_id=2017900509]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/NewGame" unique_id=652447274]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="NewGameButton" type="Button" parent="Buttons/NewGame/PanelContainer" unique_id=1039041436 groups=["ui_button"]]
+layout_mode = 2
+text = "New Game"
+
+[node name="LoadGame" type="MarginContainer" parent="Buttons" unique_id=876905104]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/LoadGame" unique_id=2078921950]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="LoadGameButton" type="Button" parent="Buttons/LoadGame/PanelContainer" unique_id=854587601 groups=["ui_button"]]
+layout_mode = 2
+text = "Load Game"
+
+[node name="Options" type="MarginContainer" parent="Buttons" unique_id=1983855122]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Options" unique_id=1361687871]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="OptionButton" type="Button" parent="Buttons/Options/PanelContainer" unique_id=12079979 groups=["ui_button"]]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="MarginContainer" parent="Buttons" unique_id=2043035259]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Quit" unique_id=687589970]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="QuitButton" type="Button" parent="Buttons/Quit/PanelContainer" unique_id=1437616830 groups=["ui_button"]]
+layout_mode = 2
+text = "Quit"
+
+[node name="Metadata" type="Label" parent="." unique_id=849151293]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -239.0
+offset_top = -13.0
+offset_right = 1.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_ekxnf")
+text = " v0.1                                    Melancholy "
+
+[connection signal="timeout" from="CanvasLayer/CRT/Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Buttons/NewGame/PanelContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="Buttons/LoadGame/PanelContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="Buttons/Options/PanelContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="pressed" from="Buttons/Quit/PanelContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+
+[editable path="CanvasLayer/CRT"]

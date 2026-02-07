@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://dgh3h4yx7v42"]
+
+[ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://CRT.gdshader" id="1_u7gl5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wu84c"]
+shader = ExtResource("1_u7gl5")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.075
+shader_parameter/resolution = Vector2(240, 180)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 50.0
+shader_parameter/roll_size = 50.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.2
+shader_parameter/noise_speed = 4.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = -0.00999995
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.6
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.3
+
+[sub_resource type="Animation" id="Animation_u7gl5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/brightness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/static_noise_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.06]
+}
+
+[sub_resource type="Animation" id="Animation_d5q2d"]
+resource_name = "brightness_fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/brightness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.4, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4ihft"]
+resource_name = "brightness_fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/brightness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.4]
+}
+
+[sub_resource type="Animation" id="Animation_jkyr0"]
+resource_name = "static_noise_fade_in"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/static_noise_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.06, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_in08r"]
+resource_name = "static_noise_fade_out"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/static_noise_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.06000000285]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6l0m3"]
+_data = {
+&"RESET": SubResource("Animation_u7gl5"),
+&"brightness_fade_in": SubResource("Animation_d5q2d"),
+&"brightness_fade_out": SubResource("Animation_4ihft"),
+&"static_noise_fade_in": SubResource("Animation_jkyr0"),
+&"static_noise_fade_out": SubResource("Animation_in08r")
+}
+
+[node name="CRT" type="ColorRect" unique_id=341224663]
+modulate = Color(1, 1, 1, 0.47451)
+self_modulate = Color(1, 1, 1, 0.517647)
+material = SubResource("ShaderMaterial_wu84c")
+offset_right = 240.0
+offset_bottom = 180.0
+color = Color(1, 1, 1, 0.341176)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1070575893]
+libraries/ = SubResource("AnimationLibrary_6l0m3")
+
+[node name="Timer" type="Timer" parent="." unique_id=2138271777]

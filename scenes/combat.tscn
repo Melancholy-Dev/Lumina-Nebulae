@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://ccnfx0thkxhpm"]
 
-[ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://CRT.gdshader" id="1_764e3"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="1_qajva"]
 [ext_resource type="Script" uid="uid://bwgiytngu2164" path="res://scripts/combat/combat_manager.gd" id="2_4l26h"]
 [ext_resource type="Texture2D" uid="uid://cmgr8p3shc5c5" path="res://assets/sprites/entities/enemies/monster_1.png" id="3_aic3r"]
+[ext_resource type="AudioStream" uid="uid://cp3est4sglell" path="res://assets/audio/sounds/crt_1.mp3" id="3_osi8t"]
+[ext_resource type="Script" uid="uid://x6x68q4mm1sp" path="res://scripts/managers/audio_manager.gd" id="3_sa5k0"]
 [ext_resource type="Script" uid="uid://bmr81birkbyxn" path="res://scripts/combat/player_combat.gd" id="3_vcae8"]
+[ext_resource type="AudioStream" uid="uid://bqlxg653arg0x" path="res://assets/audio/sounds/crt_2.mp3" id="4_4gnb8"]
+[ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="4_osi8t"]
 [ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scripts/combat/enemy_combat.gd" id="4_p71o4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcae8"]
@@ -29,30 +32,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qajva"]
-shader = ExtResource("1_764e3")
-shader_parameter/overlay = false
-shader_parameter/scanlines_opacity = 0.0
-shader_parameter/scanlines_width = 0.0
-shader_parameter/grille_opacity = 0.075
-shader_parameter/resolution = Vector2(240, 180)
-shader_parameter/pixelate = false
-shader_parameter/roll = false
-shader_parameter/roll_speed = 50.0
-shader_parameter/roll_size = 50.0
-shader_parameter/roll_variation = 1.8
-shader_parameter/distort_intensity = 0.05
-shader_parameter/noise_opacity = 0.2
-shader_parameter/noise_speed = 4.0
-shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = -0.00999995
-shader_parameter/brightness = 1.4
-shader_parameter/discolor = true
-shader_parameter/warp_amount = 0.6
-shader_parameter/clip_warp = false
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.3
-
 [node name="Combat" type="Control" unique_id=1924604579]
 layout_mode = 3
 anchors_preset = 15
@@ -64,6 +43,22 @@ theme = ExtResource("1_qajva")
 
 [node name="CombatManager" type="Node" parent="." unique_id=1218547831]
 script = ExtResource("2_4l26h")
+
+[node name="AudioManager" type="Node" parent="CombatManager" unique_id=872897600]
+script = ExtResource("3_sa5k0")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2117832426]
+stream = ExtResource("3_osi8t")
+parameters/looping = true
+
+[node name="FadeCRT" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=934675789]
+stream = ExtResource("4_4gnb8")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=673724322]
+
+[node name="CRT" parent="CanvasLayer" unique_id=341224663 instance=ExtResource("4_osi8t")]
+visible = false
 
 [node name="Background" type="ColorRect" parent="." unique_id=472091335]
 layout_mode = 1
@@ -168,16 +163,6 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.00534351
 
-[node name="Shaders" type="Node" parent="." unique_id=2089803342]
-
-[node name="CRT" type="ColorRect" parent="Shaders" unique_id=1966834893]
-modulate = Color(1, 1, 1, 0.47451)
-self_modulate = Color(1, 1, 1, 0.517647)
-material = SubResource("ShaderMaterial_qajva")
-offset_right = 240.0
-offset_bottom = 180.0
-color = Color(1, 1, 1, 0.341176)
-
 [connection signal="pressed" from="Buttons/Fight/PanelContainer/FightButton" to="CombatManager" method="_on_fight_button_pressed"]
 [connection signal="pressed" from="Buttons/Spell/PanelContainer/SpellButton" to="CombatManager" method="_on_spell_button_pressed"]
 [connection signal="pressed" from="Buttons/Item/PanelContainer/ItemButton" to="CombatManager" method="_on_item_button_pressed"]
@@ -188,3 +173,5 @@ color = Color(1, 1, 1, 0.341176)
 [connection signal="damaged" from="Enemy" to="CombatManager" method="_on_enemy_damaged"]
 [connection signal="died" from="Enemy" to="CombatManager" method="_on_enemy_died"]
 [connection signal="pass_turn" from="Enemy" to="CombatManager" method="_on_enemy_pass_turn"]
+
+[editable path="CanvasLayer/CRT"]
