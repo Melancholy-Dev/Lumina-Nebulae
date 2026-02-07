@@ -6,14 +6,16 @@ extends Node
 @onready var enemy: Node = $"../Enemy"
 
 # Variables
-var player_turn: bool = true
 @onready var buttons: Array[Button] = []
+var player_turn: bool = true
 
-
+# Vyrn cost
+var player_spell_1_cost: int = 10
+var enemy_spell_1_cost: int = 10
 
 #### Management functions
 func _ready() -> void:
-	enemy.init(100, 10) # Max_HP, Damage
+	enemy.init(100, 50, 10) # Max_HP, Vyrn, Damage
 	for node in get_tree().get_nodes_in_group("ui_button"):
 		if node is Button:
 			buttons.append(node as Button)
@@ -22,7 +24,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	#var focused = get_viewport().gui_get_focus_owner()
 	#if focused and focused is Button:
-			#focused.emit_signal("pressed")
+		#focused.emit_signal("pressed")
 	if player_turn:
 		buttons_ui.visible = true
 	else:
@@ -35,7 +37,9 @@ func _process(delta: float) -> void:
 				enemy_attack()
 			1:
 				print("Enemy perform spell")
-				enemy_spell()
+				if enemy_spell() != true:
+					print("Enemy perform attack (vyrn runned out)")
+					enemy_attack()
 
 
 
@@ -73,12 +77,18 @@ func _on_fight_button_pressed() -> void:
 	player.perform_attack()
 	player.emit_signal("pass_turn")
 
-func _on_spell_button_pressed() -> void:
+func _on_spell_button_pressed() -> bool:
 	print("Player perform spell")
-	player.perform_attack()
-	player.perform_attack() # Double attack, placeholder
-	player.emit_signal("pass_turn")
-	# TODO Implements Vyrn system
+	if (GameManager.player_vyrn >= player_spell_1_cost):
+		GameManager.player_vyrn -= player_spell_1_cost
+		player.perform_attack()
+		player.perform_attack() # Double attack, placeholder
+		# Animations
+		player.emit_signal("pass_turn")
+		return true
+	else:
+		print("Error, player vyrn is out and can't perform the spell")
+		return false
 
 func _on_item_button_pressed() -> void:
 	pass
@@ -94,8 +104,14 @@ func enemy_attack() -> void:
 	# Animations
 	enemy.emit_signal("pass_turn")
 	
-func enemy_spell() -> void:
-	enemy.perform_attack();
-	enemy.perform_attack(); # Double attack, placeholder
-	# Animations
-	enemy.emit_signal("pass_turn")
+func enemy_spell() -> bool:
+	if (enemy.vyrn >= enemy_spell_1_cost):
+		enemy.vyrn -= enemy_spell_1_cost
+		enemy.perform_attack();
+		enemy.perform_attack(); # Double attack, placeholder
+		# Animations
+		enemy.emit_signal("pass_turn")
+		return true
+	else:
+		print("Error, enemy vyrn is out and can't perform the spell")
+		return false

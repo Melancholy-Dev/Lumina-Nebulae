@@ -8,10 +8,12 @@ class_name Enemy
 
 # Stats
 @export var max_hp: int = 100
+@export var max_vyrn: int = 50
 @export var attack_damage: int = 10
 
 # Current Status
 var hp: int
+var vyrn: int
 var alive: bool = true
 
 # Signals
@@ -20,10 +22,12 @@ signal pass_turn
 signal died()
 
 
-func init(_max_hp: int, _attack_damage: int):
+func init(_max_hp: int, _max_vyrn: int, _attack_damage: int):
 	max_hp = _max_hp
-	attack_damage = _attack_damage
+	max_vyrn = _max_vyrn
 	hp = max_hp
+	vyrn = max_vyrn
+	attack_damage = _attack_damage
 
 
 func receive_damage(amount: int) -> void:

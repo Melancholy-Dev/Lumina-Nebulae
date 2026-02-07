@@ -16,5 +16,6 @@ func _ready() -> void:
 func init_player(_max_hp: int, _max_vyrn: int, _attack_damage: int):
 	player_max_hp = _max_hp
 	player_max_vyrn = _max_vyrn
-	player_attack_damage = _attack_damage
 	player_hp = player_max_hp
+	player_vyrn = player_max_vyrn
+	player_attack_damage = _attack_damage
