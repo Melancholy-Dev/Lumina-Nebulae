@@ -115,7 +115,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_u4v05")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
 }]
 
@@ -211,8 +211,8 @@ script = ExtResource("8_ca42v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy" unique_id=774099675]
 sprite_frames = SubResource("SpriteFrames_r5p8f")
-autoplay = "default"
-frame_progress = 0.046757247
+animation = &"idle"
+autoplay = "idle"
 
 [node name="Collision" type="CollisionPolygon2D" parent="Enemy" unique_id=152332541]
 polygon = PackedVector2Array(-4, -3, -4, 1, 4, 1, 4, -3)

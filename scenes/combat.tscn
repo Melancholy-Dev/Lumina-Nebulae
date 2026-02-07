@@ -7,6 +7,28 @@
 [ext_resource type="Script" uid="uid://bmr81birkbyxn" path="res://scripts/combat/player_combat.gd" id="3_vcae8"]
 [ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scripts/combat/enemy_combat.gd" id="4_p71o4"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcae8"]
+atlas = ExtResource("3_aic3r")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osi8t"]
+atlas = ExtResource("3_aic3r")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4gnb8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcae8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_osi8t")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qajva"]
 shader = ExtResource("1_764e3")
 shader_parameter/overlay = false
@@ -138,10 +160,13 @@ script = ExtResource("3_vcae8")
 [node name="Enemy" type="Node" parent="." unique_id=1094294644]
 script = ExtResource("4_p71o4")
 
-[node name="EnemySprite" type="Sprite2D" parent="Enemy" unique_id=543838598]
-position = Vector2(121, 87)
-scale = Vector2(5, 5)
-texture = ExtResource("3_aic3r")
+[node name="EnemySprite" type="AnimatedSprite2D" parent="Enemy" unique_id=623050997]
+position = Vector2(120, 90)
+scale = Vector2(7, 7)
+sprite_frames = SubResource("SpriteFrames_4gnb8")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.00534351
 
 [node name="Shaders" type="Node" parent="." unique_id=2089803342]
 
