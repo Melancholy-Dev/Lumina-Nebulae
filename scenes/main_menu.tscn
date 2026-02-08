@@ -37,8 +37,10 @@ color = Color(0.105882354, 0.050980393, 0.20784314, 1)
 
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=1541039427]
 layout_mode = 0
-offset_right = 60.0
-offset_bottom = 92.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 128.0
+offset_bottom = 134.0
 theme = ExtResource("2_ekxnf")
 
 [node name="NewGame" type="MarginContainer" parent="Buttons" unique_id=2017900509]
@@ -91,19 +93,20 @@ text = "Quit"
 
 [node name="Metadata" type="Label" parent="." unique_id=849151293]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -239.0
-offset_top = -13.0
-offset_right = 1.0
-offset_bottom = -2.0
-grow_horizontal = 0
+offset_left = -120.0
+offset_top = -16.0
+offset_right = 120.0
+offset_bottom = -5.0
+grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("2_ekxnf")
-text = " v0.1                                    Melancholy "
+theme_override_font_sizes/font_size = 18
+text = " v0.1  By Melancholy "
 
 [connection signal="timeout" from="CanvasLayer/CRT/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Buttons/NewGame/PanelContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]

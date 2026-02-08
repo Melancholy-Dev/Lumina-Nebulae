@@ -34,9 +34,6 @@ func _ready() -> void:
 	buttons[0].grab_focus()
 
 func _process(_delta: float) -> void:
-	#var focused = get_viewport().gui_get_focus_owner()
-	#if focused and focused is Button:
-		#focused.emit_signal("pressed")
 	if player_turn:
 		buttons_ui.visible = true
 	else:
@@ -101,7 +98,6 @@ func _on_spell_button_pressed() -> bool:
 		GameManager.player_vyrn -= player_spell_1_cost
 		player.perform_attack()
 		player.perform_attack() # Double attack, placeholder
-		# Animations
 		player.emit_signal("pass_turn")
 		return true
 	else:
@@ -119,8 +115,7 @@ func _on_flee_button_pressed() -> void:
 # Enemy actions
 func enemy_attack() -> void:
 	enemy.perform_attack();
-	#await get_tree().create_timer(1.0).timeout
-	# Animations
+	# Implement Animations
 	enemy.emit_signal("pass_turn")
 	
 func enemy_spell() -> bool:
@@ -128,7 +123,7 @@ func enemy_spell() -> bool:
 		enemy.vyrn -= enemy_spell_1_cost
 		enemy.perform_attack();
 		enemy.perform_attack(); # Double attack, placeholder
-		# Animations
+		# Implement Animations
 		enemy.emit_signal("pass_turn")
 		return true
 	else:

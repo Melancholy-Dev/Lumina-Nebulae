@@ -55,7 +55,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_d5q2d"]
 resource_name = "brightness_fade_in"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -63,7 +62,7 @@ tracks/0/path = NodePath(".:material:shader_parameter/brightness")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.4, 0.0]
@@ -71,7 +70,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_4ihft"]
 resource_name = "brightness_fade_out"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -79,7 +77,7 @@ tracks/0/path = NodePath(".:material:shader_parameter/brightness")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.4]
