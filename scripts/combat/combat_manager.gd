@@ -3,6 +3,7 @@ extends Node
 # Nodes
 @onready var hp_label: Label = $"../PlayerStats/HpContainer/PanelContainer/HpLabel"
 @onready var vyrn_label: Label = $"../PlayerStats/Vyrn/PanelContainer/VyrnLabel"
+@onready var state_label: Label = $"../EnemyState/StateContainer/PanelContainer/StateLabel"
 @onready var crt_animation: AnimationPlayer = $"../CanvasLayer/CRT/AnimationPlayer"
 @onready var audio_manager: Node = $AudioManager
 @onready var buttons_ui: Node = $"../Buttons"
@@ -63,7 +64,6 @@ func _on_enemy_pass_turn() -> void:
 	if buttons.size() > 0:
 		buttons[0].call_deferred("grab_focus")
 
-
 func _on_enemy_damaged(amount: int) -> void:
 	print("Enemy HP: " + str(enemy.hp))
 
@@ -75,6 +75,7 @@ func _on_enemy_died() -> void:
 # Player signals
 func _on_player_pass_turn() -> void:
 	player_turn = false
+	state_label.text = "State: " + str(enemy.get_enemy_state())
 
 func _on_player_damaged(amount: int) -> void:
 	print("Player HP: " + str(GameManager.player_hp))

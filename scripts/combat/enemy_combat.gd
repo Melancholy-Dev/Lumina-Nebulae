@@ -10,6 +10,24 @@ class_name Enemy
 @export var max_hp: int = 100
 @export var max_vyrn: int = 50
 @export var attack_damage: int = 10
+@export var enemy_states := {
+	"Healthy": { # Behaviors = normal, aggressive, defensive, last-resort (retreat/auto-destruction)
+		"hp_range": Vector2(76, 100),
+		"behavior": "Normal"
+	},
+	"Wounded": {
+		"hp_range": Vector2(51, 75),
+		"behavior": "Normal"
+	},
+	"Critical": {
+		"hp_range": Vector2(21, 50),
+		"behavior": "Normal"
+	},
+	"Broken": {
+		"hp_range": Vector2(0, 20),
+		"behavior": "Normal"
+	}
+}
 
 # Current Status
 var hp: int
@@ -29,7 +47,6 @@ func init(_max_hp: int, _max_vyrn: int, _attack_damage: int):
 	vyrn = max_vyrn
 	attack_damage = _attack_damage
 
-
 func receive_damage(amount: int) -> void:
 	if not alive:
 		return
@@ -48,6 +65,14 @@ func perform_attack() -> void:
 		return
 	if player and player.has_method("receive_damage"):
 		player.receive_damage(attack_damage)
+
+func get_enemy_state() -> String:
+	var hp_pct: float = clamp(float(hp) / float(max_hp) * 100.0, 0.0, 100.0)
+	for state_name in enemy_states.keys():
+		var r = enemy_states[state_name]["hp_range"]
+		if hp_pct >= r.x and hp_pct <= r.y:
+			return state_name
+	return "Unknown"
 
 func _die() -> void:
 	alive = false

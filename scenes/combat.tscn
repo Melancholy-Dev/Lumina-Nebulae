@@ -58,7 +58,6 @@ stream = ExtResource("4_4gnb8")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=673724322]
 
 [node name="CRT" parent="CanvasLayer" unique_id=341224663 instance=ExtResource("4_osi8t")]
-visible = false
 
 [node name="Background" type="ColorRect" parent="." unique_id=472091335]
 layout_mode = 1
@@ -162,6 +161,31 @@ sprite_frames = SubResource("SpriteFrames_4gnb8")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.00534351
+
+[node name="EnemyState" type="VBoxContainer" parent="." unique_id=104521520]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -26.0
+offset_right = 18.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StateContainer" type="MarginContainer" parent="EnemyState" unique_id=396503623]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="EnemyState/StateContainer" unique_id=650540787]
+layout_mode = 2
+
+[node name="StateLabel" type="Label" parent="EnemyState/StateContainer/PanelContainer" unique_id=905524064]
+layout_mode = 2
+text = "State: Healty"
 
 [node name="PlayerStats" type="VBoxContainer" parent="." unique_id=1509296310]
 layout_mode = 1
