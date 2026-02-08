@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://ccnfx0thkxhpm"]
 
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="1_qajva"]
-[ext_resource type="Script" uid="uid://bwgiytngu2164" path="res://scripts/combat/combat_manager.gd" id="2_4l26h"]
+[ext_resource type="Script" uid="uid://bwgiytngu2164" path="res://scripts/managers/combat_manager.gd" id="2_4l26h"]
 [ext_resource type="Texture2D" uid="uid://cmgr8p3shc5c5" path="res://assets/sprites/entities/enemies/monster_1.png" id="3_aic3r"]
 [ext_resource type="AudioStream" uid="uid://cp3est4sglell" path="res://assets/audio/sounds/crt_1.mp3" id="3_osi8t"]
 [ext_resource type="Script" uid="uid://x6x68q4mm1sp" path="res://scripts/managers/audio_manager.gd" id="3_sa5k0"]
-[ext_resource type="Script" uid="uid://bmr81birkbyxn" path="res://scripts/combat/player_combat.gd" id="3_vcae8"]
+[ext_resource type="Script" uid="uid://bmr81birkbyxn" path="res://scripts/player/player_combat.gd" id="3_vcae8"]
 [ext_resource type="AudioStream" uid="uid://bqlxg653arg0x" path="res://assets/audio/sounds/crt_2.mp3" id="4_4gnb8"]
 [ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="4_osi8t"]
-[ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scripts/combat/enemy_combat.gd" id="4_p71o4"]
+[ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scripts/enemy/enemy_combat.gd" id="4_p71o4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcae8"]
 atlas = ExtResource("3_aic3r")

@@ -1,5 +1,8 @@
 extends Node
 
+# Memory variables
+var last_enemy_died: NodePath
+
 # Player stats
 @export var player_max_hp: int = 100
 @export var player_max_vyrn: int = 50
