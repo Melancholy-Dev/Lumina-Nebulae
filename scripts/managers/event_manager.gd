@@ -14,14 +14,19 @@ var current_event: String
 func _ready() -> void:
 	# Animations
 	crt_animation.play("brightness_fade_out")
-	if enemy_died():
+	if enemy_died() or GameManager.player_flee:
 		player.position = GameManager.last_player_pos
+		GameManager.player_flee = false
 
 func enemy_died() -> bool:
-	var enemy = get_node(GameManager.last_enemy_died)
-	if enemy:
-		enemy.queue_free()
-		return true
+	if GameManager.is_last_enemy_died:
+		var enemy = get_node(GameManager.last_enemy)
+		if enemy:
+			enemy.queue_free()
+			GameManager.is_last_enemy_died = false
+			return true
+		else:
+			return false
 	else:
 		return false
 

@@ -7,4 +7,4 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		# Save current enemy path
 		enemy_name = get_parent().get_path()
-		GameManager.last_enemy_died = enemy_name
+		GameManager.last_enemy = enemy_name

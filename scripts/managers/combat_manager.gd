@@ -69,6 +69,7 @@ func _on_enemy_damaged(_amount: int) -> void:
 
 func _on_enemy_died() -> void:
 	print("Enemy Died")
+	GameManager.is_last_enemy_died = true
 	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
 
 
@@ -82,7 +83,7 @@ func _on_player_damaged(_amount: int) -> void:
 
 func _on_player_died() -> void:
 	print("Player Died")
-	player._ready()
+	player.init()
 	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
 
 
@@ -111,6 +112,7 @@ func _on_item_button_pressed() -> void:
 	pass
 
 func _on_flee_button_pressed() -> void:
+	GameManager.player_flee = true
 	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
 
 

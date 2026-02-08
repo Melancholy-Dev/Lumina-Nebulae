@@ -96,7 +96,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qjo"]
-size = Vector2(178, 25)
+size = Vector2(84, 25)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fgofq"]
 a = Vector2(0, -87)
@@ -230,7 +230,7 @@ polygon = PackedVector2Array(-4, -3, -4, 1, 4, 1, 4, -3)
 script = ExtResource("14_trtic")
 
 [node name="Shape" type="CollisionShape2D" parent="Enemy1/CombatTriggerArea" unique_id=580100032]
-position = Vector2(-71, -1.5)
+position = Vector2(-24, -1.5)
 shape = SubResource("RectangleShape2D_v8qjo")
 
 [node name="WaterArea" type="Node" parent="." unique_id=1655916672]

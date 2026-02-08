@@ -1,7 +1,9 @@
 extends Node
 
 # Memory variables
-var last_enemy_died: NodePath
+var player_flee: bool
+var last_enemy: NodePath
+var is_last_enemy_died: bool
 var last_player_pos: Vector2
 
 # Player stats

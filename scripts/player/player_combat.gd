@@ -15,6 +15,9 @@ signal pass_turn
 signal died()
 
 func _ready() -> void:
+	init()
+
+func init() -> void:
 	GameManager.player_hp = GameManager.player_max_hp
 	# Placeholer, player will remember the current HP in future
 
