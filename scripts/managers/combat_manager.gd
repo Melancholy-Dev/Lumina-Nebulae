@@ -33,7 +33,7 @@ func _ready() -> void:
 			buttons.append(node as Button)
 	buttons[0].grab_focus()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#var focused = get_viewport().gui_get_focus_owner()
 	#if focused and focused is Button:
 		#focused.emit_signal("pressed")
@@ -64,7 +64,7 @@ func _on_enemy_pass_turn() -> void:
 	if buttons.size() > 0:
 		buttons[0].call_deferred("grab_focus")
 
-func _on_enemy_damaged(amount: int) -> void:
+func _on_enemy_damaged(_amount: int) -> void:
 	print("Enemy HP: " + str(enemy.hp))
 
 func _on_enemy_died() -> void:
@@ -77,7 +77,7 @@ func _on_player_pass_turn() -> void:
 	player_turn = false
 	state_label.text = "State: " + str(enemy.get_enemy_state())
 
-func _on_player_damaged(amount: int) -> void:
+func _on_player_damaged(_amount: int) -> void:
 	print("Player HP: " + str(GameManager.player_hp))
 
 func _on_player_died() -> void:

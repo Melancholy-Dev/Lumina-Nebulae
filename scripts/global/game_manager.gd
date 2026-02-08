@@ -2,13 +2,14 @@ extends Node
 
 # Memory variables
 var last_enemy_died: NodePath
+var last_player_pos: Vector2
 
 # Player stats
 @export var player_max_hp: int = 100
 @export var player_max_vyrn: int = 50
 @export var player_attack_damage: int = 10
 
-# Player current status
+# Player current stats
 var player_hp: int
 var player_vyrn: int
 

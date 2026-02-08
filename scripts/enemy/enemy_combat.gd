@@ -29,7 +29,7 @@ class_name Enemy
 	}
 }
 
-# Current Status
+# Current Stats
 var hp: int
 var vyrn: int
 var alive: bool = true

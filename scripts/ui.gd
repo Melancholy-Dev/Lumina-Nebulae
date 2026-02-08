@@ -10,6 +10,6 @@ func _ready() -> void:
 	hp_label.text = "HP: " + str(GameManager.player_hp)
 	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var fps: int = round(Engine.get_frames_per_second())
 	fps_label.text = "FPS: " + str(fps)

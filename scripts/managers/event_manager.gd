@@ -1,6 +1,7 @@
 extends Node
 
 # Nodes
+@onready var player: CharacterBody2D = $"../../Player"
 @onready var crt: ColorRect = $"../../UI/CRT"
 @onready var audio_manager: Node = $"../AudioManager"
 @onready var crt_animation: AnimationPlayer = $"../../UI/CRT/AnimationPlayer"
@@ -13,12 +14,16 @@ var current_event: String
 func _ready() -> void:
 	# Animations
 	crt_animation.play("brightness_fade_out")
-	on_enemy_died()
+	if enemy_died():
+		player.position = GameManager.last_player_pos
 
-func on_enemy_died() -> void:
-	var enemy_died = get_node(GameManager.last_enemy_died)
-	if enemy_died:
-		enemy_died.queue_free()
+func enemy_died() -> bool:
+	var enemy = get_node(GameManager.last_enemy_died)
+	if enemy:
+		enemy.queue_free()
+		return true
+	else:
+		return false
 
 func _on_combat_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -32,5 +37,6 @@ func _on_combat_area_body_entered(body: Node2D) -> void:
 
 func _on_timer_timeout() -> void:
 	# Change scene
+	GameManager.last_player_pos = player.position
 	if current_event == "starting_combat":
 		get_tree().change_scene_to_packed(load("res://scenes/combat.tscn"))

@@ -6,7 +6,7 @@ class_name Player
 # Nodes
 @onready var enemy: Node = $"../Enemy"
 
-# Current Status
+# Current Stats
 var alive: bool = true
 
 # Signals
