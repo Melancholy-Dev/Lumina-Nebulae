@@ -18,8 +18,8 @@ var enemy_spell_1_cost: int = 10
 #### Management functions
 func _ready() -> void:
 	# Animations
-	crt_animation.play("static_noise_fade_out")
-	audio_manager.end_crt_audio_crossfade(4.0)
+	crt_animation.play("RESET")
+	#audio_manager.end_crt_audio_crossfade(4.0)
 	# Init
 	enemy.init(100, 50, 10) # Max_HP, Vyrn, Damage
 	for node in get_tree().get_nodes_in_group("ui_button"):
@@ -72,6 +72,7 @@ func _on_player_damaged(amount: int) -> void:
 
 func _on_player_died() -> void:
 	print("Player Died")
+	player._ready()
 	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
 
 

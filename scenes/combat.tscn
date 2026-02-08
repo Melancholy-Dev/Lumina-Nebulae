@@ -49,11 +49,11 @@ script = ExtResource("3_sa5k0")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2117832426]
 stream = ExtResource("3_osi8t")
+autoplay = true
 parameters/looping = true
 
 [node name="FadeCRT" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=934675789]
 stream = ExtResource("4_4gnb8")
-autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=673724322]
 
