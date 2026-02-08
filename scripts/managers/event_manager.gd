@@ -1,10 +1,10 @@
 extends Node
 
 # Nodes
-@onready var crt: ColorRect = $"../../CanvasLayer/CRT"
+@onready var crt: ColorRect = $"../../UI/CRT"
 @onready var audio_manager: Node = $"../AudioManager"
-@onready var crt_animation: AnimationPlayer = $"../../CanvasLayer/CRT/AnimationPlayer"
-@onready var timer: Timer = $"../../CanvasLayer/CRT/Timer"
+@onready var crt_animation: AnimationPlayer = $"../../UI/CRT/AnimationPlayer"
+@onready var timer: Timer = $"../../UI/CRT/Timer"
 
 # Variables
 var current_event: String

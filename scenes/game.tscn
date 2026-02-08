@@ -3,11 +3,11 @@
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="1_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://cp3est4sglell" path="res://assets/audio/sounds/crt_1.mp3" id="1_vtaks"]
 [ext_resource type="Script" uid="uid://bef7d2ak5ue5r" path="res://scripts/managers/event_manager.gd" id="2_kvuet"]
-[ext_resource type="Script" uid="uid://dlhtwklaqity5" path="res://scripts/fps_label.gd" id="2_vtaks"]
 [ext_resource type="AudioStream" uid="uid://bqlxg653arg0x" path="res://assets/audio/sounds/crt_2.mp3" id="3_dinhu"]
 [ext_resource type="Script" uid="uid://x6x68q4mm1sp" path="res://scripts/managers/audio_manager.gd" id="3_trtic"]
 [ext_resource type="Texture2D" uid="uid://3k65e4cqs0r1" path="res://assets/sprites/tilesets/tileset_1.png" id="4_dinhu"]
 [ext_resource type="PackedScene" uid="uid://13gt6vqyu6py" path="res://scenes/game_components/player.tscn" id="5_kvuet"]
+[ext_resource type="Script" uid="uid://dwl7lexbhjsuc" path="res://scripts/ui.gd" id="5_trtic"]
 [ext_resource type="Texture2D" uid="uid://c0g3eeoe2ecgl" path="res://assets/sprites/backgrounds/bg_1.png" id="6_trtic"]
 [ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scripts/combat/enemy_combat.gd" id="8_ca42v"]
 [ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="8_kvuet"]
@@ -123,40 +123,78 @@ parameters/looping = true
 [node name="FadeCRT" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1510696248]
 stream = ExtResource("3_dinhu")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1608446850]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1608446850]
+script = ExtResource("5_trtic")
 
-[node name="FPS" type="Label" parent="CanvasLayer" unique_id=573375586]
+[node name="PlayerStats" type="VBoxContainer" parent="UI" unique_id=1954364479]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -5.0
+grow_vertical = 0
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Hp" type="PanelContainer" parent="UI/PlayerStats" unique_id=1766537509]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PlayerStats/Hp" unique_id=1891827560]
+layout_mode = 2
+
+[node name="HpLabel" type="Label" parent="UI/PlayerStats/Hp/MarginContainer" unique_id=891636224]
+layout_mode = 2
+text = "Hp: "
+
+[node name="Vyrn" type="PanelContainer" parent="UI/PlayerStats" unique_id=392686249]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PlayerStats/Vyrn" unique_id=10250072]
+layout_mode = 2
+
+[node name="VyrnLabel" type="Label" parent="UI/PlayerStats/Vyrn/MarginContainer" unique_id=481748392]
+layout_mode = 2
+text = "Vyrn: "
+
+[node name="FPS" type="PanelContainer" parent="UI" unique_id=1299438011]
 offset_left = 10.0
 offset_top = 5.0
-offset_right = 53.0
-offset_bottom = 16.0
-scale = Vector2(2, 2)
-theme = ExtResource("1_0tnpc")
-text = "FPS:"
-script = ExtResource("2_vtaks")
-metadata/_edit_use_anchors_ = true
+offset_right = 58.000008
+offset_bottom = 45.0
 
-[node name="DialoguePanel" type="PanelContainer" parent="CanvasLayer" unique_id=398721069]
+[node name="MarginContainer" type="MarginContainer" parent="UI/FPS" unique_id=790223825]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="FPSLabel" type="Label" parent="UI/FPS/MarginContainer" unique_id=573375586]
+layout_mode = 2
+theme = ExtResource("1_0tnpc")
+theme_override_font_sizes/font_size = 18
+text = "FPS:"
+
+[node name="DialoguePanel" type="PanelContainer" parent="UI" unique_id=398721069]
 offset_left = 10.0
 offset_top = 40.0
 offset_right = 177.0
 offset_bottom = 80.000084
 theme = ExtResource("1_0tnpc")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DialoguePanel" unique_id=2147363473]
+[node name="MarginContainer" type="MarginContainer" parent="UI/DialoguePanel" unique_id=2147363473]
 layout_mode = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_right = 6
 
-[node name="Label" type="Label" parent="CanvasLayer/DialoguePanel/MarginContainer" unique_id=450270679]
+[node name="DialogueLabel" type="Label" parent="UI/DialoguePanel/MarginContainer" unique_id=450270679]
 layout_mode = 2
 text = "I don't know how to swim..."
 script = ExtResource("9_rysoc")
 full_text = "I don't know how to swim..."
 
-[node name="CRT" parent="CanvasLayer" unique_id=341224663 instance=ExtResource("8_kvuet")]
+[node name="CRT" parent="UI" unique_id=341224663 instance=ExtResource("8_kvuet")]
 
-[node name="Timer" parent="CanvasLayer/CRT" index="1" unique_id=2138271777]
+[node name="Timer" parent="UI/CRT" index="1" unique_id=2138271777]
 wait_time = 4.0
 
 [node name="TileMap" type="TileMapLayer" parent="." unique_id=1716749800]
@@ -217,8 +255,8 @@ shape = SubResource("RectangleShape2D_2irst")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StairsArea2D" unique_id=1494439178]
 polygon = PackedVector2Array(-9, 0, -9, -3, -7, -3, -7, -5, -5, -5, -5, -7, -3, -7, -3, -9, -1, -9, -1, -11, 1, -11, 1, -13, 3, -13, 3, -15, 5, -15, 5, -17, 8, -17, 8, 0)
 
-[connection signal="timeout" from="CanvasLayer/CRT/Timer" to="SceneManager/EventManager" method="_on_timer_timeout"]
+[connection signal="timeout" from="UI/CRT/Timer" to="SceneManager/EventManager" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Enemy/CombatArea" to="SceneManager/EventManager" method="_on_combat_area_body_entered"]
-[connection signal="body_entered" from="WaterArea/DialogueArea" to="CanvasLayer/DialoguePanel/MarginContainer/Label" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="WaterArea/DialogueArea" to="UI/DialoguePanel/MarginContainer/DialogueLabel" method="_on_area_2d_body_entered"]
 
-[editable path="CanvasLayer/CRT"]
+[editable path="UI/CRT"]

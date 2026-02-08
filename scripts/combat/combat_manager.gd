@@ -1,6 +1,8 @@
 extends Node
 
 # Nodes
+@onready var hp_label: Label = $"../PlayerStats/HpContainer/PanelContainer/HpLabel"
+@onready var vyrn_label: Label = $"../PlayerStats/Vyrn/PanelContainer/VyrnLabel"
 @onready var crt_animation: AnimationPlayer = $"../CanvasLayer/CRT/AnimationPlayer"
 @onready var audio_manager: Node = $AudioManager
 @onready var buttons_ui: Node = $"../Buttons"
@@ -17,6 +19,9 @@ var enemy_spell_1_cost: int = 10
 
 #### Management functions
 func _ready() -> void:
+	# Player stats
+	hp_label.text = "HP: " + str(GameManager.player_hp)
+	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)
 	# Animations
 	crt_animation.play("RESET")
 	#audio_manager.end_crt_audio_crossfade(4.0)
@@ -52,8 +57,12 @@ func _process(delta: float) -> void:
 #### Signals
 # Enemy signal
 func _on_enemy_pass_turn() -> void:
+	hp_label.text = "HP: " + str(GameManager.player_hp)
+	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)
 	player_turn = true
-	buttons[0].grab_focus()
+	if buttons.size() > 0:
+		buttons[0].call_deferred("grab_focus")
+
 
 func _on_enemy_damaged(amount: int) -> void:
 	print("Enemy HP: " + str(enemy.hp))

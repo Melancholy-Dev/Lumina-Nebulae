@@ -58,6 +58,7 @@ stream = ExtResource("4_4gnb8")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=673724322]
 
 [node name="CRT" parent="CanvasLayer" unique_id=341224663 instance=ExtResource("4_osi8t")]
+visible = false
 
 [node name="Background" type="ColorRect" parent="." unique_id=472091335]
 layout_mode = 1
@@ -161,6 +162,38 @@ sprite_frames = SubResource("SpriteFrames_4gnb8")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.00534351
+
+[node name="PlayerStats" type="VBoxContainer" parent="." unique_id=1509296310]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -5.5
+offset_right = 1.0
+offset_bottom = 5.5
+grow_vertical = 2
+
+[node name="HpContainer" type="MarginContainer" parent="PlayerStats" unique_id=1528044605]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayerStats/HpContainer" unique_id=582649039]
+layout_mode = 2
+
+[node name="HpLabel" type="Label" parent="PlayerStats/HpContainer/PanelContainer" unique_id=918646838]
+layout_mode = 2
+text = "HP: "
+
+[node name="Vyrn" type="MarginContainer" parent="PlayerStats" unique_id=1780426770]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayerStats/Vyrn" unique_id=546243044]
+layout_mode = 2
+
+[node name="VyrnLabel" type="Label" parent="PlayerStats/Vyrn/PanelContainer" unique_id=1512619902]
+layout_mode = 2
+text = "Vyrn: "
 
 [connection signal="pressed" from="Buttons/Fight/PanelContainer/FightButton" to="CombatManager" method="_on_fight_button_pressed"]
 [connection signal="pressed" from="Buttons/Spell/PanelContainer/SpellButton" to="CombatManager" method="_on_spell_button_pressed"]
