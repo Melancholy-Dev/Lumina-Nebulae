@@ -9,6 +9,7 @@ extends Node
 @onready var buttons_ui: Node = $"../Buttons"
 @onready var player: Node = $"../Player"
 @onready var enemy: Node = $"../Enemy"
+@onready var enemy_sprite: AnimatedSprite2D = $"../Enemy/EnemySprite"
 
 # Variables
 @onready var buttons: Array[Button] = []
@@ -25,6 +26,14 @@ func _ready() -> void:
 	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)
 	# Animations
 	crt_animation.play("RESET")
+	var s = GameManager.last_enemy_sprite_state
+	if s and s.sprite_frames:
+		enemy_sprite.sprite_frames = s.sprite_frames
+		enemy_sprite.animation = s.animation
+		enemy_sprite.frame = s.frame
+		enemy_sprite.play()
+	else:
+		push_error("No saved sprite state")
 	#audio_manager.end_crt_audio_crossfade(4.0)
 	# Init
 	enemy.init(100, 50, 10) # Max_HP, Vyrn, Damage

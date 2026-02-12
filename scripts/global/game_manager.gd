@@ -1,16 +1,19 @@
 extends Node
 
-# Memory variables
-var player_flee: bool
+## Memory variables
+var last_enemy_sprite_state: Dictionary
 var last_enemy: NodePath
+var last_enemy2: NodePath
+var last_enemy3: NodePath
+# TODO: remember the latest 3 enemies died and delete them into the game scene
 var is_last_enemy_died: bool
 var last_player_pos: Vector2
+var player_flee: bool
 
-# Player stats
+## Player stats
 @export var player_max_hp: int = 100
 @export var player_max_vyrn: int = 50
 @export var player_attack_damage: int = 10
-
 # Player current stats
 var player_hp: int
 var player_vyrn: int

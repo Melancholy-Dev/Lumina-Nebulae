@@ -30,7 +30,7 @@ func enemy_died() -> bool:
 	else:
 		return false
 
-func _on_combat_area_body_entered(body: Node2D) -> void:
+func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		# Animations
 		var mat = crt.material
