@@ -10,6 +10,7 @@ func _ready() -> void:
 	# Connect signals
 	body_entered.connect(Callable(self, "_on_body_entered"))
 	body_entered.connect(event_manager._on_combat_trigger_area_body_entered)
+	body_exited.connect(event_manager._on_combat_trigger_area_body_exited)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -30,5 +31,3 @@ func _on_body_entered(body: Node2D) -> void:
 				push_error("Cannot find enemy sprite")
 		else:
 			push_error("Cannot find enemy node")
-
-		# Finds for event manager and connect the signal automatically

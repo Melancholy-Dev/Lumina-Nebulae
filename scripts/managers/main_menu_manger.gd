@@ -5,7 +5,7 @@ extends Control
 @onready var crt_animation: AnimationPlayer = $CanvasLayer/CRT/AnimationPlayer
 
 # Variables
-@onready var buttons: Array[Button] = [] # Could be optimized
+@onready var buttons: Array[Button] = [] # TODO: Could be optimized
 var button_type: String
 
 func _ready() -> void:

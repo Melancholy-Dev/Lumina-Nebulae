@@ -17,6 +17,14 @@ func start_crt_audio_crossfade(duration: float) -> void:
 	current = 0.0
 	crossfading = true
 
+func stop_crt_audio_crossfade(duration: float) -> void:
+	player_a.volume_db = linear_to_db(1.0)
+	player_b.volume_db = linear_to_db(0.0)
+	player_b.stop()
+	player_a.play()
+	current = 0.0
+	crossfading = false
+
 # Fade out
 #func end_crt_audio_crossfade(duration: float) -> void:
 	#crossfade_time = max(0.01, duration)

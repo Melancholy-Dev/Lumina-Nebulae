@@ -13,6 +13,7 @@ var current_event: String
 
 func _ready() -> void:
 	# Animations
+	crt_animation.play("RESET")
 	crt_animation.play("brightness_fade_out")
 	if enemy_died() or GameManager.player_flee:
 		player.position = GameManager.last_player_pos
@@ -32,13 +33,23 @@ func enemy_died() -> bool:
 
 func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		current_event = "starting_combat"
 		# Animations
 		var mat = crt.material
 		if mat and mat is ShaderMaterial:
 			timer.start()
 			audio_manager.start_crt_audio_crossfade(4.0)
 			crt_animation.play("static_noise_fade_in")
-			current_event = "starting_combat"
+
+func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		current_event = "none"
+		# Animations
+		var mat = crt.material
+		if mat and mat is ShaderMaterial:
+			timer.stop()
+			audio_manager.stop_crt_audio_crossfade(4.0)
+			crt_animation.play("RESET")
 
 func _on_timer_timeout() -> void:
 	# Change scene

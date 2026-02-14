@@ -169,9 +169,6 @@ full_text = "I don't know how to swim..."
 
 [node name="CRT" parent="UI" unique_id=341224663 instance=ExtResource("8_kvuet")]
 
-[node name="AnimationPlayer" parent="UI/CRT" index="0" unique_id=1070575893]
-autoplay = &"brightness_fade_out"
-
 [node name="Timer" parent="UI/CRT" index="1" unique_id=2138271777]
 wait_time = 4.0
 
