@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://13gt6vqyu6py"]
 
-[ext_resource type="Script" uid="uid://03w20g65gpqi" path="res://scripts/player/player.gd" id="1_d6yu0"]
+[ext_resource type="Script" uid="uid://03w20g65gpqi" path="res://scripts/player/player_movement.gd" id="1_d6yu0"]
 [ext_resource type="Texture2D" uid="uid://og62ah50kxef" path="res://assets/sprites/entities/player/player_move.png" id="1_yn15a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_prsjk"]
@@ -27,14 +27,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_prsjk")
-}],
-"loop": true,
-"name": &"jump",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_imxbi")
 }, {
 "duration": 1.0,
@@ -45,14 +37,14 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=1904494407]
 script = ExtResource("1_d6yu0")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1814517239]
 position = Vector2(-4, -4)
 sprite_frames = SubResource("SpriteFrames_7ibme")
-animation = &"jump"
+animation = &"idle"
 centered = false
 
-[node name="Collision" type="CollisionPolygon2D" parent="."]
+[node name="Collision" type="CollisionPolygon2D" parent="." unique_id=423117640]
 polygon = PackedVector2Array(4, -4, 4, 4, -3, 4, -3, -4)

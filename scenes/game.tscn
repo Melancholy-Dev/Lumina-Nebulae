@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="8_kvuet"]
 [ext_resource type="Texture2D" uid="uid://cmgr8p3shc5c5" path="res://assets/sprites/entities/enemies/monster_1.png" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/dialogue_label.gd" id="9_rysoc"]
+[ext_resource type="Script" uid="uid://cyu0ddj3s1pa1" path="res://scripts/enemy/enemy_movement.gd" id="12_ir15t"]
 [ext_resource type="Texture2D" uid="uid://c7jw6qu1awoxs" path="res://assets/sprites/entities/enemies/Monster2.png" id="14_ir15t"]
 [ext_resource type="Script" uid="uid://bxift80bpyjea" path="res://scripts/enemy/combat_trigger_area.gd" id="14_trtic"]
 
@@ -253,6 +254,7 @@ zoom = Vector2(3, 3)
 
 [node name="Enemy1 (1)" type="CharacterBody2D" parent="." unique_id=491702259]
 position = Vector2(427, -46)
+script = ExtResource("12_ir15t")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Enemy1 (1)" unique_id=774099675]
 sprite_frames = SubResource("SpriteFrames_r5p8f")
@@ -263,6 +265,7 @@ autoplay = "moving"
 polygon = PackedVector2Array(-4, -3, -4, 1, 4, 1, 4, -3)
 
 [node name="CombatTriggerArea" type="Area2D" parent="Enemy1 (1)" unique_id=1007918096]
+visible = false
 script = ExtResource("14_trtic")
 
 [node name="Shape" type="CollisionShape2D" parent="Enemy1 (1)/CombatTriggerArea" unique_id=580100032]
@@ -271,6 +274,7 @@ shape = SubResource("RectangleShape2D_v8qjo")
 
 [node name="Enemy2 (1)" type="CharacterBody2D" parent="." unique_id=730958160]
 position = Vector2(659, -36)
+script = ExtResource("12_ir15t")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Enemy2 (1)" unique_id=2040430496]
 sprite_frames = SubResource("SpriteFrames_kvuet")
@@ -281,6 +285,7 @@ autoplay = "moving"
 polygon = PackedVector2Array(-4, -3, -4, 1, 4, 1, 4, -3)
 
 [node name="CombatTriggerArea" type="Area2D" parent="Enemy2 (1)" unique_id=996411094]
+visible = false
 script = ExtResource("14_trtic")
 
 [node name="Shape" type="CollisionShape2D" parent="Enemy2 (1)/CombatTriggerArea" unique_id=1237862938]
