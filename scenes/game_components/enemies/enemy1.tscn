@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://4ujj1ma8h1a6"]
 
 [ext_resource type="Texture2D" uid="uid://cmgr8p3shc5c5" path="res://assets/sprites/entities/enemies/monster_1.png" id="1_1ahfk"]
-[ext_resource type="Script" uid="uid://bwgiytngu2164" path="res://scripts/managers/combat_manager.gd" id="2_u4v05"]
+[ext_resource type="Script" uid="uid://cyu0ddj3s1pa1" path="res://scripts/enemy/enemy_movement.gd" id="1_r5p8f"]
+[ext_resource type="Script" uid="uid://bxift80bpyjea" path="res://scripts/enemy/combat_trigger_area.gd" id="3_r5p8f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c5e54"]
 atlas = ExtResource("1_1ahfk")
@@ -25,10 +26,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qjo"]
-size = Vector2(114, 15)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4v05"]
+size = Vector2(82, 25)
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1314323128]
+[node name="Enemy1" type="CharacterBody2D" unique_id=1314323128]
+script = ExtResource("1_r5p8f")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=774099675]
 sprite_frames = SubResource("SpriteFrames_r5p8f")
@@ -39,8 +41,8 @@ autoplay = "moving"
 polygon = PackedVector2Array(-4, -3, -4, 1, 4, 1, 4, -3)
 
 [node name="CombatTriggerArea" type="Area2D" parent="." unique_id=1007918096]
-script = ExtResource("2_u4v05")
+script = ExtResource("3_r5p8f")
 
-[node name="Shape" type="CollisionShape2D" parent="CombatTriggerArea" unique_id=580100032]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_v8qjo")
+[node name="Shape" type="CollisionShape2D" parent="CombatTriggerArea" unique_id=53733457]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_u4v05")

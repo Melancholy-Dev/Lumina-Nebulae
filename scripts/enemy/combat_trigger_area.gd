@@ -1,7 +1,15 @@
 extends Area2D
 
+# Nodes
+@onready var event_manager: Node = $"../../SceneManagers/EventManager"
+
 # Variables
 var enemy_name: NodePath
+
+func _ready() -> void:
+	# Connect signals
+	body_entered.connect(Callable(self, "_on_body_entered"))
+	body_entered.connect(event_manager._on_combat_trigger_area_body_entered)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

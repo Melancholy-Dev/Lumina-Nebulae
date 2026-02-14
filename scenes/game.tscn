@@ -10,11 +10,9 @@
 [ext_resource type="Script" uid="uid://dwl7lexbhjsuc" path="res://scripts/ui.gd" id="5_trtic"]
 [ext_resource type="Texture2D" uid="uid://c0g3eeoe2ecgl" path="res://assets/sprites/backgrounds/bg_1.png" id="6_trtic"]
 [ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="8_kvuet"]
-[ext_resource type="Texture2D" uid="uid://cmgr8p3shc5c5" path="res://assets/sprites/entities/enemies/monster_1.png" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/dialogue_label.gd" id="9_rysoc"]
-[ext_resource type="Script" uid="uid://cyu0ddj3s1pa1" path="res://scripts/enemy/enemy_movement.gd" id="12_ir15t"]
-[ext_resource type="Texture2D" uid="uid://c7jw6qu1awoxs" path="res://assets/sprites/entities/enemies/Monster2.png" id="14_ir15t"]
-[ext_resource type="Script" uid="uid://bxift80bpyjea" path="res://scripts/enemy/combat_trigger_area.gd" id="14_trtic"]
+[ext_resource type="PackedScene" uid="uid://4ujj1ma8h1a6" path="res://scenes/game_components/enemies/enemy1.tscn" id="12_ca42v"]
+[ext_resource type="PackedScene" uid="uid://cec1hn2tc0b7k" path="res://scenes/game_components/enemies/enemy2.tscn" id="13_kvuet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fgofq"]
 texture = ExtResource("4_dinhu")
@@ -74,63 +72,6 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fgofq")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c5e54"]
-atlas = ExtResource("9_0tnpc")
-region = Rect2(0, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u4v05"]
-atlas = ExtResource("9_0tnpc")
-region = Rect2(0, 8, 8, 8)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_r5p8f"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c5e54")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u4v05")
-}],
-"loop": true,
-"name": &"moving",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qjo"]
-size = Vector2(132, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ca42v"]
-atlas = ExtResource("14_ir15t")
-region = Rect2(0, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rysoc"]
-atlas = ExtResource("14_ir15t")
-region = Rect2(8, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ssvqc"]
-atlas = ExtResource("14_ir15t")
-region = Rect2(16, 0, 8, 8)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_kvuet"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ca42v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rysoc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ssvqc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rysoc")
-}],
-"loop": true,
-"name": &"moving",
-"speed": 5.0
-}]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fgofq"]
 a = Vector2(0, -87)
@@ -252,45 +193,11 @@ texture = ExtResource("6_trtic")
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=613559995]
 zoom = Vector2(3, 3)
 
-[node name="Enemy1 (1)" type="CharacterBody2D" parent="." unique_id=491702259]
+[node name="Enemy1 (1)" parent="." unique_id=1314323128 instance=ExtResource("12_ca42v")]
 position = Vector2(427, -46)
-script = ExtResource("12_ir15t")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Enemy1 (1)" unique_id=774099675]
-sprite_frames = SubResource("SpriteFrames_r5p8f")
-animation = &"moving"
-autoplay = "moving"
-
-[node name="Collision" type="CollisionPolygon2D" parent="Enemy1 (1)" unique_id=152332541]
-polygon = PackedVector2Array(-4, -3, -4, 1, 4, 1, 4, -3)
-
-[node name="CombatTriggerArea" type="Area2D" parent="Enemy1 (1)" unique_id=1007918096]
-visible = false
-script = ExtResource("14_trtic")
-
-[node name="Shape" type="CollisionShape2D" parent="Enemy1 (1)/CombatTriggerArea" unique_id=580100032]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_v8qjo")
-
-[node name="Enemy2 (1)" type="CharacterBody2D" parent="." unique_id=730958160]
-position = Vector2(659, -36)
-script = ExtResource("12_ir15t")
-
-[node name="Sprite" type="AnimatedSprite2D" parent="Enemy2 (1)" unique_id=2040430496]
-sprite_frames = SubResource("SpriteFrames_kvuet")
-animation = &"moving"
-autoplay = "moving"
-
-[node name="Collision" type="CollisionPolygon2D" parent="Enemy2 (1)" unique_id=936512313]
-polygon = PackedVector2Array(-4, -3, -4, 1, 4, 1, 4, -3)
-
-[node name="CombatTriggerArea" type="Area2D" parent="Enemy2 (1)" unique_id=996411094]
-visible = false
-script = ExtResource("14_trtic")
-
-[node name="Shape" type="CollisionShape2D" parent="Enemy2 (1)/CombatTriggerArea" unique_id=1237862938]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_v8qjo")
+[node name="Enemy2 (1)" parent="." unique_id=1931445295 instance=ExtResource("13_kvuet")]
+position = Vector2(658, -36)
 
 [node name="WaterArea" type="Node" parent="." unique_id=1655916672]
 
@@ -315,10 +222,6 @@ shape = SubResource("RectangleShape2D_2irst")
 polygon = PackedVector2Array(-9, 0, -9, -3, -7, -3, -7, -5, -5, -5, -5, -7, -3, -7, -3, -9, -1, -9, -1, -11, 1, -11, 1, -13, 3, -13, 3, -15, 5, -15, 5, -17, 8, -17, 8, 0)
 
 [connection signal="timeout" from="UI/CRT/Timer" to="SceneManagers/EventManager" method="_on_timer_timeout"]
-[connection signal="body_entered" from="Enemy1 (1)/CombatTriggerArea" to="SceneManagers/EventManager" method="_on_combat_trigger_area_body_entered"]
-[connection signal="body_entered" from="Enemy1 (1)/CombatTriggerArea" to="Enemy1 (1)/CombatTriggerArea" method="_on_body_entered"]
-[connection signal="body_entered" from="Enemy2 (1)/CombatTriggerArea" to="SceneManagers/EventManager" method="_on_combat_trigger_area_body_entered"]
-[connection signal="body_entered" from="Enemy2 (1)/CombatTriggerArea" to="Enemy2 (1)/CombatTriggerArea" method="_on_body_entered"]
 [connection signal="body_entered" from="WaterArea/DialogueArea" to="UI/DialoguePanel/MarginContainer/DialogueLabel" method="_on_area_2d_body_entered"]
 
 [editable path="UI/CRT"]
