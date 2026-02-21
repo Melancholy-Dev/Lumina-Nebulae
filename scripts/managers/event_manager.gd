@@ -12,24 +12,41 @@ var current_event: String
 @export var enemy_node_path: NodePath
 
 func _ready() -> void:
-	# Animations
-	crt_animation.play("RESET")
-	crt_animation.play("brightness_fade_out")
+	# Delete the last 3 enemies
 	if enemy_died() or GameManager.player_flee:
 		player.position = GameManager.last_player_pos
 		GameManager.player_flee = false
+	# Animations
+	crt_animation.play("RESET")
+	crt_animation.play("brightness_fade_out")
 
 func enemy_died() -> bool:
-	if GameManager.is_last_enemy_died:
-		var enemy = get_node(GameManager.last_enemy)
-		if enemy:
-			enemy.queue_free()
-			GameManager.is_last_enemy_died = false
-			return true
-		else:
-			return false
-	else:
+	if not GameManager.is_last_enemy_died:
 		return false
+	var paths = [
+		GameManager.last_enemy,
+		GameManager.last_enemy2,
+		GameManager.last_enemy3
+	]
+	for p in paths:
+		if p == null:
+			continue
+		var node: Node = null
+		if typeof(p) == TYPE_NODE_PATH or typeof(p) == TYPE_STRING:
+			if has_node(p):
+				node = get_node(p)
+		elif p is Node:
+			node = p
+		if node and node.is_inside_tree():
+			queue_free_enemy(node)
+	GameManager.enemies_died += 1
+	GameManager.is_last_enemy_died = false
+	return true
+
+func queue_free_enemy(enemy: Node) -> void:
+	if enemy and enemy.is_inside_tree():
+		enemy.queue_free()
+
 
 func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

@@ -21,6 +21,7 @@ var enemy_spell_1_cost: int = 10
 
 #### Management functions
 func _ready() -> void:
+	GameManager.order_enemies_died()
 	# Player stats
 	hp_label.text = "HP: " + str(GameManager.player_hp)
 	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)

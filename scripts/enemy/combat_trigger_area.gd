@@ -16,7 +16,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		# Save current enemy path and sprite
 		enemy_name = get_parent().get_path()
-		GameManager.last_enemy = enemy_name
+		GameManager.current_enemy = enemy_name
 		var enemy_node = get_node_or_null(enemy_name)
 		if enemy_node:
 			var sprite: AnimatedSprite2D = enemy_node.get_node_or_null("Sprite")

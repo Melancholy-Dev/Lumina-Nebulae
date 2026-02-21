@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var movement_range: Node2D = $MovementRange
 
 # Variables
-@export var patrol_distance: float = movement_range.position.x
+@export var patrol_distance: float = 0.0
 @export var speed: float = 60.0
 @export var start_direction: Vector2 = Vector2.RIGHT
 
@@ -15,6 +15,7 @@ var travel_direction: Vector2
 var traveled: float = 0.0
 
 func _ready() -> void:
+	patrol_distance = movement_range.position.x
 	origin_position = global_position
 	travel_direction = start_direction.normalized()
 	if abs(travel_direction.x) > 0.5:
