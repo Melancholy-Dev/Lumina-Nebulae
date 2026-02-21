@@ -191,7 +191,7 @@ texture = ExtResource("6_trtic")
 zoom = Vector2(3, 3)
 
 [node name="Enemy1 (1)" parent="." unique_id=1314323128 instance=ExtResource("12_ca42v")]
-position = Vector2(427, -46)
+position = Vector2(426, -46)
 
 [node name="Enemy2 (1)" parent="." unique_id=1931445295 instance=ExtResource("13_kvuet")]
 position = Vector2(807, -36)

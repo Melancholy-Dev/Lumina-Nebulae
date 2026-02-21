@@ -39,7 +39,6 @@ To add your name to the contributors list:
 - Open a PR with the change or open an issue asking to be added.
 
 ## Troubleshooting
-‎
 
 This section still needs improvement and expansion. If your question is not here, please open an issue with a clear title and steps to help us reproduce the problem. Thank you for helping improve the manual!
 
@@ -47,7 +46,7 @@ This section still needs improvement and expansion. If your question is not here
 
 Copyright © 2023 Project Lumina - Coetus Interactive
 
-Copyright © 2025 Lumina Nebulae - Coetus Interactive
+Copyright © 2025 Lumina Nebulae - Melancholy
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
