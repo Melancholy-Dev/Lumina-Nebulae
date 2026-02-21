@@ -6,7 +6,6 @@ var current_enemy: NodePath
 var last_enemy: NodePath
 var last_enemy2: NodePath
 var last_enemy3: NodePath
-# TODO: remember the latest 3 enemies died and delete them into the game scene
 var is_last_enemy_died: bool
 var enemies_died: int
 var last_player_pos: Vector2

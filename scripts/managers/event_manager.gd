@@ -47,7 +47,6 @@ func queue_free_enemy(enemy: Node) -> void:
 	if enemy and enemy.is_inside_tree():
 		enemy.queue_free()
 
-
 func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		current_event = "starting_combat"
@@ -65,7 +64,7 @@ func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
 		var mat = crt.material
 		if mat and mat is ShaderMaterial:
 			timer.stop()
-			audio_manager.stop_crt_audio_crossfade(4.0)
+			audio_manager.stop_crt_audio_crossfade()
 			crt_animation.play("RESET")
 
 func _on_timer_timeout() -> void:

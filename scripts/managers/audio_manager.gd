@@ -1,39 +1,36 @@
 extends Node
 
+# Nodes
 @onready var player_a: AudioStreamPlayer = $"../../AudioStreamPlayer"
 @onready var player_b: AudioStreamPlayer = $"../../AudioStreamPlayer/FadeCRT"
 
+# Variables
+const EPSILON: float = 0.0001
 var crossfade_time: float = 4.0
 var current: float = 0.0
 var crossfading: bool = false
-#var crossfading_end: bool = false
+var crossfading_end: bool = false
+var fade_start_value: float = 0.0
 
 func start_crt_audio_crossfade(duration: float) -> void:
-	crossfade_time = max(0.01, duration)
+	crossfade_time = max(EPSILON, duration)
 	player_a.volume_db = linear_to_db(1.0)
-	player_b.volume_db = linear_to_db(0.0)
+	player_b.volume_db = linear_to_db(EPSILON)
 	if not player_b.playing:
 		player_b.play()
 	current = 0.0
 	crossfading = true
+	fade_start_value = 0.0
 
-func stop_crt_audio_crossfade(duration: float) -> void:
-	player_a.volume_db = linear_to_db(1.0)
-	player_b.volume_db = linear_to_db(0.0)
-	player_b.stop()
-	player_a.play()
+func stop_crt_audio_crossfade() -> void:
+	var current_fade = clamp(current / crossfade_time, 0.0, 1.0)
+	fade_start_value = current_fade
+	crossfade_time = max(EPSILON, crossfade_time - current)
+	if not player_a.playing:
+		player_a.play()
 	current = 0.0
 	crossfading = false
-
-# Fade out
-#func end_crt_audio_crossfade(duration: float) -> void:
-	#crossfade_time = max(0.01, duration)
-	#player_a.volume_db = linear_to_db(0.0)
-	#player_b.volume_db = linear_to_db(1.0)
-	#if not player_a.playing:
-		#player_a.play()
-	#current = 0.0
-	#crossfading_end = true
+	crossfading_end = true
 
 func _process(delta: float) -> void:
 	if crossfading:
@@ -46,13 +43,15 @@ func _process(delta: float) -> void:
 		if fade >= 1.0:
 			crossfading = false
 			player_a.stop()
-	#elif crossfading_end:
-		#current += delta
-		#var fade = clamp(current / crossfade_time, 0.0, 1.0)
-		#var vol_a = lerp(0.0, 1.0, fade)
-		#var vol_b = lerp(1.0, 0.0, fade)
-		#player_a.volume_db = linear_to_db(vol_a)
-		#player_b.volume_db = linear_to_db(vol_b)
-		#if fade >= 1.0:
-			#crossfading_end = false
-			#player_b.stop()
+	elif crossfading_end:
+		current += delta
+		var fade = clamp(current / crossfade_time, 0.0, 1.0)
+		var vol_a_start = lerp(1.0, 0.0, fade_start_value)
+		var vol_b_start = lerp(0.0, 1.0, fade_start_value)
+		var vol_a = lerp(vol_a_start, 1.0, fade)
+		var vol_b = lerp(vol_b_start, 0.0, fade)
+		player_a.volume_db = linear_to_db(vol_a)
+		player_b.volume_db = linear_to_db(vol_b)
+		if fade >= 1.0:
+			crossfading_end = false
+			player_b.stop()

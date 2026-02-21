@@ -22,7 +22,7 @@ func _on_body_entered(body: Node2D) -> void:
 			var sprite: AnimatedSprite2D = enemy_node.get_node_or_null("Sprite")
 			if sprite:
 				GameManager.last_enemy_sprite_state = {
-					"sprite_frames": sprite.sprite_frames, # o sprite.sprite_frames.duplicate(true) se modifichi
+					"sprite_frames": sprite.sprite_frames,
 					"animation": sprite.animation,
 					"frame": sprite.frame,
 					"modulate": sprite.modulate

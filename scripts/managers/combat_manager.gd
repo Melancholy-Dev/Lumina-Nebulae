@@ -35,7 +35,6 @@ func _ready() -> void:
 		enemy_sprite.play()
 	else:
 		push_error("No saved sprite state")
-	#audio_manager.end_crt_audio_crossfade(4.0)
 	# Init
 	enemy.init(100, 50, 10) # Max_HP, Vyrn, Damage
 	for node in get_tree().get_nodes_in_group("ui_button"):
