@@ -14,13 +14,16 @@ var fade_start_value: float = 0.0
 
 func start_crt_audio_crossfade(duration: float) -> void:
 	crossfade_time = max(EPSILON, duration)
-	player_a.volume_db = linear_to_db(1.0)
-	player_b.volume_db = linear_to_db(EPSILON)
+	if not crossfading_end:
+		player_a.volume_db = linear_to_db(1.0)
+		player_b.volume_db = linear_to_db(EPSILON)
 	if not player_b.playing:
 		player_b.play()
-	current = 0.0
+	if crossfading_end:
+		crossfading_end = false
+	else:
+		current = 0.0
 	crossfading = true
-	fade_start_value = 0.0
 
 func stop_crt_audio_crossfade() -> void:
 	var current_fade = clamp(current / crossfade_time, 0.0, 1.0)
