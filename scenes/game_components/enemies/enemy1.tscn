@@ -46,3 +46,6 @@ script = ExtResource("3_r5p8f")
 [node name="Shape" type="CollisionShape2D" parent="CombatTriggerArea" unique_id=53733457]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_u4v05")
+
+[node name="MovementRange" type="Node2D" parent="." unique_id=648621969]
+position = Vector2(150, 0)

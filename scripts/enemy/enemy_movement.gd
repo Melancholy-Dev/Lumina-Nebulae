@@ -2,9 +2,10 @@ extends CharacterBody2D
 
 # Nodes
 @onready var sprite: AnimatedSprite2D = $Sprite
+@onready var movement_range: Node2D = $MovementRange
 
 # Variables
-@export var patrol_distance: float = 300.0
+@export var patrol_distance: float = movement_range.position.x
 @export var speed: float = 60.0
 @export var start_direction: Vector2 = Vector2.RIGHT
 
