@@ -10,6 +10,7 @@ extends Node
 # Variables
 var current_event: String
 @export var enemy_node_path: NodePath
+var shader_tween: Tween
 
 func _ready() -> void:
 	# Delete the last 3 enemies
@@ -55,7 +56,10 @@ func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
 		if mat and mat is ShaderMaterial:
 			timer.start()
 			audio_manager.start_crt_audio_crossfade(4.0)
-			crt_animation.play("static_noise_fade_in")
+			if shader_tween:
+				shader_tween.kill()
+			shader_tween = create_tween()
+			shader_tween.tween_property(mat, "shader_parameter/static_noise_intensity", 1, 4.0)
 
 func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -65,7 +69,11 @@ func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
 		if mat and mat is ShaderMaterial:
 			timer.stop()
 			audio_manager.stop_crt_audio_crossfade()
-			crt_animation.play("RESET")
+			if shader_tween:
+				shader_tween.kill()
+			var fade_out_duration = audio_manager.get_remaining_fade_time()
+			shader_tween = create_tween()
+			shader_tween.tween_property(mat, "shader_parameter/static_noise_intensity", 0.06, fade_out_duration)
 
 func _on_timer_timeout() -> void:
 	# Change scene

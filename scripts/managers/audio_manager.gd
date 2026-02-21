@@ -55,3 +55,6 @@ func _process(delta: float) -> void:
 		if fade >= 1.0:
 			crossfading_end = false
 			player_b.stop()
+
+func get_remaining_fade_time() -> float:
+	return crossfade_time
