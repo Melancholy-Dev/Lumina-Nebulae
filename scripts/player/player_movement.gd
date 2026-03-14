@@ -5,8 +5,8 @@ extends CharacterBody2D
 @onready var collision: CollisionPolygon2D = $Collision
 
 # Variables
-const SPEED = 50.0
-const JUMP_VELOCITY = -200
+@export var SPEED := 50.0
+@export var SPRINT_MULTIPLIER := 2.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
@@ -14,25 +14,25 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Jumps
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		sprite.play("idle")
-
 	# Horizontal movement
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis("move_left", "move_right")
+	var sprinting := Input.is_action_pressed("run") and direction != 0
+	
 	if direction != 0:
-		velocity.x = direction * SPEED
+		var target_speed = SPEED * (SPRINT_MULTIPLIER if sprinting else 1.0)
+		velocity.x = direction * target_speed
 		sprite.play("walking")
+		sprite.speed_scale = target_speed / SPEED # Sync walk animation speed to movement speed
 		if direction < 0:
 			sprite.set_flip_h(true)
 			collision.position = Vector2(-1, 0)
+		else:
+			sprite.set_flip_h(false)
+			collision.position = Vector2(0, 0)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		sprite.play("idle")
-		if direction >= 0:
-			sprite.set_flip_h(false)
-			collision.position = Vector2(0, 0)
+		sprite.speed_scale = 1.0
 
 	move_and_slide()
-	position = position.snapped(Vector2(1, 1)) # Pixel perfect
+	position = position.snapped(Vector2(1, 1)) # Pixel perfect snap
