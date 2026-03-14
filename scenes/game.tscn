@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://4ujj1ma8h1a6" path="res://scenes/game_components/enemies/enemy1.tscn" id="12_ca42v"]
 [ext_resource type="PackedScene" uid="uid://cec1hn2tc0b7k" path="res://scenes/game_components/enemies/enemy2.tscn" id="13_kvuet"]
 [ext_resource type="PackedScene" uid="uid://dqi6bui3f2kbr" path="res://scenes/game_components/dialogue_area.tscn" id="14_trtic"]
+[ext_resource type="Script" uid="uid://bqy3dw4m75rt4" path="res://scripts/interactables/stairs.gd" id="15_ir15t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fgofq"]
 texture = ExtResource("4_dinhu")
@@ -76,9 +77,10 @@ sources/0 = SubResource("TileSetAtlasSource_fgofq")
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fgofq"]
 a = Vector2(0, -87)
-b = Vector2(0, 0)
+b = Vector2(0, -1)
 
 [node name="Game" type="Node" unique_id=1466652594]
+metadata/_edit_vertical_guides_ = [180.0]
 
 [node name="SceneManagers" type="Node" parent="." unique_id=1200205382]
 
@@ -194,10 +196,10 @@ position = Vector2(807, -36)
 
 [node name="WaterArea" type="Node" parent="." unique_id=1655916672]
 
-[node name="WaterCollision" type="StaticBody2D" parent="WaterArea" unique_id=1694105741]
+[node name="Collision" type="StaticBody2D" parent="WaterArea" unique_id=1694105741]
 position = Vector2(-64, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea/WaterCollision" unique_id=1827494822]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea/Collision" unique_id=1827494822]
 shape = SubResource("SegmentShape2D_fgofq")
 
 [node name="DialogueArea" parent="WaterArea" unique_id=431015395 instance=ExtResource("14_trtic")]
@@ -205,10 +207,32 @@ position = Vector2(-56, -14)
 dialogue_text = "I don't know how to swim..."
 
 [node name="StairsArea" type="Node" parent="." unique_id=70616440]
+script = ExtResource("15_ir15t")
 
-[node name="DialogueArea" parent="StairsArea" unique_id=1869427790 instance=ExtResource("14_trtic")]
+[node name="DialogueAreaDown" parent="StairsArea" unique_id=1869427790 instance=ExtResource("14_trtic")]
 position = Vector2(209, -15)
 dialogue_text = "Go up"
+interactable = true
+object_type = "stairs_down"
+
+[node name="DialogueAreaUp" parent="StairsArea" unique_id=417980257 instance=ExtResource("14_trtic")]
+position = Vector2(256, -47)
+dialogue_text = "Go down"
+interactable = true
+object_type = "stairs_up"
+
+[node name="Collision" type="StaticBody2D" parent="StairsArea" unique_id=1597960666]
+position = Vector2(-128, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsArea/Collision" unique_id=445773979]
+position = Vector2(375, -29)
+shape = SubResource("SegmentShape2D_fgofq")
+
+[node name="NextPlayerPositionDown" type="Node2D" parent="StairsArea" unique_id=1750409202]
+position = Vector2(209, -4)
+
+[node name="NextPlayerPositionUp" type="Node2D" parent="StairsArea" unique_id=302902874]
+position = Vector2(256, -36)
 
 [connection signal="timeout" from="UI/CRT/Timer" to="SceneManagers/EventManager" method="_on_timer_timeout"]
 
