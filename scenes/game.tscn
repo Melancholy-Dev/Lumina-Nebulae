@@ -10,9 +10,10 @@
 [ext_resource type="Script" uid="uid://dwl7lexbhjsuc" path="res://scripts/ui.gd" id="5_trtic"]
 [ext_resource type="Texture2D" uid="uid://c0g3eeoe2ecgl" path="res://assets/sprites/backgrounds/bg_1.png" id="6_trtic"]
 [ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="8_kvuet"]
-[ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/dialogue_label.gd" id="9_rysoc"]
+[ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/dialogues/dialogue_label.gd" id="9_rysoc"]
 [ext_resource type="PackedScene" uid="uid://4ujj1ma8h1a6" path="res://scenes/game_components/enemies/enemy1.tscn" id="12_ca42v"]
 [ext_resource type="PackedScene" uid="uid://cec1hn2tc0b7k" path="res://scenes/game_components/enemies/enemy2.tscn" id="13_kvuet"]
+[ext_resource type="PackedScene" uid="uid://dqi6bui3f2kbr" path="res://scenes/game_components/dialogue_area.tscn" id="14_trtic"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fgofq"]
 texture = ExtResource("4_dinhu")
@@ -76,9 +77,6 @@ sources/0 = SubResource("TileSetAtlasSource_fgofq")
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fgofq"]
 a = Vector2(0, -87)
 b = Vector2(0, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2irst"]
-size = Vector2(15.5, 30)
 
 [node name="Game" type="Node" unique_id=1466652594]
 
@@ -163,9 +161,7 @@ theme_override_constants/margin_right = 6
 
 [node name="DialogueLabel" type="Label" parent="UI/DialoguePanel/MarginContainer" unique_id=450270679]
 layout_mode = 2
-text = "I don't know how to swim..."
 script = ExtResource("9_rysoc")
-full_text = "I don't know how to swim..."
 
 [node name="CRT" parent="UI" unique_id=341224663 instance=ExtResource("8_kvuet")]
 
@@ -204,16 +200,16 @@ position = Vector2(-64, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea/WaterCollision" unique_id=1827494822]
 shape = SubResource("SegmentShape2D_fgofq")
 
-[node name="DialogueArea" type="Area2D" parent="WaterArea" unique_id=496770495]
-position = Vector2(-42, -16)
-collision_layer = 2
-collision_mask = 2
+[node name="DialogueArea" parent="WaterArea" unique_id=431015395 instance=ExtResource("14_trtic")]
+position = Vector2(-56, -14)
+dialogue_text = "I don't know how to swim..."
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea/DialogueArea" unique_id=714037664]
-position = Vector2(-13.75, 2)
-shape = SubResource("RectangleShape2D_2irst")
+[node name="StairsArea" type="Node" parent="." unique_id=70616440]
+
+[node name="DialogueArea" parent="StairsArea" unique_id=1869427790 instance=ExtResource("14_trtic")]
+position = Vector2(209, -15)
+dialogue_text = "Go up"
 
 [connection signal="timeout" from="UI/CRT/Timer" to="SceneManagers/EventManager" method="_on_timer_timeout"]
-[connection signal="body_entered" from="WaterArea/DialogueArea" to="UI/DialoguePanel/MarginContainer/DialogueLabel" method="_on_area_2d_body_entered"]
 
 [editable path="UI/CRT"]

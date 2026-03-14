@@ -1,11 +1,11 @@
 extends Label
 
-# TODO: implement a system for have multiple possible texts
-
+# Nodes
 @onready var dialogue_panel: PanelContainer = $"../.."
 
-@export var full_text: String = "Text"
-@export var letter_interval: float = 0.1
+# Variables
+var full_text: String = "Text"
+var letter_interval: float = 0.1
 
 var _index: int = 0
 var _timer: Timer
@@ -19,7 +19,7 @@ func _ready() -> void:
 	if not _timer.is_connected("timeout", Callable(self, "_on_timer_timeout")):
 		_timer.timeout.connect(_on_timer_timeout)
 
-func _on_area_2d_body_entered(_body: Node) -> void:
+func _on_area_body_entered(_body: Node) -> void:
 	dialogue_panel.visible = true
 	_index = 0
 	text = ""

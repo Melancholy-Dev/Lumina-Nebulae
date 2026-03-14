@@ -9,7 +9,7 @@ extends Node
 
 # Variables
 var current_event: String
-@export var enemy_node_path: NodePath
+var enemy_node_path: NodePath
 var shader_tween: Tween
 
 func _ready() -> void:
