@@ -15,7 +15,7 @@ var player_flee: bool
 @export var player_max_hp: int
 @export var player_max_vyrn: int
 @export var player_attack_damage: int
-# Player current stats
+# Current player stats
 var player_hp: int
 var player_vyrn: int
 
