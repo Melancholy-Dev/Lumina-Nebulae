@@ -23,9 +23,6 @@ parameters/looping = true
 
 [node name="CRT" parent="CanvasLayer" unique_id=1986369259 instance=ExtResource("3_wu84c")]
 
-[node name="Timer" parent="CanvasLayer/CRT" index="1" unique_id=2138271777]
-wait_time = 0.5
-
 [node name="Background" type="ColorRect" parent="." unique_id=1067217318]
 layout_mode = 1
 anchors_preset = 15
