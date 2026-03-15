@@ -10,6 +10,7 @@ var is_last_enemy_died: bool
 var enemies_died: int
 var last_player_pos: Vector2
 var player_flee: bool
+var current_level: int # 0 = Main Menu
 
 ## Player stats
 @export var player_max_hp: int

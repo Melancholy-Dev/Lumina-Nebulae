@@ -118,7 +118,8 @@ func _on_item_button_pressed() -> void:
 
 func _on_flee_button_pressed() -> void:
 	GameManager.player_flee = true
-	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
+	get_tree().change_scene_to_file("res://scenes/levels/level_"+str(GameManager.current_level)+".tscn")
+	# TODO: Get the current scene
 
 
 # Enemy actions

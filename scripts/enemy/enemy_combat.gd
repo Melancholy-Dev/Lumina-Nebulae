@@ -39,7 +39,6 @@ signal damaged(amount: int)
 signal pass_turn
 signal died()
 
-
 func init(_max_hp: int, _max_vyrn: int, _attack_damage: int):
 	max_hp = _max_hp
 	max_vyrn = _max_vyrn

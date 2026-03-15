@@ -47,7 +47,8 @@ func _on_exit_options_button_pressed() -> void:
 func _on_timer_timeout() -> void:
 	match button_type:
 		"new_game":
-			get_tree().change_scene_to_file("res://scenes/game.tscn")
+			get_tree().change_scene_to_file("res://scenes/levels/level_1.tscn")
+			GameManager.current_level = 1
 		"load_game":
 			pass # TODO: make a save manager
 		"options":

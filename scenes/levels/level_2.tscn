@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c18te4wuvcykn"]
+
+[node name="Level2" type="Node" unique_id=2095263053]
+
+[node name="Label" type="Label" parent="." unique_id=538898443]
+offset_right = 40.0
+offset_bottom = 11.0
+text = "WIP"

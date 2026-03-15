@@ -2,7 +2,7 @@ extends Area2D
 
 # Nodes
 @onready var dialogue_label: Node = $"../../UI/DialoguePanel/MarginContainer/DialogueLabel"
-@onready var stairs_area: Node = $"../../StairsArea"
+@onready var stairs_area: Node = $"../../StairsArea1"
 
 # Variables
 @export var dialogue_text: String
@@ -40,8 +40,12 @@ func _process(_delta: float) -> void:
 	if interactable and _player_inside and Input.is_action_just_pressed("interact"):
 		match object_type:
 			"stairs_down":
-				stairs_area.player_go_up()
+				stairs_area.go_up()
 			"stairs_up":
-				stairs_area.player_go_down()
+				stairs_area.go_down()
+			"stairs_new_scene":
+				stairs_area.new_scene()
+			"stairs_old_scene":
+				stairs_area.old_scene()
 			_:
 				print("Interactable object is not configurated")
