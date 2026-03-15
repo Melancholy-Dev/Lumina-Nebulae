@@ -4,8 +4,10 @@ extends Label
 @onready var dialogue_panel: PanelContainer = $"../.."
 
 # Variables
+@export var auto_hide_time := 3.0
 var full_text: String = "Text"
 var letter_interval: float = 0.1
+var object_is_interactable: bool
 
 var _index: int = 0
 var _timer: Timer
@@ -29,6 +31,14 @@ func _on_area_body_entered(_body: Node) -> void:
 	_timer.one_shot = false
 	_timer.start()
 
+func _on_area_body_exited(_body: Node) -> void:
+	if object_is_interactable:
+		dialogue_panel.visible = false
+		_state = "idle"
+		_timer.stop()
+		_index = 0
+		text = ""
+
 func _on_timer_timeout() -> void:
 	if _state == "typing":
 		if _index < full_text.length():
@@ -38,10 +48,14 @@ func _on_timer_timeout() -> void:
 			# Wait time after hide the panel
 			_state = "waiting"
 			_timer.stop()
-			_timer.wait_time = 3.0
+			_timer.wait_time = auto_hide_time
 			_timer.one_shot = true
 			_timer.start()
 	elif _state == "waiting":
+		if object_is_interactable:
+			_state = "waiting"
+			_timer.stop()
+			return
 		dialogue_panel.visible = false
 		_state = "idle"
 		_timer.stop()
