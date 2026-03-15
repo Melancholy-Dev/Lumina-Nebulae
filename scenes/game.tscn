@@ -77,7 +77,7 @@ sources/0 = SubResource("TileSetAtlasSource_fgofq")
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fgofq"]
 a = Vector2(0, -87)
-b = Vector2(0, -1)
+b = Vector2(0, 0)
 
 [node name="Game" type="Node" unique_id=1466652594]
 metadata/_edit_vertical_guides_ = [180.0]
@@ -222,10 +222,9 @@ interactable = true
 object_type = "stairs_up"
 
 [node name="Collision" type="StaticBody2D" parent="StairsArea" unique_id=1597960666]
-position = Vector2(-128, 0)
+position = Vector2(247, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StairsArea/Collision" unique_id=445773979]
-position = Vector2(375, -29)
 shape = SubResource("SegmentShape2D_fgofq")
 
 [node name="NextPlayerPositionDown" type="Node2D" parent="StairsArea" unique_id=1750409202]

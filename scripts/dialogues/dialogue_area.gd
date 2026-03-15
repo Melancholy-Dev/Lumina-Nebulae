@@ -39,5 +39,5 @@ func _process(_delta: float) -> void:
 				stairs_area.player_go_down()
 			_:
 				print("Interactable object is not configurated")
-		# TODO: If interactable, dialogue text must not disappear after some seconds
+		# TODO: If interactable, dialogue text must not disappear after some seconds and must be recognizable from normal ones
 		# TODO: Implement animations
