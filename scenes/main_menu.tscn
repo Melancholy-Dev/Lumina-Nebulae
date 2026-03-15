@@ -35,7 +35,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.105882354, 0.050980393, 0.20784314, 1)
 
-[node name="Buttons" type="VBoxContainer" parent="." unique_id=1541039427]
+[node name="MenuButtons" type="VBoxContainer" parent="." unique_id=1541039427]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -43,53 +43,80 @@ offset_right = 128.0
 offset_bottom = 134.0
 theme = ExtResource("2_ekxnf")
 
-[node name="NewGame" type="MarginContainer" parent="Buttons" unique_id=2017900509]
+[node name="NewGame" type="MarginContainer" parent="MenuButtons" unique_id=2017900509]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Buttons/NewGame" unique_id=652447274]
+[node name="PanelContainer" type="PanelContainer" parent="MenuButtons/NewGame" unique_id=652447274]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="NewGameButton" type="Button" parent="Buttons/NewGame/PanelContainer" unique_id=1039041436 groups=["ui_button"]]
+[node name="NewGameButton" type="Button" parent="MenuButtons/NewGame/PanelContainer" unique_id=1039041436 groups=["ui_button"]]
 layout_mode = 2
 text = "New Game"
 
-[node name="LoadGame" type="MarginContainer" parent="Buttons" unique_id=876905104]
+[node name="LoadGame" type="MarginContainer" parent="MenuButtons" unique_id=876905104]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Buttons/LoadGame" unique_id=2078921950]
+[node name="PanelContainer" type="PanelContainer" parent="MenuButtons/LoadGame" unique_id=2078921950]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="LoadGameButton" type="Button" parent="Buttons/LoadGame/PanelContainer" unique_id=854587601 groups=["ui_button"]]
+[node name="LoadGameButton" type="Button" parent="MenuButtons/LoadGame/PanelContainer" unique_id=854587601 groups=["ui_button"]]
 layout_mode = 2
 text = "Load Game"
 
-[node name="Options" type="MarginContainer" parent="Buttons" unique_id=1983855122]
+[node name="Options" type="MarginContainer" parent="MenuButtons" unique_id=1983855122]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Buttons/Options" unique_id=1361687871]
+[node name="PanelContainer" type="PanelContainer" parent="MenuButtons/Options" unique_id=1361687871]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="OptionButton" type="Button" parent="Buttons/Options/PanelContainer" unique_id=12079979 groups=["ui_button"]]
+[node name="OptionButton" type="Button" parent="MenuButtons/Options/PanelContainer" unique_id=12079979 groups=["ui_button"]]
 layout_mode = 2
 text = "Options"
 
-[node name="Quit" type="MarginContainer" parent="Buttons" unique_id=2043035259]
+[node name="Quit" type="MarginContainer" parent="MenuButtons" unique_id=2043035259]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Buttons/Quit" unique_id=687589970]
+[node name="PanelContainer" type="PanelContainer" parent="MenuButtons/Quit" unique_id=687589970]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="QuitButton" type="Button" parent="Buttons/Quit/PanelContainer" unique_id=1437616830 groups=["ui_button"]]
+[node name="QuitButton" type="Button" parent="MenuButtons/Quit/PanelContainer" unique_id=1437616830 groups=["ui_button"]]
 layout_mode = 2
 text = "Quit"
+
+[node name="OptionButtons" type="VBoxContainer" parent="." unique_id=478888796]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 141.0
+offset_bottom = 134.0
+theme = ExtResource("2_ekxnf")
+
+[node name="CommandsList" type="Label" parent="OptionButtons" unique_id=1398935013]
+layout_mode = 2
+text = "Move: A-D / Arrow left-Arrow right
+Run: Shift
+Interact: Z /Space / Enter"
+
+[node name="ExitOptions" type="MarginContainer" parent="OptionButtons" unique_id=432476227]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="OptionButtons/ExitOptions" unique_id=1705887594]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ExitOptionsButton" type="Button" parent="OptionButtons/ExitOptions/PanelContainer" unique_id=1831824949 groups=["ui_button"]]
+layout_mode = 2
+text = "Exit options"
 
 [node name="Metadata" type="Label" parent="." unique_id=849151293]
 layout_mode = 1
@@ -109,9 +136,10 @@ theme_override_font_sizes/font_size = 18
 text = " v0.1  By Melancholy "
 
 [connection signal="timeout" from="CanvasLayer/CRT/Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="Buttons/NewGame/PanelContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="Buttons/LoadGame/PanelContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]
-[connection signal="pressed" from="Buttons/Options/PanelContainer/OptionButton" to="." method="_on_option_button_pressed"]
-[connection signal="pressed" from="Buttons/Quit/PanelContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MenuButtons/NewGame/PanelContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MenuButtons/LoadGame/PanelContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="MenuButtons/Options/PanelContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="pressed" from="MenuButtons/Quit/PanelContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="OptionButtons/ExitOptions/PanelContainer/ExitOptionsButton" to="." method="_on_exit_options_button_pressed"]
 
 [editable path="CanvasLayer/CRT"]

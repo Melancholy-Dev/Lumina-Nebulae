@@ -3,6 +3,8 @@ extends Control
 # Nodes
 @onready var timer: Timer = $CanvasLayer/CRT/Timer
 @onready var crt_animation: AnimationPlayer = $CanvasLayer/CRT/AnimationPlayer
+@onready var option_buttons: VBoxContainer = $OptionButtons
+@onready var menu_buttons: VBoxContainer = $MenuButtons
 
 # Variables
 @onready var buttons: Array[Button] = [] # TODO: Could be optimized
@@ -15,7 +17,7 @@ func _ready() -> void:
 	buttons[0].grab_focus()
 
 
-### Buttons
+### Menu Buttons
 func _on_new_game_button_pressed() -> void:
 	button_type = "new_game"
 	timer.start()
@@ -28,13 +30,18 @@ func _on_load_game_button_pressed() -> void:
 	#crt_animation.play("brightness_fade_in")
 
 func _on_option_button_pressed() -> void:
-	pass
-	#button_type = "options"
-	#timer.start()
-	#crt_animation.play("brightness_fade_in")
+	button_type = "options"
+	timer.start()
+	crt_animation.play("brightness_fade_in")
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+## Option Buttons
+func _on_exit_options_button_pressed() -> void:
+	button_type = "exit_options"
+	timer.start()
+	crt_animation.play("brightness_fade_in")
 
 
 func _on_timer_timeout() -> void:
@@ -44,4 +51,14 @@ func _on_timer_timeout() -> void:
 		"load_game":
 			pass # TODO: make a save manager
 		"options":
-			pass # TODO: make a option menu
+			crt_animation.play("brightness_fade_out")
+			button_type = "none"
+			buttons[4].grab_focus()
+			option_buttons.visible = true
+			menu_buttons.visible = false
+		"exit_options":
+			crt_animation.play("brightness_fade_out")
+			button_type = "none"
+			buttons[0].grab_focus()
+			option_buttons.visible = false
+			menu_buttons.visible = true

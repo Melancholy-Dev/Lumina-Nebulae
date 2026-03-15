@@ -211,13 +211,13 @@ script = ExtResource("15_ir15t")
 
 [node name="DialogueAreaDown" parent="StairsArea" unique_id=1869427790 instance=ExtResource("14_trtic")]
 position = Vector2(209, -15)
-dialogue_text = "Go up"
+dialogue_text = "Go up (interact)"
 interactable = true
 object_type = "stairs_down"
 
 [node name="DialogueAreaUp" parent="StairsArea" unique_id=417980257 instance=ExtResource("14_trtic")]
 position = Vector2(256, -47)
-dialogue_text = "Go down"
+dialogue_text = "Go down (interact)"
 interactable = true
 object_type = "stairs_up"
 
