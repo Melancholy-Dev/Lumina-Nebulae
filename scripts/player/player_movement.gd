@@ -20,9 +20,14 @@ const STAMINA_RECHARGE_DELAY := 2.0
 var _is_running := false
 var _time_idle := 0.0
 var _can_recover := false
+var _last_stamina: float = 0.0
+
+# Signals
+signal stamina_changed(stamina: float)
 
 func _ready() -> void:
 	current_stamina = max_stamina
+	_last_stamina = current_stamina
 
 func _physics_process(delta: float) -> void:
 	# Gravity
@@ -69,6 +74,11 @@ func _physics_process(delta: float) -> void:
 		if _can_recover and direction == 0:
 			current_stamina = min(max_stamina, current_stamina + stamina_recover_per_second * delta)
 	current_stamina = clamp(current_stamina, 0.0, max_stamina)
+	
+	# Emit signal only if stamina changed significantly to avoid excessive signal emissions
+	if abs(current_stamina - _last_stamina) > 0.1:
+		_last_stamina = current_stamina
+		emit_signal("stamina_changed", current_stamina)
 
 	move_and_slide()
 	position = position.snapped(Vector2(1, 1)) # Pixel perfect snap

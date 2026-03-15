@@ -11,6 +11,10 @@ extends Node
 @onready var enemy: Node = $"../Enemy"
 @onready var enemy_sprite: AnimatedSprite2D = $"../Enemy/EnemySprite"
 
+# Constants
+const LEVEL_PATH_PREFIX: String = "res://scenes/levels/level_"
+const LEVEL_PATH_SUFFIX: String = ".tscn"
+
 # Variables
 @onready var buttons: Array[Button] = []
 var player_turn: bool = true
@@ -22,9 +26,7 @@ var enemy_spell_1_cost: int = 10
 #### Management functions
 func _ready() -> void:
 	GameManager.order_enemies_died()
-	# Player stats
-	hp_label.text = "HP: " + str(GameManager.player_hp)
-	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)
+	_update_ui() # Init UI
 	# Animations
 	crt_animation.play("RESET")
 	var s = GameManager.last_enemy_sprite_state
@@ -42,57 +44,72 @@ func _ready() -> void:
 			buttons.append(node as Button)
 	buttons[0].grab_focus()
 
-func _process(_delta: float) -> void:
-	if player_turn:
-		buttons_ui.visible = true
-	else:
-		buttons_ui.visible = false
-		var actions: int = 2
-		var enemy_action: int = randi() % actions
-		match enemy_action:
-			0:
-				print("Enemy perform attack")
-				enemy_attack()
-			1:
-				print("Enemy perform spell")
-				if enemy_spell() != true:
-					print("Enemy perform attack (vyrn runned out)")
-					enemy_attack()
+func _update_ui() -> void:
+	hp_label.text = "HP: " + str(GameManager.player_hp)
+	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)
+	state_label.text = "State: " + str(enemy.get_enemy_state())
 
+func _update_buttons_visibility(visible: bool) -> void:
+	buttons_ui.visible = visible
+	if visible and buttons.size() > 0:
+		buttons[0].grab_focus()
+
+func _get_level_path(level_number: int) -> String:
+	return LEVEL_PATH_PREFIX + str(level_number) + LEVEL_PATH_SUFFIX
 
 
 #### Signals
 # Enemy signal
 func _on_enemy_pass_turn() -> void:
-	hp_label.text = "HP: " + str(GameManager.player_hp)
-	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)
+	_update_ui()
 	player_turn = true
-	if buttons.size() > 0:
-		buttons[0].call_deferred("grab_focus")
+	_update_buttons_visibility(true)
+	await get_tree().process_frame
+	_enemy_turn()
 
 func _on_enemy_damaged(_amount: int) -> void:
 	print("Enemy HP: " + str(enemy.hp))
+	_update_ui()
 
 func _on_enemy_died() -> void:
 	print("Enemy Died")
 	GameManager.is_last_enemy_died = true
-	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
+	var scene_path = _get_level_path(GameManager.current_level)
+	get_tree().change_scene_to_file(scene_path)
 
 
 # Player signals
 func _on_player_pass_turn() -> void:
 	player_turn = false
-	state_label.text = "State: " + str(enemy.get_enemy_state())
+	_update_buttons_visibility(false)
+	_update_ui()
+	await get_tree().process_frame
+	_enemy_turn()
 
 func _on_player_damaged(_amount: int) -> void:
 	print("Player HP: " + str(GameManager.player_hp))
+	_update_ui()
 
 func _on_player_died() -> void:
 	print("Player Died")
 	player.init()
 	get_tree().change_scene_to_packed(load("res://scenes/game.tscn"))
 
-
+func _enemy_turn() -> void:
+	if player_turn:
+		return
+	
+	var actions: int = 2
+	var enemy_action: int = randi() % actions
+	match enemy_action:
+		0:
+			print("Enemy perform attack")
+			enemy_attack()
+		1:
+			print("Enemy perform spell")
+			if enemy_spell() != true:
+				print("Enemy perform attack (vyrn runned out)")
+				enemy_attack()
 
 #### Actions
 # Player actions
@@ -118,8 +135,8 @@ func _on_item_button_pressed() -> void:
 
 func _on_flee_button_pressed() -> void:
 	GameManager.player_flee = true
-	get_tree().change_scene_to_file("res://scenes/levels/level_"+str(GameManager.current_level)+".tscn")
-	# TODO: Get the current scene
+	var scene_path = _get_level_path(GameManager.current_level)
+	get_tree().change_scene_to_file(scene_path)
 
 
 # Enemy actions

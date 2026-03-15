@@ -8,6 +8,7 @@ extends Node
 @onready var timer: Timer = $"../../UI/CRT/Timer"
 
 # Variables
+const SHADER_NOISE_PARAM: String = "shader_parameter/static_noise_intensity"
 var current_event: String
 var enemy_node_path: NodePath
 var shader_tween: Tween
@@ -21,6 +22,10 @@ func _ready() -> void:
 	crt_animation.play("RESET")
 	crt_animation.play("brightness_fade_out")
 
+func _exit_tree() -> void:
+	if shader_tween:
+		shader_tween.kill()
+
 func enemy_died() -> bool:
 	if not GameManager.is_last_enemy_died:
 		return false
@@ -33,7 +38,7 @@ func enemy_died() -> bool:
 		if p == null:
 			continue
 		var node: Node = null
-		if typeof(p) == TYPE_NODE_PATH or typeof(p) == TYPE_STRING:
+		if p is NodePath:
 			if has_node(p):
 				node = get_node(p)
 		elif p is Node:
@@ -59,7 +64,7 @@ func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
 			if shader_tween:
 				shader_tween.kill()
 			shader_tween = create_tween()
-			shader_tween.tween_property(mat, "shader_parameter/static_noise_intensity", 1, 4.0)
+			shader_tween.tween_property(mat, SHADER_NOISE_PARAM, 1, 4.0)
 
 func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -73,7 +78,7 @@ func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
 				shader_tween.kill()
 			var fade_out_duration = audio_manager.get_remaining_fade_time()
 			shader_tween = create_tween()
-			shader_tween.tween_property(mat, "shader_parameter/static_noise_intensity", 0.06, fade_out_duration)
+			shader_tween.tween_property(mat, SHADER_NOISE_PARAM, 0.06, fade_out_duration)
 
 func _on_timer_timeout() -> void:
 	# Change scene

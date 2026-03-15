@@ -1,5 +1,8 @@
 extends Label
 
+# State enum
+enum State { IDLE, TYPING, WAITING }
+
 # Nodes
 @onready var dialogue_panel: PanelContainer = $"../.."
 
@@ -11,7 +14,7 @@ var object_is_interactable: bool
 
 var _index: int = 0
 var _timer: Timer
-var _state: String = "idle" # "typing", "waiting", "idle"
+var _state: State = State.IDLE
 
 func _ready() -> void:
 	text = ""
@@ -25,7 +28,7 @@ func _on_area_body_entered(_body: Node) -> void:
 	dialogue_panel.visible = true
 	_index = 0
 	text = ""
-	_state = "typing"
+	_state = State.TYPING
 	_timer.stop()
 	_timer.wait_time = letter_interval
 	_timer.one_shot = false
@@ -34,28 +37,29 @@ func _on_area_body_entered(_body: Node) -> void:
 func _on_area_body_exited(_body: Node) -> void:
 	if object_is_interactable:
 		dialogue_panel.visible = false
-		_state = "idle"
+		_state = State.IDLE
 		_timer.stop()
 		_index = 0
 		text = ""
 
 func _on_timer_timeout() -> void:
-	if _state == "typing":
-		if _index < full_text.length():
-			text += full_text[_index]
-			_index += 1
-		else:
-			# Wait time after hide the panel
-			_state = "waiting"
+	match _state:
+		State.TYPING:
+			if _index < full_text.length():
+				text = full_text.substr(0, _index + 1)
+				_index += 1
+			else:
+				# Wait time after hide the panel
+				_state = State.WAITING
+				_timer.stop()
+				_timer.wait_time = auto_hide_time
+				_timer.one_shot = true
+				_timer.start()
+		State.WAITING:
+			if object_is_interactable:
+				_state = State.WAITING
+				_timer.stop()
+				return
+			dialogue_panel.visible = false
+			_state = State.IDLE
 			_timer.stop()
-			_timer.wait_time = auto_hide_time
-			_timer.one_shot = true
-			_timer.start()
-	elif _state == "waiting":
-		if object_is_interactable:
-			_state = "waiting"
-			_timer.stop()
-			return
-		dialogue_panel.visible = false
-		_state = "idle"
-		_timer.stop()

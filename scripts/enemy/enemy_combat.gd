@@ -1,4 +1,4 @@
-extends Node
+extends BaseCombatEntity
 class_name Enemy
 
 # TODO: invulnerability and buff
@@ -7,9 +7,6 @@ class_name Enemy
 @onready var player: Node = $"../Player"
 
 # Stats
-@export var max_hp: int = 100
-@export var max_vyrn: int = 50
-@export var attack_damage: int = 10
 @export var enemy_states := {
 	"Healthy": { # Behaviors = normal, aggressive, defensive, last-resort (retreat/auto-destruction)
 		"hp_range": Vector2(76, 100),
@@ -29,16 +26,6 @@ class_name Enemy
 	}
 }
 
-# Current Stats
-var hp: int
-var vyrn: int
-var alive: bool = true
-
-# Signals
-signal damaged(amount: int)
-signal pass_turn
-signal died()
-
 func init(_max_hp: int, _max_vyrn: int, _attack_damage: int):
 	max_hp = _max_hp
 	max_vyrn = _max_vyrn
@@ -57,7 +44,7 @@ func receive_damage(amount: int) -> void:
 func heal(amount: int) -> void:
 	if not alive:
 		return
-	hp = hp + amount
+	hp = min(max_hp, hp + amount)
 
 func perform_attack() -> void:
 	if not alive:

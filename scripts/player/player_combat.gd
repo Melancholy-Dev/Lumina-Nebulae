@@ -1,4 +1,4 @@
-extends Node
+extends BaseCombatEntity
 class_name Player
 
 # TODO: invulnerability and buff
@@ -6,41 +6,35 @@ class_name Player
 # Nodes
 @onready var enemy: Node = $"../Enemy"
 
-# Current Stats
-var alive: bool = true
-
-# Signals
-signal damaged(amount: int)
-signal pass_turn
-signal died()
-
 func _ready() -> void:
 	init()
 
 func init() -> void:
-	GameManager.player_hp = GameManager.player_max_hp
+	hp = GameManager.player_max_hp
+	max_hp = GameManager.player_max_hp
+	max_vyrn = GameManager.player_max_vyrn
+	vyrn = GameManager.player_vyrn
+	attack_damage = GameManager.player_attack_damage
+	GameManager.player_hp = hp
 	# Placeholer, player will remember the current HP in future
 
 func receive_damage(amount: int) -> void:
 	if not alive:
 		return
-	GameManager.player_hp -= amount
+	hp -= amount
+	GameManager.player_hp = hp
 	emit_signal("damaged", amount)
-	if GameManager.player_hp <= 0:
+	if hp <= 0:
 		_die()
 
 func heal(amount: int) -> void:
 	if not alive:
 		return
-	GameManager.player_hp = GameManager.player_hp + amount
+	hp = min(max_hp, hp + amount)
+	GameManager.player_hp = hp
 
 func perform_attack() -> void:
 	if not alive:
 		return
 	if enemy and enemy.has_method("receive_damage"):
-		enemy.receive_damage(GameManager.player_attack_damage)
-
-func _die() -> void:
-	alive = false
-	emit_signal("died")
-	# animations
+		enemy.receive_damage(attack_damage)
