@@ -28,11 +28,11 @@ func _ready() -> void:
 		pass
 	else:
 		player.stamina_changed.connect(_on_player_stamina_changed)
-	_on_player_stamina_changed(player.current_stamina)
+	_on_player_stamina_changed(player.max_stamina)
 
 func _on_fps_timer_timeout() -> void:
 	var fps: int = round(Engine.get_frames_per_second())
 	fps_label.text = "FPS: " + str(fps)
 
 func _on_player_stamina_changed(stamina: float) -> void:
-	stamina_label.text = "Stamina: " + str(int(stamina))
+	stamina_label.text = "Stamina: " + str(roundi(stamina))

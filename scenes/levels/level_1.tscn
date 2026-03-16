@@ -223,13 +223,12 @@ script = ExtResource("15_0qwwm")
 position = Vector2(209, -15)
 dialogue_text = "Go up (interact)"
 interactable = true
-object_type = "stairs_down"
 
 [node name="StairsUp" parent="StairsArea1" unique_id=417980257 instance=ExtResource("14_x7jkp")]
 position = Vector2(273, -63)
 dialogue_text = "Go down (interact)"
 interactable = true
-object_type = "stairs_up"
+object_type = 1
 
 [node name="Collision" type="StaticBody2D" parent="StairsArea1" unique_id=1597960666]
 position = Vector2(264, -48)
@@ -247,7 +246,7 @@ position = Vector2(194, -4)
 position = Vector2(993, -63)
 dialogue_text = "Go up (interact)"
 interactable = true
-object_type = "stairs_new_scene"
+object_type = 2
 
 [connection signal="timeout" from="UI/CRT/Timer" to="SceneManagers/EventManager" method="_on_timer_timeout"]
 

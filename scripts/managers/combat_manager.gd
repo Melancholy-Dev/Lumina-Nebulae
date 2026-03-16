@@ -26,7 +26,6 @@ var enemy_spell_1_cost: int = 10
 #### Management functions
 func _ready() -> void:
 	GameManager.order_enemies_died()
-	_update_ui() # Init UI
 	# Animations
 	crt_animation.play("RESET")
 	var s = GameManager.last_enemy_sprite_state
@@ -37,8 +36,8 @@ func _ready() -> void:
 		enemy_sprite.play()
 	else:
 		push_error("No saved sprite state")
-	# Init
 	enemy.init(100, 50, 10) # Max_HP, Vyrn, Damage
+	_update_ui()
 	for node in get_tree().get_nodes_in_group("ui_button"):
 		if node is Button:
 			buttons.append(node as Button)
@@ -61,6 +60,8 @@ func _get_level_path(level_number: int) -> String:
 #### Signals
 # Enemy signal
 func _on_enemy_pass_turn() -> void:
+	if not is_inside_tree():
+		return
 	_update_ui()
 	player_turn = true
 	_update_buttons_visibility(true)
@@ -80,6 +81,8 @@ func _on_enemy_died() -> void:
 
 # Player signals
 func _on_player_pass_turn() -> void:
+	if not is_inside_tree():
+		return
 	player_turn = false
 	_update_buttons_visibility(false)
 	_update_ui()
@@ -98,7 +101,6 @@ func _on_player_died() -> void:
 func _enemy_turn() -> void:
 	if player_turn:
 		return
-	
 	var actions: int = 2
 	var enemy_action: int = randi() % actions
 	match enemy_action:
