@@ -14,6 +14,10 @@ var enemy_node_path: NodePath
 var shader_tween: Tween
 
 func _ready() -> void:
+	# Connect timer timeout signal
+	var timeout_callable = Callable(self, "_on_timer_timeout")
+	if not timer.is_connected("timeout", timeout_callable):
+		timer.connect("timeout", timeout_callable)
 	# Delete the last 3 enemies
 	if enemy_died() or GameManager.player_flee:
 		player.position = GameManager.last_player_pos

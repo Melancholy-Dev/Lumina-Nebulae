@@ -1,11 +1,11 @@
 extends Area2D
 
 # Object type enum
-enum ObjectType { STAIRS_DOWN, STAIRS_UP, STAIRS_NEW_SCENE, STAIRS_OLD_SCENE }
+enum ObjectType { STAIRS_NEW_SCENE, STAIRS_OLD_SCENE }
 
 # Nodes
 @onready var dialogue_label: Node = $"../../UI/DialoguePanel/MarginContainer/DialogueLabel"
-@onready var stairs_area: Node = $"../../StairsArea1"
+@onready var stairs_area: Node = $"../../StairsLogic"
 
 # Variables
 @export var dialogue_text: String
@@ -37,10 +37,6 @@ func _on_area_body_exited(body: Node) -> void:
 func _process(_delta: float) -> void:
 	if interactable and _player_inside and Input.is_action_just_pressed("interact"):
 		match object_type:
-			ObjectType.STAIRS_DOWN:
-				stairs_area.go_up()
-			ObjectType.STAIRS_UP:
-				stairs_area.go_down()
 			ObjectType.STAIRS_NEW_SCENE:
 				stairs_area.new_scene()
 			ObjectType.STAIRS_OLD_SCENE:
