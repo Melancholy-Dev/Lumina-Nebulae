@@ -19,16 +19,14 @@ func _ready() -> void:
 	_fps_timer.timeout.connect(_on_fps_timer_timeout)
 	_fps_timer.start()
 	
-	# Get current hp and vyrn from the save file
+	# Get current hp and vyrn
 	hp_label.text = "HP: " + str(GameManager.player_hp)
 	vyrn_label.text = "Vyrn: " + str(GameManager.player_vyrn)
 	
-	# Connect to stamina signal
-	if player.is_connected("stamina_changed", Callable(self, "_on_player_stamina_changed")):
-		pass
-	else:
+	# Connect to stamina signal and get current amount
+	if not player.is_connected("stamina_changed", Callable(self, "_on_player_stamina_changed")):
 		player.stamina_changed.connect(_on_player_stamina_changed)
-	_on_player_stamina_changed(player.max_stamina)
+	_on_player_stamina_changed(GameManager.player_stamina)
 
 func _on_fps_timer_timeout() -> void:
 	var fps: int = round(Engine.get_frames_per_second())

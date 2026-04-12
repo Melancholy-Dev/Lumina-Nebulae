@@ -14,16 +14,11 @@ var enemy_node_path: NodePath
 var shader_tween: Tween
 
 func _ready() -> void:
-	# Connect timer timeout signal
-	var timeout_callable = Callable(self, "_on_timer_timeout")
-	if not timer.is_connected("timeout", timeout_callable):
-		timer.connect("timeout", timeout_callable)
 	# Delete the last 3 enemies
 	if enemy_died() or GameManager.player_flee:
 		player.position = GameManager.last_player_pos
 		GameManager.player_flee = false
 	# Animations
-	crt_animation.play("RESET")
 	crt_animation.play("brightness_fade_out")
 
 func _exit_tree() -> void:
@@ -72,7 +67,7 @@ func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
 
 func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		current_event = "none"
+		current_event = ""
 		# Animations
 		var mat = crt.material
 		if mat and mat is ShaderMaterial:

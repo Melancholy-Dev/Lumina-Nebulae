@@ -11,6 +11,11 @@ extends Control
 var button_type: String
 
 func _ready() -> void:
+	# Connect timer timeout signal
+	var timeout_callable = Callable(self, "_on_timer_timeout")
+	if not timer.is_connected("timeout", timeout_callable):
+		timer.connect("timeout", timeout_callable)
+	# Button focus
 	for node in get_tree().get_nodes_in_group("ui_button"):
 		if node is Button:
 			buttons.append(node as Button)
@@ -19,29 +24,29 @@ func _ready() -> void:
 
 ### Menu Buttons
 func _on_new_game_button_pressed() -> void:
-	button_type = "new_game"
-	timer.start()
 	crt_animation.play("brightness_fade_in")
+	timer.start()
+	button_type = "new_game"
 
 func _on_load_game_button_pressed() -> void:
 	pass
-	#button_type = "load_game"
 	#timer.start()
 	#crt_animation.play("brightness_fade_in")
+	#button_type = "load_game"
 
 func _on_option_button_pressed() -> void:
-	button_type = "options"
-	timer.start()
 	crt_animation.play("brightness_fade_in")
+	timer.start()
+	button_type = "options"
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
 ## Option Buttons
 func _on_exit_options_button_pressed() -> void:
-	button_type = "exit_options"
-	timer.start()
 	crt_animation.play("brightness_fade_in")
+	timer.start()
+	button_type = "exit_options"
 
 
 func _on_timer_timeout() -> void:

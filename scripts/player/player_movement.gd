@@ -6,8 +6,7 @@ extends CharacterBody2D
 
 # Variables
 @export var speed := 50.0
-@export var max_stamina := 50.0
-var current_stamina: float
+var max_stamina := GameManager.player_max_stamina
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 const RUN_MULTIPLIER := 2.0
 
@@ -25,10 +24,6 @@ var _last_stamina: float = 0.0
 # Signals
 signal stamina_changed(stamina: float)
 
-func _ready() -> void:
-	current_stamina = max_stamina
-	_last_stamina = current_stamina
-
 func _physics_process(delta: float) -> void:
 	# Gravity
 	if not is_on_floor():
@@ -39,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	var wants_run := Input.is_action_pressed("run") and direction != 0
 
 	# Stamina checks
-	var can_run := (current_stamina > 0.0)
+	var can_run := (GameManager.player_stamina > 0.0)
 	_is_running = wants_run and can_run
 
 	# Movement and animation
@@ -67,18 +62,18 @@ func _physics_process(delta: float) -> void:
 
 	# Stamina management
 	if _is_running:
-		current_stamina = max(0.0, current_stamina - stamina_consume_per_second * delta)
-		if current_stamina <= 0.0:
+		GameManager.player_stamina = max(0.0, GameManager.player_stamina - stamina_consume_per_second * delta)
+		if GameManager.player_stamina <= 0.0:
 			_is_running = false
 	else:
 		if _can_recover and direction == 0:
-			current_stamina = min(max_stamina, current_stamina + stamina_recover_per_second * delta)
-	current_stamina = clamp(current_stamina, 0.0, max_stamina)
+			GameManager.player_stamina = min(max_stamina, GameManager.player_stamina + stamina_recover_per_second * delta)
+	GameManager.player_stamina = clamp(GameManager.player_stamina, 0.0, max_stamina)
 	
 	# Emit signal only if stamina changed significantly to avoid excessive signal emissions
-	if abs(current_stamina - _last_stamina) > 0.1:
-		_last_stamina = current_stamina
-		emit_signal("stamina_changed", current_stamina)
+	if abs(GameManager.player_stamina - _last_stamina) > 0.1:
+		_last_stamina = GameManager.player_stamina
+		emit_signal("stamina_changed", GameManager.player_stamina)
 
 	move_and_slide()
 	position = position.snapped(Vector2(1, 1)) # Pixel perfect snap

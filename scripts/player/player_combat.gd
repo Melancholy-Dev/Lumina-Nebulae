@@ -10,12 +10,11 @@ func _ready() -> void:
 	init()
 
 func init() -> void:
-	hp = GameManager.player_max_hp
+	hp = GameManager.player_hp
 	max_hp = GameManager.player_max_hp
-	max_vyrn = GameManager.player_max_vyrn
 	vyrn = GameManager.player_vyrn
+	max_vyrn = GameManager.player_max_vyrn
 	attack_damage = GameManager.player_attack_damage
-	GameManager.player_hp = hp
 	# Placeholer, player will remember the current HP in future
 
 func receive_damage(amount: int) -> void:

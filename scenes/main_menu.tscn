@@ -132,11 +132,8 @@ theme = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 18
 text = " v0.1  By Melancholy "
 
-[connection signal="timeout" from="CanvasLayer/CRT/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="MenuButtons/NewGame/PanelContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MenuButtons/LoadGame/PanelContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="MenuButtons/Options/PanelContainer/OptionButton" to="." method="_on_option_button_pressed"]
 [connection signal="pressed" from="MenuButtons/Quit/PanelContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="OptionButtons/ExitOptions/PanelContainer/ExitOptionsButton" to="." method="_on_exit_options_button_pressed"]
-
-[editable path="CanvasLayer/CRT"]

@@ -173,9 +173,6 @@ script = ExtResource("7_p4se4")
 
 [node name="CRT" parent="UI" unique_id=341224663 instance=ExtResource("8_sibr7")]
 
-[node name="Timer" parent="UI/CRT" index="1" unique_id=2138271777]
-wait_time = 4.0
-
 [node name="Player" parent="." unique_id=1904494407 groups=["player"] instance=ExtResource("1_ra442")]
 position = Vector2(362, -56)
 collision_layer = 3
@@ -209,5 +206,3 @@ position = Vector2(337, -48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StairsLogic/Collision" unique_id=1766557227]
 shape = SubResource("SegmentShape2D_ibugp")
-
-[editable path="UI/CRT"]
