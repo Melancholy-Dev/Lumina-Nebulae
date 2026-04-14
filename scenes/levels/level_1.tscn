@@ -212,3 +212,6 @@ script = ExtResource("15_0qwwm")
 position = Vector2(209, -15)
 dialogue_text = "Go up (interact)"
 interactable = true
+
+[node name="OldPlayerPos" type="Node2D" parent="StairsLogic" unique_id=721852585]
+position = Vector2(194, -4)

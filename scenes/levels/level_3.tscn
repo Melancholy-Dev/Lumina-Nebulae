@@ -174,13 +174,13 @@ script = ExtResource("7_p4se4")
 [node name="CRT" parent="UI" unique_id=341224663 instance=ExtResource("8_sibr7")]
 
 [node name="Player" parent="." unique_id=1904494407 groups=["player"] instance=ExtResource("1_ra442")]
-position = Vector2(362, -56)
+position = Vector2(361, -56)
 collision_layer = 3
 collision_mask = 3
 
 [node name="Background" type="Sprite2D" parent="Player" unique_id=1913810567]
 z_index = -1
-position = Vector2(-45, -35)
+position = Vector2(-46, -35)
 scale = Vector2(90, 70)
 texture = ExtResource("2_fiq81")
 

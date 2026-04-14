@@ -181,7 +181,7 @@ tile_map_data = PackedByteArray("AAAdAP3/AAACAAEAAAAeAPz/AAACAAEAAAAeAP3/AAADAAE
 tile_set = SubResource("TileSet_ibugp")
 
 [node name="Player" parent="." unique_id=1904494407 groups=["player"] instance=ExtResource("1_ra442")]
-position = Vector2(362, -56)
+position = Vector2(361, -56)
 collision_layer = 3
 collision_mask = 3
 
@@ -219,3 +219,6 @@ shape = SubResource("SegmentShape2D_ibugp")
 position = Vector2(1067, -67)
 dialogue_text = "Go down (interact)"
 interactable = true
+
+[node name="OldPlayerPos" type="Node2D" parent="StairsLogic" unique_id=1719154139]
+position = Vector2(1054, -56)

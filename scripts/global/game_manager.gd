@@ -3,12 +3,13 @@ extends Node
 ## Memory variables
 var last_enemy_sprite_state: Dictionary
 var current_enemy: NodePath
-var last_enemy: NodePath
+var last_enemy1: NodePath
 var last_enemy2: NodePath
 var last_enemy3: NodePath
 var is_last_enemy_died: bool
 var enemies_died: int
 var last_player_pos: Vector2
+var player_going_to_old_scene: bool
 var player_flee: bool
 var current_level: int # 0 = Main Menu
 
@@ -38,7 +39,7 @@ func init_player(_max_stamina: float, _max_hp: int, _max_vyrn: int, _attack_dama
 func order_enemies_died() -> void:
 	if last_enemy2 != null:
 		last_enemy3 = last_enemy2
-	if last_enemy != null:
-		last_enemy2 = last_enemy
+	if last_enemy1 != null:
+		last_enemy2 = last_enemy1
 	if current_enemy != null:
-		last_enemy = current_enemy
+		last_enemy1 = current_enemy

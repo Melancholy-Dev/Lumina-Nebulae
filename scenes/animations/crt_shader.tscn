@@ -101,4 +101,7 @@ color = Color(1, 1, 1, 0.341176)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1070575893]
 libraries/ = SubResource("AnimationLibrary_6l0m3")
 
-[node name="Timer" type="Timer" parent="." unique_id=2138271777]
+[node name="TimerCombat" type="Timer" parent="." unique_id=1276985848]
+wait_time = 4.0
+
+[node name="TimerFade" type="Timer" parent="." unique_id=2138271777]

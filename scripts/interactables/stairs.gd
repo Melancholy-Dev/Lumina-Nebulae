@@ -3,7 +3,7 @@ extends Node
 # Nodes
 @onready var player: CharacterBody2D = $"../Player"
 @onready var crt_animation: AnimationPlayer = $"../UI/CRT/AnimationPlayer"
-@onready var timer: Timer = $"../UI/CRT/Timer"
+@onready var timer_fade: Timer = $"../UI/CRT/TimerFade"
 
 # Variables
 var scene_type: String = ""
@@ -13,23 +13,21 @@ const LEVEL_PATH_SUFFIX: String = ".tscn"
 
 func _ready() -> void:
 	var timeout_callable = Callable(self, "_on_timer_timeout")
-	if not timer.is_connected("timeout", timeout_callable):
-		timer.connect("timeout", timeout_callable)
+	if not timer_fade.is_connected("timeout", timeout_callable):
+		timer_fade.connect("timeout", timeout_callable)
 
 func new_scene() -> void:
 	crt_animation.play("brightness_fade_in")
-	timer.start()
+	timer_fade.start()
 	scene_type = "new"
-	#await get_tree().create_timer(FADE_DURATION).timeout
 	# Game lock (player actions (interact and movement), enemies, etc...)
 	# Clear enemies died on Gamemanager
 	
 
 func old_scene() -> void:
 	crt_animation.play("brightness_fade_in")
-	timer.start()
+	timer_fade.start()
 	scene_type = "old"
-	#await get_tree().create_timer(FADE_DURATION).timeout
 	# Game lock (player actions (interact and movement), enemies, etc...)
 	# Clear enemies died on Gamemanager
 
@@ -41,6 +39,6 @@ func _on_timer_timeout() -> void:
 		GameManager.current_level += 1
 	elif scene_type == "old":
 		GameManager.current_level -= 1
+		GameManager.player_going_to_old_scene = true
 	var scene_path = _get_level_path(GameManager.current_level)
 	get_tree().change_scene_to_file(scene_path)
-	# Collego segnale timer

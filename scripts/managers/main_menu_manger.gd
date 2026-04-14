@@ -1,7 +1,7 @@
 extends Control
 
 # Nodes
-@onready var timer: Timer = $CanvasLayer/CRT/Timer
+@onready var timer_fade: Timer = $CanvasLayer/CRT/TimerFade
 @onready var crt_animation: AnimationPlayer = $CanvasLayer/CRT/AnimationPlayer
 @onready var option_buttons: VBoxContainer = $OptionButtons
 @onready var menu_buttons: VBoxContainer = $MenuButtons
@@ -13,8 +13,8 @@ var button_type: String
 func _ready() -> void:
 	# Connect timer timeout signal
 	var timeout_callable = Callable(self, "_on_timer_timeout")
-	if not timer.is_connected("timeout", timeout_callable):
-		timer.connect("timeout", timeout_callable)
+	if not timer_fade.is_connected("timeout", timeout_callable):
+		timer_fade.connect("timeout", timeout_callable)
 	# Button focus
 	for node in get_tree().get_nodes_in_group("ui_button"):
 		if node is Button:
@@ -25,7 +25,7 @@ func _ready() -> void:
 ### Menu Buttons
 func _on_new_game_button_pressed() -> void:
 	crt_animation.play("brightness_fade_in")
-	timer.start()
+	timer_fade.start()
 	button_type = "new_game"
 
 func _on_load_game_button_pressed() -> void:
@@ -36,7 +36,7 @@ func _on_load_game_button_pressed() -> void:
 
 func _on_option_button_pressed() -> void:
 	crt_animation.play("brightness_fade_in")
-	timer.start()
+	timer_fade.start()
 	button_type = "options"
 
 func _on_quit_button_pressed() -> void:
@@ -45,7 +45,7 @@ func _on_quit_button_pressed() -> void:
 ## Option Buttons
 func _on_exit_options_button_pressed() -> void:
 	crt_animation.play("brightness_fade_in")
-	timer.start()
+	timer_fade.start()
 	button_type = "exit_options"
 
 

@@ -5,7 +5,8 @@ extends Node
 @onready var crt: ColorRect = $"../../UI/CRT"
 @onready var audio_manager: Node = $"../AudioManager"
 @onready var crt_animation: AnimationPlayer = $"../../UI/CRT/AnimationPlayer"
-@onready var timer: Timer = $"../../UI/CRT/Timer"
+@onready var timer_combat: Timer = $"../../UI/CRT/TimerCombat"
+@onready var old_player_pos: Node2D = $"../../StairsLogic/OldPlayerPos"
 
 # Variables
 const SHADER_NOISE_PARAM: String = "shader_parameter/static_noise_intensity"
@@ -14,10 +15,27 @@ var enemy_node_path: NodePath
 var shader_tween: Tween
 
 func _ready() -> void:
+	# Connect combat timer signal
+	var timeout_callable = Callable(self, "_on_timer_timeout")
+	if not timer_combat.is_connected("timeout", timeout_callable):
+		timer_combat.connect("timeout", timeout_callable)
 	# Delete the last 3 enemies
 	if enemy_died() or GameManager.player_flee:
 		player.position = GameManager.last_player_pos
 		GameManager.player_flee = false
+	# Go to old scene
+	if GameManager.player_going_to_old_scene:
+		GameManager.last_player_pos = old_player_pos.position
+		player.position = GameManager.last_player_pos
+		var player_sprite = player.get_node_or_null("Sprite")
+		if player_sprite:
+			player_sprite.set_flip_h(true)
+		GameManager.last_enemy1 = ""
+		GameManager.last_enemy2 = ""
+		GameManager.last_enemy3 = ""
+		GameManager.player_going_to_old_scene = false
+	else:
+		GameManager.player_going_to_old_scene = false
 	# Animations
 	crt_animation.play("brightness_fade_out")
 
@@ -29,7 +47,7 @@ func enemy_died() -> bool:
 	if not GameManager.is_last_enemy_died:
 		return false
 	var paths = [
-		GameManager.last_enemy,
+		GameManager.last_enemy1,
 		GameManager.last_enemy2,
 		GameManager.last_enemy3
 	]
@@ -58,7 +76,7 @@ func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
 		# Animations
 		var mat = crt.material
 		if mat and mat is ShaderMaterial:
-			timer.start()
+			timer_combat.start()
 			audio_manager.start_crt_audio_crossfade(4.0)
 			if shader_tween:
 				shader_tween.kill()
@@ -71,7 +89,7 @@ func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
 		# Animations
 		var mat = crt.material
 		if mat and mat is ShaderMaterial:
-			timer.stop()
+			timer_combat.stop()
 			audio_manager.stop_crt_audio_crossfade()
 			if shader_tween:
 				shader_tween.kill()
