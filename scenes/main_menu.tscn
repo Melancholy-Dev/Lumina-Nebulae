@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfj5nveqyncc3" path="res://scripts/managers/main_menu_manger.gd" id="1_l6cm7"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="2_ekxnf"]
-[ext_resource type="AudioStream" uid="uid://cp3est4sglell" path="res://assets/audio/sounds/crt_1.mp3" id="2_wu84c"]
+[ext_resource type="AudioStream" uid="uid://d0nuoulxnoo4d" path="res://assets/audio/music/crt_base.wav" id="2_wu84c"]
 [ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="3_wu84c"]
 
 [node name="MainMenu" type="Control" unique_id=733394764]
@@ -14,10 +14,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l6cm7")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=925106038]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=713897701]
 stream = ExtResource("2_wu84c")
 autoplay = true
-parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1316084350]
 

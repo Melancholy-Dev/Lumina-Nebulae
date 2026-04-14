@@ -6,8 +6,8 @@
 [ext_resource type="Script" uid="uid://x6x68q4mm1sp" path="res://scripts/managers/audio_manager.gd" id="2_r88tb"]
 [ext_resource type="AudioStream" uid="uid://dxatojidfioce" path="res://assets/audio/music/dungeon1.wav" id="3_1yj8c"]
 [ext_resource type="Texture2D" uid="uid://3k65e4cqs0r1" path="res://assets/sprites/tilesets/tileset_1.png" id="3_l37oo"]
+[ext_resource type="AudioStream" uid="uid://bchbb6jm264qo" path="res://assets/audio/sounds/crt_noise.wav" id="4_1yj8c"]
 [ext_resource type="Script" uid="uid://bqy3dw4m75rt4" path="res://scripts/interactables/stairs.gd" id="4_l37oo"]
-[ext_resource type="AudioStream" uid="uid://bqlxg653arg0x" path="res://assets/audio/sounds/crt_2.mp3" id="4_ndlae"]
 [ext_resource type="PackedScene" uid="uid://dqi6bui3f2kbr" path="res://scenes/game_components/dialogue_area.tscn" id="5_qpwj6"]
 [ext_resource type="Script" uid="uid://dwl7lexbhjsuc" path="res://scripts/ui.gd" id="5_v8d84"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="6_gw1l3"]
@@ -94,7 +94,7 @@ stream = ExtResource("3_1yj8c")
 autoplay = true
 
 [node name="FadeCRT" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=916778152]
-stream = ExtResource("4_ndlae")
+stream = ExtResource("4_1yj8c")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1813337583]
 script = ExtResource("5_v8d84")
