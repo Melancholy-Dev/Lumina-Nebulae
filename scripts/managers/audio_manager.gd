@@ -1,8 +1,8 @@
 extends Node
 
 # Nodes
-@onready var player_a: AudioStreamPlayer = $"../../AudioStreamPlayer"
-@onready var player_b: AudioStreamPlayer = $"../../AudioStreamPlayer/FadeCRT"
+@onready var player_a: AudioStreamPlayer = get_node_or_null("../../AudioStreamPlayer")
+@onready var player_b: AudioStreamPlayer = get_node_or_null("../../AudioStreamPlayer/FadeCRT")
 
 # Variables
 const EPSILON: float = 0.0001

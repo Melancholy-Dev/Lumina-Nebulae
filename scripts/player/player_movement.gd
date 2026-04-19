@@ -3,12 +3,21 @@ extends CharacterBody2D
 # Nodes
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var collision: CollisionPolygon2D = $Collision
+@onready var footstep_player: AudioStreamPlayer = $Footstep
 
 # Variables
 @export var speed := 50.0
 var max_stamina := GameManager.player_max_stamina
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 const RUN_MULTIPLIER := 2.0
+
+# Footstep timing
+@export var base_step_interval := 0.45
+@export var run_step_multiplier := 0.6
+@export var run_pitch_multiplier := 1.25
+var _step_timer := 0.0
+var _was_moving := false
+const MOVE_EPS := 8.0 # Ignore tiny movements
 
 # Stamina settings
 @export var stamina_consume_per_second := 20.0
@@ -24,12 +33,20 @@ var _last_stamina: float = 0.0
 # Signals
 signal stamina_changed(stamina: float)
 
+func _play_footstep(running: bool) -> void:
+	var pitch = (run_pitch_multiplier if running else 1.0)
+	footstep_player.pitch_scale = pitch
+	if footstep_player.playing:
+		footstep_player.stop()
+	footstep_player.play()
+	_step_timer = 0.0
+
 func _physics_process(delta: float) -> void:
 	# Gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Horizontal movement
+	# Horizontal movement input
 	var direction := Input.get_axis("move_left", "move_right")
 	var wants_run := Input.is_action_pressed("run") and direction != 0
 
@@ -59,6 +76,23 @@ func _physics_process(delta: float) -> void:
 		_time_idle += delta
 		if _time_idle >= STAMINA_RECHARGE_DELAY:
 			_can_recover = true
+		# Reset footstep timer when stopped
+		_step_timer = 0.0
+
+	# Determine actual movement (use velocity to avoid tiny input glitches)
+	var is_moving = abs(velocity.x) > MOVE_EPS and is_on_floor()
+
+	# Immediate first step on start moving
+	if is_moving and not _was_moving:
+		_play_footstep(_is_running)
+
+	# Footstep continuous handling when moving
+	if is_moving:
+		var interval = base_step_interval * (run_step_multiplier if _is_running else 1.0)
+		_step_timer += delta
+		if _step_timer >= interval:
+			_play_footstep(_is_running)
+	_was_moving = is_moving
 
 	# Stamina management
 	if _is_running:

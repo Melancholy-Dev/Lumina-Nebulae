@@ -5,10 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://cmgr8p3shc5c5" path="res://assets/sprites/entities/enemies/monster_1.png" id="3_aic3r"]
 [ext_resource type="Script" uid="uid://x6x68q4mm1sp" path="res://scripts/managers/audio_manager.gd" id="3_sa5k0"]
 [ext_resource type="Script" uid="uid://bmr81birkbyxn" path="res://scripts/player/player_combat.gd" id="3_vcae8"]
-[ext_resource type="AudioStream" path="res://assets/audio/sounds/crt_2.mp3" id="4_4gnb8"]
 [ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="4_osi8t"]
 [ext_resource type="Script" uid="uid://da52jdam7jj62" path="res://scripts/enemy/enemy_combat.gd" id="4_p71o4"]
 [ext_resource type="AudioStream" uid="uid://bc6r63wr8amhs" path="res://assets/audio/music/combat1.wav" id="4_sa5k0"]
+[ext_resource type="AudioStream" uid="uid://kvo4j22gji0n" path="res://assets/audio/sounds/menu/menu_focus.wav" id="5_8we11"]
+[ext_resource type="AudioStream" uid="uid://qtsjrooow68q" path="res://assets/audio/sounds/menu/menu_select.wav" id="6_hrcy2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcae8"]
 atlas = ExtResource("3_aic3r")
@@ -51,8 +52,11 @@ script = ExtResource("3_sa5k0")
 stream = ExtResource("4_sa5k0")
 autoplay = true
 
-[node name="FadeCRT" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=934675789]
-stream = ExtResource("4_4gnb8")
+[node name="MenuFocus" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1777097302]
+stream = ExtResource("5_8we11")
+
+[node name="MenuSelect" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1316911252]
+stream = ExtResource("6_hrcy2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=673724322]
 
@@ -223,9 +227,13 @@ layout_mode = 2
 layout_mode = 2
 text = "Vyrn: "
 
+[connection signal="focus_entered" from="Buttons/Fight/PanelContainer/FightButton" to="CombatManager" method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons/Fight/PanelContainer/FightButton" to="CombatManager" method="_on_fight_button_pressed"]
+[connection signal="focus_entered" from="Buttons/Spell/PanelContainer/SpellButton" to="CombatManager" method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons/Spell/PanelContainer/SpellButton" to="CombatManager" method="_on_spell_button_pressed"]
+[connection signal="focus_entered" from="Buttons/Item/PanelContainer/ItemButton" to="CombatManager" method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons/Item/PanelContainer/ItemButton" to="CombatManager" method="_on_item_button_pressed"]
+[connection signal="focus_entered" from="Buttons/Flee/PanelContainer/FleeButton" to="CombatManager" method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons/Flee/PanelContainer/FleeButton" to="CombatManager" method="_on_flee_button_pressed"]
 [connection signal="damaged" from="Player" to="CombatManager" method="_on_player_damaged"]
 [connection signal="died" from="Player" to="CombatManager" method="_on_player_died"]

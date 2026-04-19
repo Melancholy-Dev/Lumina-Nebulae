@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://03w20g65gpqi" path="res://scripts/player/player_movement.gd" id="1_d6yu0"]
 [ext_resource type="Texture2D" uid="uid://og62ah50kxef" path="res://assets/sprites/entities/player/player_move.png" id="1_yn15a"]
+[ext_resource type="AudioStream" uid="uid://dtlnungc0getk" path="res://assets/audio/sounds/player_footstep.wav" id="3_ftlf1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_prsjk"]
 atlas = ExtResource("1_yn15a")
@@ -48,3 +49,7 @@ centered = false
 
 [node name="Collision" type="CollisionPolygon2D" parent="." unique_id=423117640]
 polygon = PackedVector2Array(4, -4, 4, 4, -3, 4, -3, -4)
+
+[node name="Footstep" type="AudioStreamPlayer" parent="." unique_id=521774748]
+stream = ExtResource("3_ftlf1")
+volume_db = -5.0

@@ -3,7 +3,7 @@ extends Node
 # Nodes
 @onready var player: CharacterBody2D = $"../../Player"
 @onready var crt: ColorRect = $"../../UI/CRT"
-@onready var audio_manager: Node = $"../AudioManager"
+@onready var audio_manager: Node = get_node_or_null("../AudioManager")
 @onready var crt_animation: AnimationPlayer = $"../../UI/CRT/AnimationPlayer"
 @onready var timer_combat: Timer = $"../../UI/CRT/TimerCombat"
 @onready var old_player_pos: Node2D = $"../../StairsLogic/OldPlayerPos"

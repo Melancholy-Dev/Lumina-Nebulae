@@ -1,9 +1,7 @@
 [gd_scene format=4 uid="uid://cqebyl3mg3hy1"]
 
 [ext_resource type="Script" uid="uid://bef7d2ak5ue5r" path="res://scripts/managers/event_manager.gd" id="1_wtwp4"]
-[ext_resource type="Script" uid="uid://x6x68q4mm1sp" path="res://scripts/managers/audio_manager.gd" id="2_iwr0g"]
 [ext_resource type="AudioStream" uid="uid://d0nuoulxnoo4d" path="res://assets/audio/music/crt_base.wav" id="3_dnkej"]
-[ext_resource type="AudioStream" uid="uid://bchbb6jm264qo" path="res://assets/audio/sounds/crt_noise.wav" id="3_iav0o"]
 [ext_resource type="Script" uid="uid://dwl7lexbhjsuc" path="res://scripts/ui.gd" id="5_v6ha0"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="6_gmpev"]
 [ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/dialogues/dialogue_label.gd" id="7_mkypq"]
@@ -85,15 +83,9 @@ metadata/_edit_vertical_guides_ = [180.0]
 [node name="EventManager" type="Node" parent="SceneManagers" unique_id=328384703]
 script = ExtResource("1_wtwp4")
 
-[node name="AudioManager" type="Node" parent="SceneManagers" unique_id=755704718]
-script = ExtResource("2_iwr0g")
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=618410624]
 stream = ExtResource("3_dnkej")
 autoplay = true
-
-[node name="FadeCRT" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1510696248]
-stream = ExtResource("3_iav0o")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1608446850]
 script = ExtResource("5_v6ha0")

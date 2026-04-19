@@ -10,6 +10,8 @@ extends Node
 @onready var player: Node = $"../Player"
 @onready var enemy: Node = $"../Enemy"
 @onready var enemy_sprite: AnimatedSprite2D = $"../Enemy/EnemySprite"
+@onready var menu_focus: AudioStreamPlayer = $"../AudioStreamPlayer/MenuFocus"
+@onready var menu_select: AudioStreamPlayer = $"../AudioStreamPlayer/MenuSelect"
 
 # Constants
 const LEVEL_PATH_PREFIX: String = "res://scenes/levels/level_"
@@ -56,6 +58,8 @@ func _update_buttons_visibility(visible: bool) -> void:
 func _get_level_path(level_number: int) -> String:
 	return LEVEL_PATH_PREFIX + str(level_number) + LEVEL_PATH_SUFFIX
 
+func _on_button_focus_entered() -> void:
+	menu_focus.play()
 
 #### Signals
 # Enemy signal
@@ -117,11 +121,13 @@ func _enemy_turn() -> void:
 # Player actions
 func _on_fight_button_pressed() -> void:
 	print("Player perform attack")
+	menu_select.play()
 	player.perform_attack()
 	player.emit_signal("pass_turn")
 
 func _on_spell_button_pressed() -> bool:
 	print("Player perform spell")
+	menu_select.play() # Insert different sound if player can't perform spell
 	if (GameManager.player_vyrn >= player_spell_1_cost):
 		GameManager.player_vyrn -= player_spell_1_cost
 		player.perform_attack()
@@ -133,9 +139,10 @@ func _on_spell_button_pressed() -> bool:
 		return false
 
 func _on_item_button_pressed() -> void:
-	pass
+	menu_select.play()
 
-func _on_flee_button_pressed() -> void:
+func _on_flee_button_pressed() -> void: # TODO: Player may not flee in some condition
+	menu_select.play()
 	GameManager.player_flee = true
 	var scene_path = _get_level_path(GameManager.current_level)
 	get_tree().change_scene_to_file(scene_path)

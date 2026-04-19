@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://cfj5nveqyncc3" path="res://scripts/managers/main_menu_manger.gd" id="1_l6cm7"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="2_ekxnf"]
 [ext_resource type="AudioStream" uid="uid://d0nuoulxnoo4d" path="res://assets/audio/music/crt_base.wav" id="2_wu84c"]
+[ext_resource type="AudioStream" uid="uid://kvo4j22gji0n" path="res://assets/audio/sounds/menu/menu_focus.wav" id="3_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="3_wu84c"]
+[ext_resource type="AudioStream" uid="uid://qtsjrooow68q" path="res://assets/audio/sounds/menu/menu_select.wav" id="4_oa1go"]
 
 [node name="MainMenu" type="Control" unique_id=733394764]
 layout_mode = 3
@@ -17,6 +19,12 @@ script = ExtResource("1_l6cm7")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=713897701]
 stream = ExtResource("2_wu84c")
 autoplay = true
+
+[node name="MenuFocus" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1817881065]
+stream = ExtResource("3_rtw2f")
+
+[node name="MenuSelect" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=22042929]
+stream = ExtResource("4_oa1go")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1316084350]
 
@@ -131,8 +139,12 @@ theme = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 18
 text = " v0.1  By Melancholy "
 
+[connection signal="focus_entered" from="MenuButtons/NewGame/PanelContainer/NewGameButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuButtons/NewGame/PanelContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="focus_entered" from="MenuButtons/LoadGame/PanelContainer/LoadGameButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuButtons/LoadGame/PanelContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="focus_entered" from="MenuButtons/Options/PanelContainer/OptionButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuButtons/Options/PanelContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="focus_entered" from="MenuButtons/Quit/PanelContainer/QuitButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuButtons/Quit/PanelContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="OptionButtons/ExitOptions/PanelContainer/ExitOptionsButton" to="." method="_on_exit_options_button_pressed"]
