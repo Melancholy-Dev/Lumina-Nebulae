@@ -5,7 +5,8 @@ The repository contains a prototype of the game, that is still in WIP (Work In P
 https://discord.gg/qR6hWDKmfN
 
 The game is available on Itch.io:
-<iframe frameborder="0" src="https://itch.io/embed/4770604?bg_color=342455&amp;fg_color=8c77a8&amp;link_color=664682&amp;border_color=483b5a" width="552" height="167"><a href="https://melancholydev.itch.io/lumina-nebulae">Lumina Nebulae by Melancholy</a></iframe>
+[![Lumina Nebulae](https://i.ibb.co/5X355smc/ln-example.png)](https://melancholydev.itch.io/lumina-nebulae)
+
 
 ## Project Lumina
 
