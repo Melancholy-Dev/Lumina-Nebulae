@@ -4,7 +4,8 @@ Lumina Nebulae is a small open-source, 8-bit style RPG.
 The repository contains a prototype of the game, that is still in WIP (Work In Progress). Future real-time updates will be uploaded here. If you want to learn more, you can join the official Project Lumina Discord server:
 https://discord.gg/qR6hWDKmfN
 
-![Screenshot](https://i.ibb.co/cXtDGqBd/Lumina-Nebulae.jpg)
+The game is available on Itch.io:
+<iframe frameborder="0" src="https://itch.io/embed/4770604?bg_color=342455&amp;fg_color=8c77a8&amp;link_color=664682&amp;border_color=483b5a" width="552" height="167"><a href="https://melancholydev.itch.io/lumina-nebulae">Lumina Nebulae by Melancholy</a></iframe>
 
 ## Project Lumina
 
@@ -16,7 +17,7 @@ https://discord.gg/qR6hWDKmfN
 
 The game can be downloaded in two ways:
 
-1. **Official method** — Download the game from Github on the releases section or Itch.io (When it becomes available)
+1. **Official method** — Download the game from GitHub on the releases section or Itch.io (When it becomes available)
 
 2. **Source method** — Download the project source code from this repository and export the game with Godot 4.5 (or play it straight from the engine).
 
