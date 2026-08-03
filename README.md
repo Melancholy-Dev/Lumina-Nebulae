@@ -44,6 +44,12 @@ To add your name to the contributors list:
 
 This section still needs improvement and expansion. If your question is not here, please open an issue with a clear title and steps to help us reproduce the problem. Thank you for helping improve the manual!
 
+## AI Disclaimer
+
+We place great value on human work and creativity. We started developing games and products because we strongly believe in these ideas, in which brainstorming and authentic idea generation are part of our process. For this reason, no AI was used, neither fully nor partially, in the creation of our concepts, mechanics, level design, assets (graphics, drawings, sprites, fonts, sounds, music, etc...) or in any part of our creative writing (story, dialogue, etc...).
+
+We believe AI tools are innovative productivity tools that should be used critically and intelligently, as support for people, not as a replacement, and never abused. We only use AI occasionally for coding tasks, such as optimization or solving very difficult bugs or issues, and even then, all changes are carefully reviewed, fully understood, and adapted to the codebase when needed. We also use AI to check and correct possible grammar errors, in order to guarantee high quality products.
+
 # Copyright and license
 
 Copyright © 2023 Project Lumina - Coetus Interactive
