@@ -64,12 +64,13 @@ position = Vector2(150, 0)
 
 [node name="Components" type="Node" parent="." unique_id=3141592653]
 
-[node name="EnemyMovement" type="Node" parent="Components" unique_id=1395560340 node_paths=PackedStringArray("body", "sprite", "movement_range")]
+[node name="EnemyMovement" type="Node" parent="Components" unique_id=1395560340 node_paths=PackedStringArray("body", "sprite", "movement_range", "trigger_area")]
 unique_name_in_owner = true
 script = ExtResource("1_86jlf")
 body = NodePath("../..")
 sprite = NodePath("../../Sprite")
 movement_range = NodePath("../../MovementRange")
+trigger_area = NodePath("../../CombatTriggerArea")
 
 [node name="EnemyStats" type="Node" parent="Components" unique_id=4928374651 node_paths=PackedStringArray()]
 unique_name_in_owner = true
