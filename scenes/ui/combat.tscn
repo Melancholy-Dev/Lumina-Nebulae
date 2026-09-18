@@ -1,0 +1,214 @@
+[gd_scene format=3 uid="uid://ccnfx0thkxhpm"]
+
+[ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://resources/themes/ln_theme.tres" id="1_qajva"]
+[ext_resource type="Texture2D" uid="uid://cmgr8p3shc5c5" path="res://assets/sprites/entities/enemies/monster_1.png" id="3_aic3r"]
+[ext_resource type="Script" uid="uid://c3pmfglf6ftky" path="res://scripts/components/combat/combat_system.gd" id="6_m8n0p"]
+[ext_resource type="Script" uid="uid://uq1jktwftw4j" path="res://scripts/components/ui/enemy_state_label.gd" id="7_k7m9n"]
+[ext_resource type="Script" uid="uid://bpglenlmbw60r" path="res://scripts/components/ui/player_combat_hud.gd" id="8_p2q4r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcae8"]
+atlas = ExtResource("3_aic3r")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osi8t"]
+atlas = ExtResource("3_aic3r")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4gnb8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcae8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_osi8t")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Combat" type="Control" unique_id=1924604579]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qajva")
+
+[node name="CombatSystem" type="Node" parent="." unique_id=-961633963 node_paths=PackedStringArray("ui_buttons", "enemy_state_label", "player_combat_hud", "enemy_sprite")]
+script = ExtResource("6_m8n0p")
+ui_buttons = NodePath("../Buttons")
+enemy_state_label = NodePath("../Enemy/EnemyState/StateContainer/PanelContainer/StateLabel")
+player_combat_hud = NodePath("../PlayerCombatHUD")
+enemy_sprite = NodePath("../Enemy/EnemySprite")
+
+[node name="Background" type="ColorRect" parent="." unique_id=472091335]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882354, 0.050980393, 0.20784314, 1)
+
+[node name="Buttons" type="Control" parent="." unique_id=995184570]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Fight" type="MarginContainer" parent="Buttons" unique_id=322750037]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 65.00001
+offset_bottom = 36.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Fight" unique_id=1157654769]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="FightButton" type="Button" parent="Buttons/Fight/PanelContainer" unique_id=889658604 groups=["ui_button"]]
+layout_mode = 2
+text = "Fight"
+
+[node name="Spell" type="MarginContainer" parent="Buttons" unique_id=362389139]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 135.0
+offset_top = 5.0
+offset_right = 195.0
+offset_bottom = 36.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Spell" unique_id=3259709]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="SpellButton" type="Button" parent="Buttons/Spell/PanelContainer" unique_id=1072841791 groups=["ui_button"]]
+layout_mode = 2
+text = "Spell"
+
+[node name="Item" type="MarginContainer" parent="Buttons" unique_id=1063963364]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 104.0
+offset_right = 65.0
+offset_bottom = 135.0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Item" unique_id=408399799]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="ItemButton" type="Button" parent="Buttons/Item/PanelContainer" unique_id=761986668 groups=["ui_button"]]
+layout_mode = 2
+text = "Item"
+
+[node name="Flee" type="MarginContainer" parent="Buttons" unique_id=235350644]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 135.0
+offset_top = 104.0
+offset_right = 195.0
+offset_bottom = 135.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons/Flee" unique_id=513248926]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="FleeButton" type="Button" parent="Buttons/Flee/PanelContainer" unique_id=2111243351 groups=["ui_button"]]
+layout_mode = 2
+text = "Flee"
+
+[node name="Enemy" type="Control" parent="." unique_id=520077783]
+anchors_preset = 0
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="Enemy" unique_id=623050997]
+position = Vector2(120, 90)
+scale = Vector2(7, 7)
+sprite_frames = SubResource("SpriteFrames_4gnb8")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.00534351
+
+[node name="EnemyState" type="VBoxContainer" parent="Enemy" unique_id=104521520]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 79.5
+offset_top = 154.0
+offset_right = 160.5
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StateContainer" type="MarginContainer" parent="Enemy/EnemyState" unique_id=396503623]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="Enemy/EnemyState/StateContainer" unique_id=650540787]
+layout_mode = 2
+
+[node name="StateLabel" type="Label" parent="Enemy/EnemyState/StateContainer/PanelContainer" unique_id=905524064]
+unique_name_in_owner = true
+layout_mode = 2
+text = "State: Healthy"
+script = ExtResource("7_k7m9n")
+
+[node name="PlayerCombatHUD" type="VBoxContainer" parent="." unique_id=1509296310 node_paths=PackedStringArray("hp_label", "vyrn_label")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -13.0
+offset_right = 44.0
+offset_bottom = 13.0
+grow_vertical = 2
+script = ExtResource("8_p2q4r")
+hp_label = NodePath("HpContainer/PanelContainer/HpLabel")
+vyrn_label = NodePath("Vyrn/PanelContainer/VyrnLabel")
+
+[node name="HpContainer" type="MarginContainer" parent="PlayerCombatHUD" unique_id=1528044605]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayerCombatHUD/HpContainer" unique_id=582649039]
+layout_mode = 2
+
+[node name="HpLabel" type="Label" parent="PlayerCombatHUD/HpContainer/PanelContainer" unique_id=918646838]
+layout_mode = 2
+text = "HP: "
+
+[node name="Vyrn" type="MarginContainer" parent="PlayerCombatHUD" unique_id=1780426770]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayerCombatHUD/Vyrn" unique_id=546243044]
+layout_mode = 2
+
+[node name="VyrnLabel" type="Label" parent="PlayerCombatHUD/Vyrn/PanelContainer" unique_id=1512619902]
+layout_mode = 2
+text = "Vyrn: "

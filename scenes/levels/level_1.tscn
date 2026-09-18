@@ -1,16 +1,8 @@
 [gd_scene format=4 uid="uid://cqebyl3mg3hy1"]
 
-[ext_resource type="Script" uid="uid://bef7d2ak5ue5r" path="res://scripts/managers/event_manager.gd" id="1_wtwp4"]
-[ext_resource type="AudioStream" uid="uid://d0nuoulxnoo4d" path="res://assets/audio/music/crt_base.wav" id="3_dnkej"]
-[ext_resource type="Script" uid="uid://dwl7lexbhjsuc" path="res://scripts/ui.gd" id="5_v6ha0"]
-[ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://LNTheme.tres" id="6_gmpev"]
-[ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/dialogues/dialogue_label.gd" id="7_mkypq"]
-[ext_resource type="PackedScene" uid="uid://dgh3h4yx7v42" path="res://scenes/animations/crt_shader.tscn" id="8_ndtll"]
+[ext_resource type="Script" uid="uid://c4ie0bx0dhqei" path="res://scripts/components/interactables/interactable.gd" id="3_nsrm0"]
+[ext_resource type="Script" uid="uid://c0gounpw40b4d" path="res://scripts/components/dialogues/dialogue_area.gd" id="4_x42e6"]
 [ext_resource type="Texture2D" uid="uid://3k65e4cqs0r1" path="res://assets/sprites/tilesets/tileset_1.png" id="9_7h2jl"]
-[ext_resource type="PackedScene" uid="uid://13gt6vqyu6py" path="res://scenes/game_components/player.tscn" id="10_mqh5v"]
-[ext_resource type="Texture2D" uid="uid://c0g3eeoe2ecgl" path="res://assets/sprites/backgrounds/bg_1.png" id="11_7o3do"]
-[ext_resource type="PackedScene" uid="uid://dqi6bui3f2kbr" path="res://scenes/game_components/dialogue_area.tscn" id="14_x7jkp"]
-[ext_resource type="Script" uid="uid://bqy3dw4m75rt4" path="res://scripts/interactables/stairs.gd" id="15_0qwwm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iav0o"]
 texture = ExtResource("9_7h2jl")
@@ -75,114 +67,17 @@ sources/0 = SubResource("TileSetAtlasSource_iav0o")
 a = Vector2(0, -87)
 b = Vector2(0, 0)
 
-[node name="Level1" type="Node" unique_id=1466652594]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6761a"]
+size = Vector2(15, 30)
+
+[node name="Level1" type="Node2D" unique_id=209022164]
 metadata/_edit_vertical_guides_ = [180.0]
-
-[node name="SceneManagers" type="Node" parent="." unique_id=1200205382]
-
-[node name="EventManager" type="Node" parent="SceneManagers" unique_id=328384703]
-script = ExtResource("1_wtwp4")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=618410624]
-stream = ExtResource("3_dnkej")
-autoplay = true
-
-[node name="UI" type="CanvasLayer" parent="." unique_id=1608446850]
-script = ExtResource("5_v6ha0")
-
-[node name="PlayerStats" type="VBoxContainer" parent="UI" unique_id=1954364479]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = -5.0
-grow_vertical = 0
-size_flags_vertical = 8
-alignment = 2
-
-[node name="Stamina" type="PanelContainer" parent="UI/PlayerStats" unique_id=1899183086]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/PlayerStats/Stamina" unique_id=1095512887]
-layout_mode = 2
-
-[node name="StaminaLabel" type="Label" parent="UI/PlayerStats/Stamina/MarginContainer" unique_id=98867025]
-layout_mode = 2
-text = "Stamina: "
-
-[node name="Hp" type="PanelContainer" parent="UI/PlayerStats" unique_id=1766537509]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/PlayerStats/Hp" unique_id=1891827560]
-layout_mode = 2
-
-[node name="HpLabel" type="Label" parent="UI/PlayerStats/Hp/MarginContainer" unique_id=891636224]
-layout_mode = 2
-text = "Hp: "
-
-[node name="Vyrn" type="PanelContainer" parent="UI/PlayerStats" unique_id=392686249]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/PlayerStats/Vyrn" unique_id=10250072]
-layout_mode = 2
-
-[node name="VyrnLabel" type="Label" parent="UI/PlayerStats/Vyrn/MarginContainer" unique_id=481748392]
-layout_mode = 2
-text = "Vyrn: "
-
-[node name="FPS" type="PanelContainer" parent="UI" unique_id=1299438011]
-offset_left = 10.0
-offset_top = 5.0
-offset_right = 58.000008
-offset_bottom = 45.0
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/FPS" unique_id=790223825]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="FPSLabel" type="Label" parent="UI/FPS/MarginContainer" unique_id=573375586]
-layout_mode = 2
-theme = ExtResource("6_gmpev")
-theme_override_font_sizes/font_size = 18
-text = "FPS:"
-
-[node name="DialoguePanel" type="PanelContainer" parent="UI" unique_id=398721069]
-offset_left = 10.0
-offset_top = 40.0
-offset_right = 177.0
-offset_bottom = 80.000084
-theme = ExtResource("6_gmpev")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/DialoguePanel" unique_id=2147363473]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_right = 6
-
-[node name="DialogueLabel" type="Label" parent="UI/DialoguePanel/MarginContainer" unique_id=450270679]
-layout_mode = 2
-script = ExtResource("7_mkypq")
-
-[node name="CRT" parent="UI" unique_id=341224663 instance=ExtResource("8_ndtll")]
 
 [node name="TileMap" type="TileMapLayer" parent="." unique_id=1716749800]
 tile_map_data = PackedByteArray("AADw/wAAAAAAAAAAAADx/wAAAAABAAIAAADy/wAAAAAAAAIAAADz/wAAAAAAAAIAAAD0/wAAAAAAAAIAAAD1/wAAAAAAAAIAAAD2/wAAAAAAAAIAAAD3/wAAAAAAAAIAAAD4/wAAAAABAAIAAAD5/wAAAAABAAIAAAD6/wAAAAAAAAAAAAD7/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD+/wAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAADw/wEAAAAAAAEAAADx/wEAAAAAAAEAAADy/wEAAAABAAIAAADz/wEAAAAAAAMAAAD0/wEAAAAAAAMAAAD1/wEAAAAAAAMAAAD2/wEAAAAAAAMAAAD3/wEAAAABAAIAAAD4/wEAAAAAAAEAAAD5/wEAAAAAAAEAAAD6/wEAAAAAAAEAAAD7/wEAAAAAAAEAAAD8/wEAAAAAAAEAAAD9/wEAAAAAAAEAAAD+/wEAAAAAAAEAAAD//wEAAAAAAAEAAAAAAAEAAAAAAAEAAAABAAEAAAAAAAEAAAACAAEAAAAAAAEAAAADAAEAAAAAAAEAAAAEAAEAAAAAAAEAAAAFAAEAAAAAAAEAAAAGAAEAAAAAAAEAAAAHAAEAAAAAAAEAAAAIAAEAAAAAAAEAAAAJAAEAAAAAAAEAAAAKAAEAAAAAAAEAAAALAAEAAAAAAAEAAAAMAAEAAAAAAAEAAAANAAEAAAAAAAEAAADw/wIAAAAAAAEAAADw/wMAAAAAAAEAAADw/wQAAAAAAAEAAADx/wIAAAAAAAEAAADx/wMAAAAAAAEAAADx/wQAAAAAAAEAAADy/wIAAAAAAAEAAADy/wMAAAAAAAEAAADy/wQAAAAAAAEAAADz/wIAAAABAAIAAADz/wMAAAAAAAEAAADz/wQAAAAAAAEAAAD0/wIAAAAAAAMAAAD0/wMAAAABAAIAAAD0/wQAAAAAAAEAAAD1/wIAAAAAAAMAAAD1/wMAAAABAAIAAAD1/wQAAAAAAAEAAAD2/wIAAAABAAIAAAD2/wMAAAAAAAEAAAD2/wQAAAAAAAEAAAD3/wIAAAAAAAEAAAD3/wMAAAAAAAEAAAD3/wQAAAAAAAEAAAD4/wIAAAAAAAEAAAD4/wMAAAAAAAEAAAD4/wQAAAAAAAEAAAD5/wIAAAAAAAEAAAD5/wMAAAAAAAEAAAD5/wQAAAAAAAEAAAD6/wIAAAAAAAEAAAD6/wMAAAAAAAEAAAD6/wQAAAAAAAEAAAD7/wIAAAAAAAEAAAD7/wMAAAAAAAEAAAD7/wQAAAAAAAEAAAD8/wIAAAAAAAEAAAD8/wMAAAAAAAEAAAD8/wQAAAAAAAEAAAD9/wIAAAAAAAEAAAD9/wMAAAAAAAEAAAD9/wQAAAAAAAEAAAD+/wIAAAAAAAEAAAD+/wMAAAAAAAEAAAD+/wQAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAEAAAD//wQAAAAAAAEAAAAAAAIAAAAAAAEAAAAAAAMAAAAAAAEAAAAAAAQAAAAAAAEAAAABAAIAAAAAAAEAAAABAAMAAAAAAAEAAAABAAQAAAAAAAEAAAACAAIAAAAAAAEAAAACAAMAAAAAAAEAAAACAAQAAAAAAAEAAAADAAIAAAAAAAEAAAADAAMAAAAAAAEAAAADAAQAAAAAAAEAAAAEAAIAAAAAAAEAAAAEAAMAAAAAAAEAAAAEAAQAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAQAAAAAAAEAAAAGAAIAAAAAAAEAAAAGAAMAAAAAAAEAAAAGAAQAAAAAAAEAAAAHAAIAAAAAAAEAAAAHAAMAAAAAAAEAAAAHAAQAAAAAAAEAAAAIAAIAAAAAAAEAAAAIAAMAAAAAAAEAAAAIAAQAAAAAAAEAAAAJAAIAAAAAAAEAAAAJAAMAAAAAAAEAAAAJAAQAAAAAAAEAAAAKAAIAAAAAAAEAAAAKAAMAAAAAAAEAAAAKAAQAAAAAAAEAAAALAAIAAAAAAAEAAAALAAMAAAAAAAEAAAALAAQAAAAAAAEAAAAMAAIAAAAAAAEAAAAMAAMAAAAAAAEAAAAMAAQAAAAAAAEAAAANAAIAAAAAAAEAAAANAAMAAAAAAAEAAAANAAQAAAAAAAEAAAAYAAAAAAAAAAAAAAAYAAEAAAAAAAEAAAAYAAIAAAAAAAEAAAAYAAMAAAAAAAEAAAAYAAQAAAAAAAEAAAAZAAAAAAAAAAAAAAAZAAEAAAAAAAEAAAAZAAIAAAAAAAEAAAAZAAMAAAAAAAEAAAAZAAQAAAAAAAEAAAAaAAAAAAAAAAAAAAAaAAEAAAAAAAEAAAAaAAIAAAAAAAEAAAAaAAMAAAAAAAEAAAAaAAQAAAAAAAEAAAAbAP//AAACAAEAAAAbAAAAAAAAAAEAAAAbAAEAAAAAAAEAAAAbAAIAAAAAAAEAAAAbAAMAAAAAAAEAAAAbAAQAAAAAAAEAAAAcAP7/AAACAAEAAAAcAP//AAADAAEAAAAcAAAAAAAAAAEAAAAcAAEAAAAAAAEAAAAcAAIAAAAAAAEAAAAcAAMAAAAAAAEAAAAcAAQAAAAAAAEAAAAdAP3/AAACAAEAAAAdAP7/AAADAAEAAAAdAP//AAADAAEAAAAdAAAAAAAAAAEAAAAdAAEAAAAAAAEAAAAdAAIAAAAAAAEAAAAdAAMAAAAAAAEAAAAdAAQAAAAAAAEAAAAeAPz/AAACAAEAAAAeAP3/AAADAAEAAAAeAP7/AAADAAEAAAAeAP//AAADAAEAAAAeAAAAAAAAAAEAAAAeAAEAAAAAAAEAAAAeAAIAAAAAAAEAAAAeAAMAAAAAAAEAAAAeAAQAAAAAAAEAAAAfAPz/AAADAAEAAAAfAP3/AAADAAEAAAAfAP7/AAADAAEAAAAfAP//AAADAAEAAAAfAAAAAAAAAAEAAAAfAAEAAAAAAAEAAAAfAAIAAAAAAAEAAAAfAAMAAAAAAAEAAAAfAAQAAAAAAAEAAAAgAPz/AAADAAEAAAAgAP3/AAADAAEAAAAgAP7/AAADAAEAAAAgAP//AAADAAEAAAAgAAAAAAAAAAEAAAAgAAEAAAAAAAEAAAAgAAIAAAAAAAEAAAAgAAMAAAAAAAEAAAAgAAQAAAAAAAEAAAAOAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAAAAAAAAAAAAAASAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAWAAAAAAAAAAAAAAAXAAAAAAAAAAAAAAAOAAQAAAAAAAEAAAAPAAQAAAAAAAEAAAAQAAQAAAAAAAEAAAARAAQAAAAAAAEAAAASAAQAAAAAAAEAAAATAAQAAAAAAAEAAAAUAAQAAAAAAAEAAAAVAAQAAAAAAAEAAAAWAAQAAAAAAAEAAAAXAAQAAAAAAAEAAAAOAAMAAAAAAAEAAAAPAAMAAAAAAAEAAAAQAAMAAAAAAAEAAAARAAMAAAAAAAEAAAASAAMAAAAAAAEAAAATAAMAAAAAAAEAAAAUAAMAAAAAAAEAAAAVAAMAAAAAAAEAAAAWAAMAAAAAAAEAAAAXAAMAAAAAAAEAAAAXAAIAAAAAAAEAAAAWAAIAAAAAAAEAAAAVAAIAAAAAAAEAAAAUAAIAAAAAAAEAAAATAAIAAAAAAAEAAAASAAIAAAAAAAEAAAARAAIAAAAAAAEAAAAQAAIAAAAAAAEAAAAPAAIAAAAAAAEAAAAOAAIAAAAAAAEAAAAOAAEAAAAAAAEAAAAPAAEAAAAAAAEAAAAQAAEAAAAAAAEAAAARAAEAAAAAAAEAAAASAAEAAAAAAAEAAAATAAEAAAAAAAEAAAAUAAEAAAAAAAEAAAAVAAEAAAAAAAEAAAAWAAEAAAAAAAEAAAAXAAEAAAAAAAEAAAAfAPv/AAACAAEAAAAgAPv/AAADAAEAAAAgAPr/AAACAAEAAAA=")
 tile_set = SubResource("TileSet_2irst")
 
-[node name="Player" parent="." unique_id=115323834 groups=["player"] instance=ExtResource("10_mqh5v")]
-position = Vector2(74, -4)
-collision_layer = 3
-collision_mask = 3
-
-[node name="Background" type="Sprite2D" parent="Player" unique_id=1759630602]
-z_index = -1
-position = Vector2(-45, -35)
-scale = Vector2(90, 70)
-texture = ExtResource("11_7o3do")
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=613559995]
-zoom = Vector2(3, 3)
+[node name="PlayerPos0" type="Node2D" parent="." unique_id=1156899125]
 
 [node name="WaterArea" type="Node" parent="." unique_id=1655916672]
 
@@ -192,17 +87,27 @@ position = Vector2(-64, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea/Collision" unique_id=1827494822]
 shape = SubResource("SegmentShape2D_fgofq")
 
-[node name="DialogueArea" parent="WaterArea" unique_id=431015395 instance=ExtResource("14_x7jkp")]
-position = Vector2(-56, -14)
+[node name="WaterDialogueArea" type="Area2D" parent="WaterArea" unique_id=831999316]
+script = ExtResource("4_x42e6")
 dialogue_text = "I don't know how to swim..."
+metadata/_custom_type_script = "uid://c0gounpw40b4d"
 
-[node name="StairsLogic" type="Node" parent="." unique_id=1042782301]
-script = ExtResource("15_0qwwm")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea/WaterDialogueArea" unique_id=1424083031]
+position = Vector2(-55, -15)
+shape = SubResource("RectangleShape2D_6761a")
 
-[node name="Stairs" parent="StairsLogic" unique_id=1869427790 instance=ExtResource("14_x7jkp")]
+[node name="StairsNew" type="Node" parent="." unique_id=1042782301]
+script = ExtResource("3_nsrm0")
+type = &"StairsNew"
+
+[node name="DialogueArea" type="Area2D" parent="StairsNew" unique_id=1154789112]
 position = Vector2(209, -15)
+script = ExtResource("4_x42e6")
 dialogue_text = "Go up (interact)"
-interactable = true
+metadata/_custom_type_script = "uid://c0gounpw40b4d"
 
-[node name="OldPlayerPos" type="Node2D" parent="StairsLogic" unique_id=721852585]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsNew/DialogueArea" unique_id=1562615730]
+shape = SubResource("RectangleShape2D_6761a")
+
+[node name="PlayerPos1" type="Node2D" parent="StairsNew" unique_id=721852585]
 position = Vector2(194, -4)

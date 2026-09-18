@@ -1,104 +1,74 @@
-extends Node
+class_name EventManager extends Node
+
+# Signals
+signal combat_started(enemy_node: Node)
+signal combat_area_entered(enemy_node: Node)
+signal combat_area_exited
 
 # Nodes
-@onready var player: CharacterBody2D = $"../../Player"
-@onready var crt: ColorRect = $"../../UI/CRT"
-@onready var audio_manager: Node = get_node_or_null("../AudioManager")
-@onready var crt_animation: AnimationPlayer = $"../../UI/CRT/AnimationPlayer"
-@onready var timer_combat: Timer = $"../../UI/CRT/TimerCombat"
-@onready var old_player_pos: Node2D = $"../../StairsLogic/OldPlayerPos"
+@onready var timer_combat: Timer = %TimerCombat
+@onready var timer_leave: Timer = %TimerLeave
+@onready var scene_manager: SceneManager = %SceneManager
 
 # Variables
-const SHADER_NOISE_PARAM: String = "shader_parameter/static_noise_intensity"
-var current_event: String
-var enemy_node_path: NodePath
-var shader_tween: Tween
+var pending_enemy: Node = null
+var combat_areas: Array[Area2D] = []
 
 func _ready() -> void:
-	# Connect combat timer signal
-	var timeout_callable = Callable(self, "_on_timer_timeout")
-	if not timer_combat.is_connected("timeout", timeout_callable):
-		timer_combat.connect("timeout", timeout_callable)
-	# Delete the last 3 enemies
-	if enemy_died() or GameManager.player_flee:
-		player.position = GameManager.last_player_pos
-		GameManager.player_flee = false
-	# Go to old scene
-	if GameManager.player_going_to_old_scene:
-		GameManager.last_player_pos = old_player_pos.position
-		player.position = GameManager.last_player_pos
-		var player_sprite = player.get_node_or_null("Sprite")
-		if player_sprite:
-			player_sprite.set_flip_h(true)
-		GameManager.last_enemy1 = ""
-		GameManager.last_enemy2 = ""
-		GameManager.last_enemy3 = ""
-		GameManager.player_going_to_old_scene = false
-	else:
-		GameManager.player_going_to_old_scene = false
-	# Animations
-	crt_animation.play("brightness_fade_out")
+	timer_combat.timeout.connect(_on_timer_timeout)
+	timer_leave.timeout.connect(_on_leave_timeout)
+	scene_manager.level_changed.connect(_on_level_changed)
 
-func _exit_tree() -> void:
-	if shader_tween:
-		shader_tween.kill()
+func _on_level_changed(_level_number: int = 0) -> void:
+	timer_leave.stop()
+	_cancel_combat()
+	combat_area_exited.emit()
+	for area in combat_areas:
+		if is_instance_valid(area):
+			area.player_entered.disconnect(_on_combat_area_entered)
+			area.player_exited.disconnect(_on_combat_area_exited)
+	combat_areas.clear()
+	_find_combat_areas(scene_manager.enemies_root)
 
-func enemy_died() -> bool:
-	if not GameManager.is_last_enemy_died:
+func _find_combat_areas(node: Node) -> void:
+	for child in node.get_children():
+		if child is CombatTriggerArea:
+			combat_areas.append(child)
+			child.player_entered.connect(_on_combat_area_entered)
+			child.player_exited.connect(_on_combat_area_exited)
+		_find_combat_areas(child)
+
+func _on_combat_area_entered(enemy_node: Node) -> void:
+	timer_leave.stop()
+	if not timer_combat.is_stopped():
+		return
+	pending_enemy = enemy_node
+	timer_combat.start()
+	combat_area_entered.emit(enemy_node)
+
+func _on_combat_area_exited(_enemy_node: Node) -> void:
+	timer_leave.start()
+
+func _on_leave_timeout() -> void:
+	if _player_in_any_area():
+		return
+	_cancel_combat()
+	combat_area_exited.emit()
+
+func _player_in_any_area() -> bool:
+	var player: Node = get_tree().get_first_node_in_group("player")
+	if player == null:
 		return false
-	var paths = [
-		GameManager.last_enemy1,
-		GameManager.last_enemy2,
-		GameManager.last_enemy3
-	]
-	for p in paths:
-		if p == null:
-			continue
-		var node: Node = null
-		if p is NodePath:
-			if has_node(p):
-				node = get_node(p)
-		elif p is Node:
-			node = p
-		if node and node.is_inside_tree():
-			queue_free_enemy(node)
-	GameManager.enemies_died += 1
-	GameManager.is_last_enemy_died = false
-	return true
+	for area in combat_areas:
+		if is_instance_valid(area) and area.overlaps_body(player):
+			return true
+	return false
 
-func queue_free_enemy(enemy: Node) -> void:
-	if enemy and enemy.is_inside_tree():
-		enemy.queue_free()
-
-func _on_combat_trigger_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		current_event = "starting_combat"
-		# Animations
-		var mat = crt.material
-		if mat and mat is ShaderMaterial:
-			timer_combat.start()
-			audio_manager.start_crt_audio_crossfade(4.0)
-			if shader_tween:
-				shader_tween.kill()
-			shader_tween = create_tween()
-			shader_tween.tween_property(mat, SHADER_NOISE_PARAM, 1, 4.0)
-
-func _on_combat_trigger_area_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		current_event = ""
-		# Animations
-		var mat = crt.material
-		if mat and mat is ShaderMaterial:
-			timer_combat.stop()
-			audio_manager.stop_crt_audio_crossfade()
-			if shader_tween:
-				shader_tween.kill()
-			var fade_out_duration = audio_manager.get_remaining_fade_time()
-			shader_tween = create_tween()
-			shader_tween.tween_property(mat, SHADER_NOISE_PARAM, 0.06, fade_out_duration)
+func _cancel_combat() -> void:
+	pending_enemy = null
+	timer_combat.stop()
 
 func _on_timer_timeout() -> void:
-	# Change scene
-	GameManager.last_player_pos = player.position
-	if current_event == "starting_combat":
-		get_tree().change_scene_to_packed(load("res://scenes/combat.tscn"))
+	if pending_enemy:
+		combat_started.emit(pending_enemy)
+		pending_enemy = null

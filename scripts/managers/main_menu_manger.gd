@@ -1,26 +1,27 @@
-extends Control
+class_name MainMenu extends Control
+
+# Signals
+signal button_focus_entered
+signal button_selected
+signal new_menu_loaded
+signal new_game_created
+signal game_loaded
 
 # Nodes
-@onready var timer_fade: Timer = $CanvasLayer/CRT/TimerFade
-@onready var crt_animation: AnimationPlayer = $CanvasLayer/CRT/AnimationPlayer
-@onready var option_buttons: VBoxContainer = $OptionButtons
-@onready var menu_buttons: VBoxContainer = $MenuButtons
-@onready var menu_focus: AudioStreamPlayer = $AudioStreamPlayer/MenuFocus
-@onready var menu_select: AudioStreamPlayer = $AudioStreamPlayer/MenuSelect
+@export var menu_buttons: VBoxContainer
+@export var option_buttons: VBoxContainer
+@onready var animation_manager: AnimationManager = %AnimationManager
+@onready var scene_manager: SceneManager = %SceneManager
+@onready var buttons: Array[Button] = [] # TODO: Could be optimized
 
 # Variables
-@onready var buttons: Array[Button] = [] # TODO: Could be optimized
-var button_type: String
-
-# Focus sound control
-var _allow_focus_sounds: bool = false
+var button_type: String = ""
 var _last_focused: Control = null
 
 func _ready() -> void:
-	# Connect timer timeout signal
-	var timeout_callable = Callable(self, "_on_timer_timeout")
-	if not timer_fade.is_connected("timeout", timeout_callable):
-		timer_fade.connect("timeout", timeout_callable)
+	# Signals
+	animation_manager.fade_in_ended.connect(_on_fade_in_ended)
+	scene_manager.returned_to_main_menu.connect(_on_returned_to_main_menu)
 	# Buttons management
 	for node in get_tree().get_nodes_in_group("ui_button"):
 		if node is Button:
@@ -29,70 +30,66 @@ func _ready() -> void:
 	if buttons.size() > 0:
 		buttons[0].grab_focus()
 	_last_focused = get_viewport().gui_get_focus_owner()
-	call_deferred("_enable_focus_sounds")
 
-func _enable_focus_sounds() -> void:
-	_allow_focus_sounds = true
+func _on_returned_to_main_menu() -> void:
+	button_type = ""
+	menu_buttons.visible = true
+	option_buttons.visible = false
+	if buttons.size() > 0:
+		buttons[0].grab_focus()
+	_last_focused = get_viewport().gui_get_focus_owner()
 
-## Sounds
 func _on_button_focus_entered() -> void:
 	var button = get_viewport().gui_get_focus_owner()
-	if not _allow_focus_sounds:
-		return
 	if button == _last_focused:
 		return
 	_last_focused = button
-	if menu_focus.playing:
-		menu_focus.stop()
-	menu_focus.play()
+	button_focus_entered.emit()
 
 ### Menu Buttons pressed
 func _on_new_game_button_pressed() -> void:
-	menu_select.play()
-	crt_animation.play("brightness_fade_in")
-	timer_fade.start()
+	button_selected.emit()
 	button_type = "new_game"
 
 func _on_load_game_button_pressed() -> void:
-	menu_select.play()
-	#timer.start()
-	#crt_animation.play("brightness_fade_in")
-	#button_type = "load_game"
+	button_selected.emit() # One save slot, checkpoint on each level, no extra menu
+	button_type = "load_game"
 
 func _on_option_button_pressed() -> void:
-	menu_select.play()
-	crt_animation.play("brightness_fade_in")
-	timer_fade.start()
+	button_selected.emit()
 	button_type = "options"
 
 func _on_quit_button_pressed() -> void:
-	menu_select.play()
-	get_tree().quit()
+	button_selected.emit()
+	button_type = "quit"
 
-## Option Buttons
+# Option Buttons
 func _on_exit_options_button_pressed() -> void:
-	menu_select.play()
-	crt_animation.play("brightness_fade_in")
-	timer_fade.start()
+	button_selected.emit()
 	button_type = "exit_options"
 
-
-func _on_timer_timeout() -> void:
-	match button_type:
+func _on_fade_in_ended() -> void:
+	var selected := button_type
+	button_type = ""
+	if selected.is_empty():
+		return
+	match selected:
 		"new_game":
-			get_tree().change_scene_to_file("res://scenes/levels/level_1.tscn")
-			GameManager.current_level = 1
+			new_game_created.emit()
 		"load_game":
-			pass # TODO: make a save manager
+			game_loaded.emit()
+			new_menu_loaded.emit() # Temporary
 		"options":
-			crt_animation.play("brightness_fade_out")
-			button_type = "none"
 			buttons[4].grab_focus()
 			option_buttons.visible = true
 			menu_buttons.visible = false
+			new_menu_loaded.emit()
 		"exit_options":
-			crt_animation.play("brightness_fade_out")
-			button_type = "none"
 			buttons[0].grab_focus()
 			option_buttons.visible = false
 			menu_buttons.visible = true
+			new_menu_loaded.emit()
+		"quit":
+			get_tree().quit()
+		_:
+			push_error("Button doesn't exist")

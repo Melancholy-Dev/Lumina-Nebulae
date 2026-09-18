@@ -20,7 +20,7 @@ The game can be downloaded in two ways:
 
 1. **Official method** — Download the game from GitHub on the releases section or Itch.io (When it becomes available)
 
-2. **Source method** — Download the project source code from this repository and export the game with Godot 4.5 (or play it straight from the engine).
+2. **Source method** — Download the project source code from this repository and export the game with Godot 4.7 (or play it straight from the engine).
 
 Use the Official method to get the original, fully supported Lumina Nebulae experience. Use the Source method if you want to modify the game, create mods, or build a custom version.
 

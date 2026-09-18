@@ -1,63 +1,67 @@
-extends Node
+class_name AudioManager extends Node
 
 # Nodes
-@onready var player_a: AudioStreamPlayer = get_node_or_null("../../AudioStreamPlayer")
-@onready var player_b: AudioStreamPlayer = get_node_or_null("../../AudioStreamPlayer/FadeCRT")
+@onready var main_menu: MainMenu = %MainMenu
+@onready var animation_manager: AnimationManager = %AnimationManager
+@onready var scene_manager: SceneManager = %SceneManager
+@onready var event_manager: EventManager = %EventManager
+# Audio Players
+@export var music: AudioStreamPlayer
+@export var menu_focus: AudioStreamPlayer
+@export var menu_select: AudioStreamPlayer
+@export var crt_noise: AudioStreamPlayer
+
+# Files
+@export_category("Music")
+@export var level_0_to_1_music: AudioStream
+@export var level_2_to_3_music: AudioStream
+@export var combat_base_music: AudioStream
 
 # Variables
 const EPSILON: float = 0.0001
-var crossfade_time: float = 4.0
-var current: float = 0.0
-var crossfading: bool = false
-var crossfading_end: bool = false
-var fade_start_value: float = 0.0
 
-func start_crt_audio_crossfade(duration: float) -> void:
-	crossfade_time = max(EPSILON, duration)
-	if not crossfading_end:
-		player_a.volume_db = linear_to_db(1.0)
-		player_b.volume_db = linear_to_db(EPSILON)
-	if not player_b.playing:
-		player_b.play()
-	if crossfading_end:
-		crossfading_end = false
-	else:
-		current = 0.0
-	crossfading = true
+func _ready() -> void:
+	main_menu.button_focus_entered.connect(_button_focus_entered)
+	main_menu.button_selected.connect(_button_selected)
+	animation_manager.noise_changed.connect(_on_noise_changed)
+	scene_manager.level_changed.connect(_play_level_music)
+	scene_manager.returned_to_main_menu.connect(_play_level_music)
+	scene_manager.combat_finished.connect(_play_level_music)
+	event_manager.combat_started.connect(_play_combat_music)
+	crt_noise.play()
+	_on_noise_changed(0.0)
+	_play_level_music()
 
-func stop_crt_audio_crossfade() -> void:
-	var current_fade = clamp(current / crossfade_time, 0.0, 1.0)
-	fade_start_value = current_fade
-	crossfade_time = max(EPSILON, crossfade_time - current)
-	if not player_a.playing:
-		player_a.play()
-	current = 0.0
-	crossfading = false
-	crossfading_end = true
+# Menu functions
+func _button_focus_entered() -> void:
+	menu_focus.play()
 
-func _process(delta: float) -> void:
-	if crossfading:
-		current += delta
-		var fade = clamp(current / crossfade_time, 0.0, 1.0)
-		var vol_a = lerp(1.0, 0.0, fade)
-		var vol_b = lerp(0.0, 1.0, fade)
-		player_a.volume_db = linear_to_db(vol_a)
-		player_b.volume_db = linear_to_db(vol_b)
-		if fade >= 1.0:
-			crossfading = false
-			player_a.stop()
-	elif crossfading_end:
-		current += delta
-		var fade = clamp(current / crossfade_time, 0.0, 1.0)
-		var vol_a_start = lerp(1.0, 0.0, fade_start_value)
-		var vol_b_start = lerp(0.0, 1.0, fade_start_value)
-		var vol_a = lerp(vol_a_start, 1.0, fade)
-		var vol_b = lerp(vol_b_start, 0.0, fade)
-		player_a.volume_db = linear_to_db(vol_a)
-		player_b.volume_db = linear_to_db(vol_b)
-		if fade >= 1.0:
-			crossfading_end = false
-			player_b.stop()
+func _button_selected() -> void:
+	menu_select.play()
 
-func get_remaining_fade_time() -> float:
-	return crossfade_time
+# Music functions
+func _play_level_music() -> void:
+	_play_music(_level_music(scene_manager.current_level))
+
+func _play_combat_music(_enemy_node: Node) -> void:
+	_play_music(combat_base_music)
+
+func _level_music(level: int) -> AudioStream:
+	match level:
+		0, 1:
+			return level_0_to_1_music
+		2, 3:
+			return level_2_to_3_music
+		_:
+			return level_0_to_1_music
+
+func _play_music(stream: AudioStream) -> void:
+	if stream == null or music.stream == stream:
+		return
+	music.stream = stream
+	music.play()
+
+# Noise functions
+func _on_noise_changed(intensity: float) -> void:
+	music.volume_db = linear_to_db(maxf(1.0 - intensity, EPSILON))
+	crt_noise.volume_db = linear_to_db(maxf(intensity, EPSILON))
