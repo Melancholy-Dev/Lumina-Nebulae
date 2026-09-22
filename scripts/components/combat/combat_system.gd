@@ -5,6 +5,7 @@ signal combat_started(player_combat: Node, enemy_combat: Node)
 signal turn_changed(is_player_turn: bool)
 signal player_turn_started
 signal enemy_turn_started
+signal combat_resolved(victory: bool)
 signal combat_ended(victory: bool)
 signal combat_fled
 
@@ -15,6 +16,7 @@ signal combat_fled
 @export var enemy_state_label: EnemyStateLabel
 @export var player_combat_hud: PlayerCombatHUD
 @export var enemy_sprite: AnimatedSprite2D
+@export var combat_result: CombatResult
 
 # Constants
 const ENEMY_ACTIONS: int = 2
@@ -137,13 +139,19 @@ func _on_flee_pressed() -> void:
 	combat_fled.emit()
 
 func _on_player_died() -> void:
-	_combat_active = false
-	combat_ended.emit(false)
-	# TODO Return to main menu, resetting the game (not deleting the save file)
+	await _play_ending(false)
 
 func _on_enemy_died() -> void:
+	await _play_ending(true)
+
+func _play_ending(victory: bool) -> void:
+	if not _combat_active:
+		return
 	_combat_active = false
-	combat_ended.emit(true)
+	_set_buttons_visible(false)
+	combat_resolved.emit(victory)
+	await combat_result.finished
+	combat_ended.emit(victory)
 
 func _set_buttons_visible(visible: bool) -> void:
 	ui_buttons.visible = visible

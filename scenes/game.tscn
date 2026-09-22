@@ -20,8 +20,21 @@
 [ext_resource type="Script" uid="uid://bef7d2ak5ue5r" path="res://scripts/managers/event_manager.gd" id="11_ca42v"]
 [ext_resource type="AudioStream" uid="uid://bchbb6jm264qo" path="res://assets/audio/sounds/crt_noise.wav" id="14_trtic"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="17_264po"]
+[ext_resource type="Shader" uid="uid://nmh33if2w5nb" path="res://resources/shaders/fog.gdshader" id="17_bt5mj"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="18_1kice"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="19_5newe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e1j6l"]
+shader = ExtResource("17_bt5mj")
+shader_parameter/color = Color(0.27280247, 0.16682023, 0.49150628, 1)
+shader_parameter/OCTAVES = 4
+shader_parameter/enable_pixelation = true
+shader_parameter/pixelation_amount = 60
+shader_parameter/fog_direction = Vector2(1, 1)
+shader_parameter/fog_speed = 0.2
+shader_parameter/scroll_noise_tex = true
+shader_parameter/noise_scroll_direction = Vector2(1, 0)
+shader_parameter/noise_speed = 0.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wu84c"]
 shader = ExtResource("8_ir15t")
@@ -258,6 +271,15 @@ theme_override_constants/margin_right = 6
 layout_mode = 2
 script = ExtResource("6_trtic")
 dialogue_panel = NodePath("../..")
+
+[node name="Fog" type="ColorRect" parent="UILayers" unique_id=517530754]
+visible = false
+material = SubResource("ShaderMaterial_e1j6l")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Combat" parent="UILayers" unique_id=1924604579 instance=ExtResource("6_vtaks")]
 unique_name_in_owner = true

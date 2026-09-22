@@ -8,10 +8,6 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbjsj"]
@@ -25,10 +21,6 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 corner_detail = 5
 expand_margin_left = 2.0
 expand_margin_top = 2.0
@@ -42,10 +34,6 @@ content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
 border_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5y2b"]
@@ -55,10 +43,6 @@ content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.3372549, 0.20392157, 0.50980395, 1)
 border_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fbvp"]
@@ -68,10 +52,6 @@ content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
 border_color = Color(0.18431373, 0.10980392, 0.38431373, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hi0l"]

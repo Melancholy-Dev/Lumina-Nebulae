@@ -92,8 +92,3 @@ wait_time = 0.5
 [node name="PlayerFootstep" type="AudioStreamPlayer" parent="Components/AudioComponent" unique_id=878641628]
 stream = ExtResource("3_ftlf1")
 volume_db = -3.0
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=839173678]
-visible = false
-offset_right = 40.0
-offset_bottom = 40.0
