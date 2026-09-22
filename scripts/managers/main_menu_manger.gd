@@ -8,6 +8,7 @@ signal new_game_created
 signal game_loaded
 
 # Nodes
+@export var game_version_label: Label
 @export var menu_buttons: VBoxContainer
 @export var option_buttons: VBoxContainer
 @onready var animation_manager: AnimationManager = %AnimationManager
@@ -15,10 +16,16 @@ signal game_loaded
 @onready var buttons: Array[Button] = [] # TODO: Could be optimized
 
 # Variables
+var game_version: String = ProjectSettings.get_setting(
+	"application/config/version",
+	"0.0.0"
+)
 var button_type: String = ""
 var _last_focused: Control = null
 
 func _ready() -> void:
+	# Set current version
+	game_version_label.text = "v" + game_version + " - Melancholy"
 	# Signals
 	animation_manager.fade_in_ended.connect(_on_fade_in_ended)
 	scene_manager.returned_to_main_menu.connect(_on_returned_to_main_menu)

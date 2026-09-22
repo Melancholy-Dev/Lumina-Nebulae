@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cfj5nveqyncc3" path="res://scripts/managers/main_menu_manger.gd" id="1_l6cm7"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://resources/themes/ln_theme.tres" id="2_ekxnf"]
 
-[node name="MainMenu" type="Control" unique_id=733394764 node_paths=PackedStringArray("menu_buttons", "option_buttons")]
+[node name="MainMenu" type="Control" unique_id=733394764 node_paths=PackedStringArray("game_version_label", "menu_buttons", "option_buttons")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l6cm7")
+game_version_label = NodePath("GameVersion")
 menu_buttons = NodePath("MenuButtons")
 option_buttons = NodePath("OptionButtons")
 
@@ -97,22 +98,22 @@ size_flags_vertical = 0
 layout_mode = 2
 text = "Exit options"
 
-[node name="Metadata" type="Label" parent="." unique_id=849151293]
+[node name="GameVersion" type="Label" parent="." unique_id=849151293]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -16.0
+offset_left = -110.0
+offset_top = -27.0
 offset_right = 120.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 18
-text = " v0.1  By Melancholy "
+text = "Game version"
 
 [connection signal="focus_entered" from="MenuButtons/NewGame/PanelContainer/NewGameButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="MenuButtons/NewGame/PanelContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
