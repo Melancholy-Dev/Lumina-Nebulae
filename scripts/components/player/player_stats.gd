@@ -9,6 +9,7 @@ signal died
 
 # Nodes
 @onready var scene_manager: SceneManager = get_tree().get_first_node_in_group("scene_manager")
+@onready var save_manager: SaveManager = get_tree().get_first_node_in_group("save_manager")
 
 # Stats
 @export var max_hp: int = 150
@@ -25,6 +26,11 @@ func _ready() -> void:
 	reset()
 	if scene_manager:
 		scene_manager.game_started.connect(reset)
+	if save_manager:
+		save_manager.save_loaded.connect(_on_save_loaded)
+
+func _on_save_loaded(data: Dictionary) -> void:
+	load_from(data.get("stats", {}))
 
 func reset() -> void:
 	hp = max_hp
@@ -33,6 +39,20 @@ func reset() -> void:
 	hp_changed.emit(hp, max_hp)
 	vyrn_changed.emit(vyrn, max_vyrn)
 	stamina_changed.emit(stamina, max_stamina)
+
+func load_from(data: Dictionary) -> void:
+	# Clamp everything into a playable state
+	max_hp = maxi(1, int(data.get("max_hp", max_hp)))
+	max_vyrn = maxi(1, int(data.get("max_vyrn", max_vyrn)))
+	max_stamina = maxf(1.0, float(data.get("max_stamina", max_stamina)))
+	attack_damage = maxi(0, int(data.get("attack_damage", attack_damage)))
+	hp = clampi(int(data.get("hp", max_hp)), 1, max_hp)
+	vyrn = clampi(int(data.get("vyrn", max_vyrn)), 0, max_vyrn)
+	stamina = clampf(float(data.get("stamina", max_stamina)), 0.0, max_stamina)
+	hp_changed.emit(hp, max_hp)
+	vyrn_changed.emit(vyrn, max_vyrn)
+	stamina_changed.emit(stamina, max_stamina)
+	attack_damage_changed.emit(attack_damage)
 
 func take_damage(amount: int) -> void:
 	if hp <= 0:

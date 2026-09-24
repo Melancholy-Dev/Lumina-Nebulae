@@ -23,6 +23,7 @@
 [ext_resource type="Shader" uid="uid://nmh33if2w5nb" path="res://resources/shaders/fog.gdshader" id="17_bt5mj"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="18_1kice"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="19_5newe"]
+[ext_resource type="Script" uid="uid://bn33ussym5ju8" path="res://scripts/managers/save_manager.gd" id="20_oogka"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e1j6l"]
 shader = ExtResource("17_bt5mj")
@@ -121,6 +122,8 @@ script = ExtResource("19_5newe")
 
 [node name="SaveManager" type="Node" parent="GlobalManagers" unique_id=193232635 groups=["save_manager"]]
 unique_name_in_owner = true
+script = ExtResource("20_oogka")
+save_path = null
 
 [node name="SettingsManager" type="Node" parent="GlobalManagers" unique_id=1361657370 groups=["settings_manager"]]
 unique_name_in_owner = true

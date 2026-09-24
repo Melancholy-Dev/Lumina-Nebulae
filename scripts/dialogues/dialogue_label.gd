@@ -5,6 +5,7 @@ enum State { IDLE, TYPING, WAITING }
 
 # Nodes
 @export var dialogue_panel: PanelContainer
+@onready var save_manager: SaveManager = get_tree().get_first_node_in_group("save_manager")
 
 # Variables
 var auto_hide_time := 3.0
@@ -23,8 +24,21 @@ func _ready() -> void:
 	add_child(_timer)
 	if not _timer.is_connected("timeout", Callable(self, "_on_timer_timeout")):
 		_timer.timeout.connect(_on_timer_timeout)
+	if save_manager:
+		save_manager.game_saved.connect(_on_game_saved)
+		save_manager.save_refused.connect(_on_save_refused)
+
+func _on_game_saved() -> void:
+	show_message("Game Saved")
+
+func _on_save_refused() -> void:
+	show_message("Can't save while chased!")
 
 func _on_area_body_entered(_body: Node) -> void:
+	show_message(full_text)
+
+func show_message(new_text: String) -> void:
+	full_text = new_text
 	dialogue_panel.visible = true
 	_index = 0
 	text = ""

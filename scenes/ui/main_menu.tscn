@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cfj5nveqyncc3" path="res://scripts/managers/main_menu_manger.gd" id="1_l6cm7"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://resources/themes/ln_theme.tres" id="2_ekxnf"]
 
-[node name="MainMenu" type="Control" unique_id=733394764 node_paths=PackedStringArray("game_version_label", "menu_buttons", "option_buttons")]
+[node name="MainMenu" type="Control" unique_id=733394764 node_paths=PackedStringArray("game_version_label", "menu_buttons", "option_buttons", "load_game_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,7 @@ script = ExtResource("1_l6cm7")
 game_version_label = NodePath("GameVersion")
 menu_buttons = NodePath("MenuButtons")
 option_buttons = NodePath("OptionButtons")
+load_game_button = NodePath("MenuButtons/LoadGame")
 
 [node name="MenuButtons" type="VBoxContainer" parent="." unique_id=1541039427]
 layout_mode = 0

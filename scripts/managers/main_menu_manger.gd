@@ -11,8 +11,10 @@ signal game_loaded
 @export var game_version_label: Label
 @export var menu_buttons: VBoxContainer
 @export var option_buttons: VBoxContainer
+@export var load_game_button: MarginContainer
 @onready var animation_manager: AnimationManager = %AnimationManager
 @onready var scene_manager: SceneManager = %SceneManager
+@onready var save_manager: SaveManager = %SaveManager
 @onready var buttons: Array[Button] = [] # TODO: Could be optimized
 
 # Variables
@@ -26,6 +28,8 @@ var _last_focused: Control = null
 func _ready() -> void:
 	# Set current version
 	game_version_label.text = "v" + game_version + " - Melancholy"
+	# Load Game available only when it exists
+	_update_load_button()
 	# Signals
 	animation_manager.fade_in_ended.connect(_on_fade_in_ended)
 	scene_manager.returned_to_main_menu.connect(_on_returned_to_main_menu)
@@ -40,11 +44,18 @@ func _ready() -> void:
 
 func _on_returned_to_main_menu() -> void:
 	button_type = ""
+	_update_load_button()
 	menu_buttons.visible = true
 	option_buttons.visible = false
 	if buttons.size() > 0:
 		buttons[0].grab_focus()
 	_last_focused = get_viewport().gui_get_focus_owner()
+
+func _update_load_button() -> void:
+	if save_manager == null or not save_manager.has_save():
+		load_game_button.visible = false
+	else:
+		load_game_button.visible = true
 
 func _on_button_focus_entered() -> void:
 	var button = get_viewport().gui_get_focus_owner()

@@ -10,6 +10,7 @@ func _ready() -> void:
 	init_from_stats()
 	player_stats.hp_changed.connect(_on_hp_changed)
 	player_stats.vyrn_changed.connect(_on_vyrn_changed)
+	player_stats.attack_damage_changed.connect(_on_attack_damage_changed)
 	player_stats.died.connect(_die)
 	if scene_manager:
 		scene_manager.game_started.connect(init_from_stats)
@@ -32,6 +33,9 @@ func _on_hp_changed(current_hp: int, max_hp_val: int) -> void:
 func _on_vyrn_changed(current_vyrn: int, max_vyrn_val: int) -> void:
 	vyrn = current_vyrn
 	max_vyrn = max_vyrn_val
+
+func _on_attack_damage_changed(damage: int) -> void:
+	attack_damage = damage
 
 func receive_damage(amount: int) -> void:
 	if not alive:

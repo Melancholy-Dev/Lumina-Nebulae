@@ -64,6 +64,9 @@ func _player_in_any_area() -> bool:
 			return true
 	return false
 
+func is_being_chased() -> bool:
+	return _player_in_any_area()
+
 func _cancel_combat() -> void:
 	pending_enemy = null
 	timer_combat.stop()
