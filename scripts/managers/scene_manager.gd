@@ -5,6 +5,7 @@ signal game_started
 signal level_changed
 signal returned_to_main_menu
 signal interacted
+signal player_hiding_requested(hidden: bool, hiding_spot: Node2D)
 signal combat_finished
 signal enemy_defeated(level: int, enemy_name: String)
 
@@ -140,6 +141,10 @@ func _on_interacted(interactable: Interactable) -> void:
 	match type:
 		&"Checkpoint":
 			save_manager.save_game()
+		&"Closet":
+			var closet := interactable as Closet
+			if closet:
+				player_hiding_requested.emit(closet.player_hidden, closet)
 		&"StairsNew":
 			_pending_spawn_point_id = interactable.spawn_point_id
 			interacted.emit()

@@ -11,7 +11,7 @@ signal save_refused
 
 # Variables
 const SAVE_VERSION: int = 1
-@export var save_path: String = "user://savegame.json"
+var save_path: String = "user://savegame.json"
 var defeated_enemies: Dictionary = {}
 
 func _ready() -> void:

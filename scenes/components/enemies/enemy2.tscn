@@ -33,7 +33,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4hsg4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"moving",
 "speed": 5.0
 }]
@@ -42,6 +42,7 @@ animations = [{
 size = Vector2(82, 25)
 
 [node name="Enemy2" type="CharacterBody2D" unique_id=1314323128]
+z_index = 1
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=774099675]
 sprite_frames = SubResource("SpriteFrames_r5p8f")
@@ -60,9 +61,9 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_u4v05")
 
 [node name="MovementRange" type="Node2D" parent="." unique_id=430126750]
-position = Vector2(150, 0)
+position = Vector2(174, 0)
 
-[node name="Components" type="Node" parent="." unique_id=3141592653]
+[node name="Components" type="Node" parent="." unique_id=-1153374643]
 
 [node name="EnemyMovement" type="Node" parent="Components" unique_id=1395560340 node_paths=PackedStringArray("body", "sprite", "movement_range", "trigger_area")]
 unique_name_in_owner = true
@@ -72,11 +73,11 @@ sprite = NodePath("../../Sprite")
 movement_range = NodePath("../../MovementRange")
 trigger_area = NodePath("../../CombatTriggerArea")
 
-[node name="EnemyStats" type="Node" parent="Components" unique_id=4928374651 node_paths=PackedStringArray()]
+[node name="EnemyStats" type="Node" parent="Components" unique_id=633407355]
 unique_name_in_owner = true
 script = ExtResource("4_x9y1z")
 
-[node name="EnemyCombat" type="Node" parent="Components" unique_id=2653589793 node_paths=PackedStringArray("enemy_stats", "sprite")]
+[node name="EnemyCombat" type="Node" parent="Components" unique_id=-1641377503 node_paths=PackedStringArray("enemy_stats", "sprite")]
 unique_name_in_owner = true
 script = ExtResource("5_a3b5c")
 enemy_stats = NodePath("../EnemyStats")

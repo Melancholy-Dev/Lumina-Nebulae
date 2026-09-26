@@ -5,13 +5,13 @@
 [ext_resource type="Script" uid="uid://dyy1ktl57y63o" path="res://scripts/managers/scene_manager.gd" id="2_ca42v"]
 [ext_resource type="Script" uid="uid://x6x68q4mm1sp" path="res://scripts/managers/audio_manager.gd" id="2_kvuet"]
 [ext_resource type="AudioStream" uid="uid://bc6r63wr8amhs" path="res://assets/audio/music/combat1.wav" id="3_5newe"]
-[ext_resource type="Script" uid="uid://u1xnvfy5vucf" path="res://scripts/components/ui/player_stats_hud.gd" id="3_dinhu"]
+[ext_resource type="Script" uid="uid://u1xnvfy5vucf" path="res://scripts/ui/player_stats_hud.gd" id="3_dinhu"]
 [ext_resource type="Script" uid="uid://cax1dad1phaqc" path="res://scripts/managers/animation_manager.gd" id="3_ir15t"]
 [ext_resource type="AudioStream" uid="uid://7wytqxashfv1" path="res://assets/audio/music/dungeon1.wav" id="4_37s47"]
-[ext_resource type="Script" uid="uid://b0j57mo4a3kyd" path="res://scripts/components/ui/fps_hud.gd" id="4_kvuet"]
+[ext_resource type="Script" uid="uid://b0j57mo4a3kyd" path="res://scripts/ui/fps_hud.gd" id="4_kvuet"]
 [ext_resource type="Theme" uid="uid://b8cbbtumtb460" path="res://resources/themes/ln_theme.tres" id="5_dinhu"]
 [ext_resource type="PackedScene" uid="uid://dqvqt5cavv3s1" path="res://scenes/ui/main_menu.tscn" id="5_p57ef"]
-[ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/components/dialogues/dialogue_label.gd" id="6_trtic"]
+[ext_resource type="Script" uid="uid://dxumoucbvvlgv" path="res://scripts/dialogues/dialogue_label.gd" id="6_trtic"]
 [ext_resource type="PackedScene" uid="uid://ccnfx0thkxhpm" path="res://scenes/ui/combat.tscn" id="6_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0nuoulxnoo4d" path="res://assets/audio/music/crt_base.wav" id="7_0tnpc"]
 [ext_resource type="Shader" uid="uid://bs47wcgami6er" path="res://resources/shaders/crt.gdshader" id="8_ir15t"]
@@ -123,7 +123,6 @@ script = ExtResource("19_5newe")
 [node name="SaveManager" type="Node" parent="GlobalManagers" unique_id=193232635 groups=["save_manager"]]
 unique_name_in_owner = true
 script = ExtResource("20_oogka")
-save_path = null
 
 [node name="SettingsManager" type="Node" parent="GlobalManagers" unique_id=1361657370 groups=["settings_manager"]]
 unique_name_in_owner = true

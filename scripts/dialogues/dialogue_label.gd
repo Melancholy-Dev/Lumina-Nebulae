@@ -32,7 +32,7 @@ func _on_game_saved() -> void:
 	show_message("Game Saved")
 
 func _on_save_refused() -> void:
-	show_message("Can't save while chased!")
+	show_message("Can't save while chased")
 
 func _on_area_body_entered(_body: Node) -> void:
 	show_message(full_text)

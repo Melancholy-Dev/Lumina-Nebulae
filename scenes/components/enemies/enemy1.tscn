@@ -32,6 +32,7 @@ animations = [{
 size = Vector2(82, 25)
 
 [node name="Enemy1" type="CharacterBody2D" unique_id=1314323128]
+z_index = 1
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=774099675]
 sprite_frames = SubResource("SpriteFrames_r5p8f")

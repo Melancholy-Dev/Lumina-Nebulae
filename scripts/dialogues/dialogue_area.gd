@@ -18,24 +18,33 @@ func _on_area_body_entered(body: Node) -> void:
 		var parent_interactable = get_parent()
 		if parent_interactable is Interactable:
 			parent_interactable.can_interact = true
-		if dialogue_label:
-			dialogue_label.full_text = dialogue_text
-			if parent_interactable is Interactable:
-				dialogue_label.object_is_interactable = true
-			else:
-				dialogue_label.object_is_interactable = false
-			dialogue_label._on_area_body_entered(body)
-		else:
-			push_error("Node 'dialogue_label' not found")
+		show_dialogue()
 
 func _on_area_body_exited(body: Node) -> void:
 	if body.is_in_group("player"):
+		if _interactable_holds_player():
+			return
 		player_inside = false
 		var parent_interactable = get_parent()
 		if parent_interactable is Interactable:
 			parent_interactable.can_interact = false
 		if dialogue_label:
 			dialogue_label._on_area_body_exited(body)
+		else:
+			push_error("Node 'dialogue_label' not found")
+
+func show_dialogue() -> void:
+	if dialogue_label:
+		dialogue_label.object_is_interactable = get_parent() is Interactable
+		dialogue_label.show_message(dialogue_text)
+	else:
+		push_error("Node 'dialogue_label' not found")
+
+func _interactable_holds_player() -> bool:
+	var parent_interactable := get_parent()
+	if parent_interactable is Interactable:
+		return parent_interactable.holds_player
+	return false
 
 func find_node_by_name(root: Node, target_name: String) -> Node:
 	if root.name == target_name:

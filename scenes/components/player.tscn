@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cyfdmql0b28tu" path="res://scripts/components/player/audio_component.gd" id="6_ypwcc"]
 [ext_resource type="Script" uid="uid://cttoga3dl4ex4" path="res://scripts/components/player/player_stats.gd" id="7_k7m9n"]
 [ext_resource type="Script" uid="uid://bmr81birkbyxn" path="res://scripts/components/player/player_combat.gd" id="8_p2q4r"]
+[ext_resource type="Script" uid="uid://dojmsejc6eqah" path="res://scripts/components/player/hiding_component.gd" id="9_ojmse"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_prsjk"]
 atlas = ExtResource("1_yn15a")
@@ -43,6 +44,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=1904494407 groups=["player"]]
+z_index = 2
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1814517239]
 position = Vector2(-4, -4)
@@ -78,6 +80,14 @@ unique_name_in_owner = true
 script = ExtResource("6_v4i73")
 mc = NodePath("../MovementComponent")
 sprite = NodePath("../../Sprite")
+
+[node name="HidingComponent" type="Node" parent="Components" unique_id=673397326 node_paths=PackedStringArray("body", "sprite", "collision", "movement_component")]
+unique_name_in_owner = true
+script = ExtResource("9_ojmse")
+body = NodePath("../..")
+sprite = NodePath("../../Sprite")
+collision = NodePath("../../Collision")
+movement_component = NodePath("../MovementComponent")
 
 [node name="AudioComponent" type="Node" parent="Components" unique_id=832487477 node_paths=PackedStringArray("mc", "footstep_timer", "footstep_player")]
 unique_name_in_owner = true

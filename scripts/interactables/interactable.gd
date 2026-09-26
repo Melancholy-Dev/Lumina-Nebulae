@@ -10,6 +10,7 @@ signal interacted(interactable: Interactable)
 @export var spawn_point_id: int = 1
 @export var type := &""
 var can_interact := false
+var holds_player := false # Keep interaction alive (closet)
 
 func _ready() -> void:
 	if input_manager:
